@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    @RenderSection("UpperHead", required: false)
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <!-- Viewport metatags -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- iOS webapp metatags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <!-- iOS webapp icons -->
+    <link rel="apple-touch-icon-precomposed" href="~/assets/images/ios/fickle-logo-72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="~/assets/images/ios/fickle-logo-72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="~/assets/images/ios/fickle-logo-114.png" />
+    <!-- TODO: Add a favicon -->
+    <link rel="shortcut icon" href="~/assets/images/ico/fab.ico">
+    <title>Labyrinth - Dashboard</title>
+    <!--Page loading plugin Start -->
+    <link rel="stylesheet" href="~/assets/css/rtl-css/plugins/pace-rtl.css">
+    <script src="~/assets/js/pace.min.js"></script>
+    <!--Page loading plugin End   -->
+    <!-- Plugin Css Put Here -->
+    <link href="~/assets/css/bootstrap-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/fileinput-rtl.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/css/rtl-css/plugins/bootstrap-progressbar-3.1.1-rtl.css">
+    <link rel="stylesheet" href="~/assets/css/rtl-css/plugins/jquery-jvectormap-rtl.css">
+    <link rel="stylesheet" href="~/assets/css/plugins/icheck/skins/all.css">
+    <!--AmaranJS Css Start-->
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/jquery.amaran-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/all-themes-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/awesome-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/default-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/blur-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/user-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/rounded-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/readmore-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/rtl-css/plugins/amaranjs/theme/metro-rtl.css" rel="stylesheet">
+    <link href="~/assets/css/Main.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/plugins/icheck/skins/all.css">
+    <link rel="stylesheet" href="~/assets/css/rtl-css/plugins/selectize.bootstrap3-rtl.css">
+    <!--AmaranJS Css End -->
+    <!-- Plugin Css End -->
+    <!-- Custom styles Style -->
+    <link href="~/assets/css/rtl-css/style-rtl.css" rel="stylesheet">
+    <!-- Custom styles Style End-->
+    <!-- Responsive Style For-->
+    <link href="~/assets/css/rtl-css/responsive-rtl.css" rel="stylesheet">
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <!-- Responsive Style For-->
+    <!-- Custom styles for this template -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    @RenderSection("Head", required: false)
+</head>
+<body class="">
+    <!--Navigation Top Bar Start-->
+    <nav class="navigation">
+        <div class="container-fluid">
+            <!--Logo text start-->
+            <div class="header-logo">
+                <a href="index.html" title="">
+                    <h1>لوحة التحكم</h1>
+                </a>
+            </div>
+            <!--Logo text End-->
+            <div class="top-navigation">
+                <!--Collapse navigation menu icon start -->
+                <div class="menu-control hidden-xs">
+                    <a href="javascript:void(0)">
+                        <i class="fa fa-bars"></i>
+                    </a>
+                </div>
+                <div class="search-box">
+                    <ul>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)">
+                                <span class="fa fa-search"></span>
+                            </a>
+                            <div class="dropdown-menu  top-dropDown-1">
+                                <h4>Search</h4>
+                                <form>
+                                    <input type="search" placeholder="what you want to see ?">
+                                </form>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <!--Collapse navigation menu icon end -->
+            </div>
+        </div>
+    </nav>
+    <!--Navigation Top Bar End-->
+    <section id="main-container">
+        <!--Left navigation section start-->
+        <section id="left-navigation">
+            <!--Left navigation user details start-->
+            <div class="user-image">
+                <img src="~/assets/images/demo/avatar-80.png" alt="" />
+                <div class="user-online-status">
+                    <span class="user-status is-online  "></span>
+                </div>
+            </div>
+            <!--Left navigation user details end-->
+            <!--Phone Navigation Menu icon start-->
+            <div class="phone-nav-box visible-xs">
+                <a class="phone-logo" href="/Home/Index" title="">
+                    <h1>لوحة التحكم</h1>
+                </a>
+                <a class="phone-nav-control" href="javascript:void(0)">
+                    <span class="fa fa-bars"></span>
+                </a>
+                <div class="clearfix"></div>
+            </div>
+            <!--Phone Navigation Menu icon start-->
+            <!--Left navigation start-->
+            <ul class="mainNav">
+                <li class="active">
+                    <a class="active" href="/Home/Index">
+                        <i class="fa fa-dashboard"></i>
+                        <span>الرئسية</span>
+                    </a>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-magnet"></i>
+                        <span>الاخبار</span>
+                    </a>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("اضافة خبر جديد", "Index", "Home")
+                            @Html.ActionLink("كل الاخبار المنشورة", "Index", "Home")
+                            @Html.ActionLink("كل الاخبار الغير منشوره", "Index", "Home")
+                            @Html.ActionLink("كل الاخبار المحذوفة", "Index", "Home")
+                            @Html.ActionLink("الأخبار المجدولة", "Index", "Home")
+                            @Html.ActionLink("أخبارى", "Index", "Home")
+                            @Html.ActionLink("ترتيب الاخبار", "Index", "Home")
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-magnet"></i>
+                        <span>الاقسام</span>
+                    </a>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("كل الاقسام", "Index", "Section")
+                            @Html.ActionLink("اضافة قسم جديد", "Add", "Section")
+                            @Html.ActionLink("ترتيب الاقسام", "SectionsReorder", "Section")
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a>
+                        <i class="fa fa-magnet"></i>
+                        <span>كتاب الموقع</span>
+                    </a>
+                    <ul>
+                        <li>
+                            @Html.ActionLink("كل الكتاب", "Index", "Editor")
+                            @Html.ActionLink("اضافة كاتب جديد", "Add", "Editor")
+                            @Html.ActionLink("ترتيب الكتاب", "EditorsReorder", "Editor")
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        <i class="fa fa-magnet"></i>
+                        <span>التعليقات</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="@Url.Action("Index", "Home")">
+                        <i class="fa fa-magnet"></i>
+                        <span>البلوكات</span>
+                    </a>
+                </li>
+            </ul>
+            <!--Left navigation end-->
+        </section>
+        <section id="min-wrapper">
+            <!--Left navigation section end-->
+            @RenderBody()
+        </section>
+        <!--Layout Script start -->
+        <script type="text/javascript" src="~/assets/js/color.js"></script>
+        <script type="text/javascript" src="~/assets/js/lib/jquery-3.3.1.js"></script>
+        <script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/assets/js/multipleAccordion.js"></script>
+        <!--easing Library Script Start -->
+        <script src="~/assets/js/lib/jquery.easing.js"></script>
+        <!--easing Library Script End -->
+        <!--Nano Scroll Script Start -->
+        <script src="~/assets/js/jquery.nanoscroller.min.js"></script>
+        <!--Nano Scroll Script End -->
+        <!--switchery Script Start -->
+        <script src="~/assets/js/switchery.min.js"></script>
+        <!--switchery Script End -->
+        <!--bootstrap switch Button Script Start-->
+        <script src="~/assets/js/bootstrap-switch.js"></script>
+        <!--bootstrap switch Button Script End-->
+        <!--easypie Library Script Start -->
+        <script src="~/assets/js/jquery.easypiechart.min.js"></script>
+        <!--easypie Library Script Start -->
+        <!--bootstrap-progressbar Library script Start-->
+        <script src="~/assets/js/bootstrap-progressbar.min.js"></script>
+        <!--bootstrap-progressbar Library script End-->
+        <!--FLoat library Script Start -->
+        <script type="text/javascript" src="~/assets/js/chart/flot/jquery.flot.js"></script>
+        <script type="text/javascript" src="~/assets/js/chart/flot/jquery.flot.pie.js"></script>
+        <script type="text/javascript" src="~/assets/js/chart/flot/jquery.flot.resize.js"></script>
+        <!--FLoat library Script End -->
+        <script type="text/javascript" src="~/assets/js/pages/layout.js"></script>
+        <!--Layout Script End -->
+
+        <script src="~/assets/js/countUp.min.js"></script>
+        <!-- skycons script start -->
+        <script src="~/assets/js/skycons.js"></script>
+        <!-- skycons script end   -->
+        <!--Vector map library start-->
+        <!-- <script src="~/assets/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="~/assets/js/jvectormap/jquery-jvectormap-world-mill-en.js"></script> -->
+        <!--Vector map library end-->
+        <!-- Script For Icheck -->
+        <script src="~/assets/js/icheck.min.js"></script>
+        <!-- Script For Icheck -->
+        <!--Advance Radio and checkbox demo start-->
+        @*<script src="~/assets/js/pages/checkboxRadio.js"></script>*@
+
+        <!--Advance Radio and checkbox demo start-->
+        <!--AmaranJS library script Start -->
+        <!-- <script src="~/assets/js/jquery.amaran.js"></script> -->
+        <!--AmaranJS library script End   -->
+        <!-- <script src="~/assets/js/pages/dashboard.js"></script> -->
+
+        <script src="~/Scripts/sweetalert.min.js"></script>
+        <script src="~/Scripts/js/jquery.extension.js"></script>
+
+        @RenderSection("scripts", required: false)
+
+        <script type="text/javascript" src="~/assets/js/Main.js"></script>
+
+</body>
+</html>

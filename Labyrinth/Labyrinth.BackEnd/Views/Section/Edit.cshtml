@@ -1,0 +1,125 @@
+﻿@model Labyrinth.Model.SectionVM
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string Massage = "";
+    if (ViewBag.Massage != null)
+    {
+        Massage = ViewBag.Massage;
+    }
+}
+@Html.Hidden("Massage", @Massage)
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Top header start-->
+                <!-- <h3 class="ls-top-header">الرئسية</h3> -->
+                <!--Top header end -->
+                <!--Top breadcrumb start -->
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home"></i>
+                        </a>
+                    </li>
+                    <li>الرئسية</li>
+                    <li class="active">المنطقه</li>
+                </ol>
+                <!--Top breadcrumb start -->
+            </div>
+        </div>
+        <!-- Main Content Element  Start-->
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">تعديل @Model.Title</h3>
+                        </div>
+                        <disv class="panel-body">
+                            @*<form id="defaultForm" method="post"  action="" data-bv-message="This value is not valid"
+                                data-bv-feedbackicons-valid="fa fa-check" data-bv-feedbackicons-invalid="fa fa-bug"
+                                data-bv-feedbackicons-validating="fa fa-refresh">*@
+
+                            @using (Html.BeginForm("Edit", "Section", FormMethod.Post, new { enctype = "multipart/form-data", id = "FormAddPost", @class = "form-horizontal ls_form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.HiddenFor(a => a.ID)
+                                @Html.HiddenFor(a => a.CDate)
+                                @Html.HiddenFor(a => a.CUser)
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">الاسم</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="Title" name="Title" class="form-control" placeholder="الاسم" value="@Model.Title" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">الوصف</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="Description" name="Description" class="form-control" placeholder="الوصف" value="@Model.Description" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">الفيس بوك</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="FBPage" name="FBPage" class="form-control" placeholder="الفيس بوك" style=" direction: ltr; " value="@Model.FBPage" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">تويتر</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="TwitterPage" name="TwitterPage" class="form-control" placeholder="تويتر" style=" direction: ltr; " value="@Model.TwitterPage" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">جوجل بلاس</label>
+                                    <div class="col-lg-6">
+                                        <input type="text" id="GooglePlusPage" name="GooglePlusPage" class="form-control" placeholder="جوجل بلاس" style=" direction: ltr; " value="@Model.GooglePlusPage" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-3 control-label">التصنيف الأب</label>
+                                    <div class="control-group col-md-6">
+                                        @Html.DropDownListFor(model => model.ParentID, (IEnumerable<SelectListItem>)ViewBag.ListSection, new { @class = "demo-default select-country" })
+                                        @Html.ValidationMessageFor(model => model.ParentID, "", new { @class = "text-danger" })
+                                        <span class="help_text">Select One item</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">حذف</label>
+                                    <div class="col-lg-5">
+                                        <label class="checkbox">
+                                            @Html.CheckBoxFor(model => model.IsDeleted, new { @class = "icheck-blue" })
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-9 col-lg-offset-3">
+                                        <button type="submit" class="btn btn-primary btnborder">حفظ</button>
+                                    </div>
+                                </div>
+                            }
+                        </disv>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content Element  End-->
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            if ($("#Massage").val() == "Error") {
+                swal("حدث خطاء اثناء الحفظ ,, لم يتم  حفظ البيانات");
+            }
+            else if ($("#Massage").val() == "Done") {
+                swal("تم حفظ");
+            }
+        });
+    </script>
+}

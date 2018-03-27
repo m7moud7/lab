@@ -1,0 +1,246 @@
+﻿@model Labyrinth.Model.ArticleVm
+@{
+    ViewBag.Title = "AddArticle";
+}
+<div id="main-content" name="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Top header start-->
+                <h3 class="ls-top-header">Dashboard</h3>
+                <!--Top header end -->
+                <!--Top breadcrumb start -->
+                <ol class="breadcrumb">
+                    <li><a href="/"><i class="fa fa-home"></i></a></li>
+                    <li class="active">Dashboard</li>
+                </ol>
+                <!--Top breadcrumb start -->
+            </div>
+        </div>
+        <!-- Main Content Element  Start-->
+        <div class="row">
+            <form>
+                <div class="col-md-9">
+                    <div class="col-md-12 noPadding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">الاساسيات</h3>
+                            </div>
+                            <div class="panel-body">
+                                @*
+                                    <div class="form-group">
+                                        <label class="col-lg-2 control-label noRight">عنوان فرعى</label>
+                                        <div class="col-lg-10 noLeft">
+                                            <input type="text" placeholder="عنوان فرعى" name="text" class="form-control">
+                                        </div>
+                                    </div>
+                                *@
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">العنوان الرئيسى</label>
+                                    <div class="col-lg-10 noLeft">
+                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countTitle(this)", @onkeydown = "countTitle(this)" } })
+                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                        <input type="text" id="counttitle" name="counttitle" class="count-num" size="20" disabled>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">نوع الخبر</label>
+                                    <div class="col-md-10 borderForFields">
+                                        <select id="Type" name="Type" style="width: 100%;" class="chosen-container-single">
+                                            <option value="1" @(Model != null && Model.Type == 1 ? "selected" : "")>خبر</option>
+                                            <option value="2" @(Model != null && Model.Type == 2 ? "selected" : "")>مقال</option>
+                                        </select>
+                                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.EditorID, htmlAttributes: new { @class = "control-label col-md-2" })
+                                    <div class="col-md-10 borderForFields">
+                                        @Html.DropDownListFor(model => model.EditorID, (IEnumerable<SelectListItem>)ViewBag.EditorIdList, "اختر الكاتب", new { style = "width: 100%;" })
+                                        @Html.ValidationMessageFor(model => model.EditorID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">القسم</label>
+                                    <div class="col-md-10 borderForFields">
+                                        @Html.DropDownListFor(model => model.SecID, (IEnumerable<SelectListItem>)ViewBag.SecIdList, "اختر القسم", new { style = "width: 100%;" })
+                                        @Html.ValidationMessageFor(model => model.SecID, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">الملخص</label>
+                                    @Html.TextAreaFor(model => model.Brief, new { @class = "form-control col-lg-10 noLeft", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7" })
+                                    @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
+                                    <input type="text" id="countbrief" name="countbrief" class="count-num" size="20" disabled>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-3 control-label">Story</label>
+                                    <div class="col-lg-6">
+                                        <div class="panel panel-default EditWidth">
+                                            <div class="panel-heading">
+                                            </div>
+                                            <div class="panel-body no-padding">
+                                                <div class="summernote " id="StoryCode" name="StoryCode">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">تاجز</label>
+                                    <input type="text" class="input-tags col-lg-10 noLeft" name="example_name" value="26/2,التسليم,السنتى هيضيع" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">الاخبار المتعلقه</label>
+                                    <div class="control-group col-lg-10 noLeft">
+                                        <select id="relatedNews" class="demo-default"></select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="col-md-12 noPadding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">الصورة</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-lg-6 noLeft">
+                                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddImage">اضافة</button>
+                                    </div>
+                                    <div class="col-lg-6 noLeft">
+                                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ChooseImage">اختيار</button>
+                                    </div>
+                                    <div class="col-lg-12 noLeft">
+                                        <img src="" id="featuredimage" name="featuredimage" class="img-responsive" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 noPadding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">اجراءات تكميليه</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">بفلم</label>
+                                    <div class="col-lg-10 noLeft">
+                                        <input type="text" placeholder="بقلم" name="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">نوع الخبر</label>
+                                    <select id="select-code-language" class="demo-code-language col-lg-10 noLeft">
+                                        <option value="txt">خبر</option>
+                                        <option value="md">مقال</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">اختيار الصوره</label>
+                                    <div class="col-lg-10 noLeft">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">تعليق الصوره</label>
+                                    <div class="col-lg-10 noLeft">
+                                        <input type="text" placeholder="تعليق الصوره" name="text" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">اختيار الالبوم</label>
+                                    <div class="control-group col-lg-10 noLeft">
+                                        <select id="select-Album" class="demo-default">
+                                            <option value="CZ">تقدر تعمل بحث</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">استطلاع الراى</label>
+                                    <div class="control-group col-lg-10 noLeft">
+                                        <select id="Polls" class="demo-default"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">اسعار الذهب</label>
+                                    <div class="control-group col-lg-10 noLeft">
+                                        <select id="Gold" class="demo-default"></select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">ملاحظات</label>
+                                    <textarea class="form-control col-lg-10 noLeft" id="bio1" name="bio1" placeholder="ملاحظات"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="clearfix"></div>
+        </div>
+        <!-- Main Content Element  End-->
+    </div>
+</div>
+@section scripts{
+    <!-- Modal -->
+    <div id="AddImage" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">اضافة صوره</h4>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("AddFeaturedImageArticle", "Attachment");}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">اغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/js/ArticleValidation.js"></script>
+    <script>
+        if ($('#Type').length > 0) {
+            if ($('#Type').val() == 1) {
+                $('#SecID').prop("disabled", false);
+                $('#EditorID').prop("disabled", true);
+                $('#EditorID').hide();
+            }
+            else if ($('#Type').val() == 2) {
+                $('#SecID').prop("disabled", true);
+                $('#EditorID').prop("disabled", false);
+                $('#EditorID').show();
+            }
+        }
+
+
+        $('#main-content').on('change', '#Type', function () {
+            var val = $(this).val();
+            if (val == 1) {
+                $('#EditorID').prop("disabled", true);
+                $('#SecID').prop("disabled", false);
+                $('#EditorID').hide();
+            }
+            else if ($('#Type').val() == 2) {
+                $('#EditorID').prop("disabled", false);
+                $('#SecID').prop("disabled", true);
+                $('#EditorID').show();
+            }
+        });
+
+    </script>
+}

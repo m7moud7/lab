@@ -1,0 +1,51 @@
+﻿@model List<Labyrinth.Model.SectionVM>
+@section Head{
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.css">
+}
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Top header start-->
+                <!-- <h3 class="ls-top-header">الرئسية</h3> -->
+                <!--Top header end -->
+                <!--Top breadcrumb start -->
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home"></i>
+                        </a>
+                    </li>
+                    <li>الرئسية</li>
+                    <li class="active">المنطقه</li>
+                </ol>
+                <!--Top breadcrumb start -->
+            </div>
+        </div>
+        <!-- Main Content Element  Start-->
+        <div class="col-md-12" id="ReorderContainer">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Order Page</h3>
+                </div>
+                <div class="panel-body">
+                    <input type="submit" value="حفظ الترتيب" class="btn btn-default btn-primary" id="btnSave">
+                    <ul id="sortable">
+                        @foreach (var item in Model)
+                        {
+                            <li class="ui-state-default" data-id="@item.ID"> <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>@item.Title</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content Element  End-->
+    </div>
+</div>
+@section scripts{
+    <script src="~/assets/js/jquery-ui.js"></script>
+    @Scripts.Render("~/Scripts/js/SectionReorder.js")
+    <script>
+        sectionreorder.init('@Url.Action("SaveSectionsOrder", "Section")')
+    </script>
+}

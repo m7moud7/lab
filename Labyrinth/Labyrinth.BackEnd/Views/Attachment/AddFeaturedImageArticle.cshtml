@@ -1,0 +1,81 @@
+﻿@model IEnumerable<Labyrinth.Model.GeneralSettingsVM>
+@{
+    int count = 1;
+    if (@HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString() == "Article")
+    {
+        Layout = "~/Views/Shared/_LayoutImages.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+}
+@section UpperHead{
+    <link href="~/Content/Cropper/prism.css" rel="stylesheet" />
+    <link href="~/Content/Cropper/croppie.css" rel="stylesheet" />
+    <link href="~/Content/Cropper/demo.css" rel="stylesheet" />
+    @*<link href="~/Content/Cropper/sweetalert.css" rel="stylesheet" />*@
+    <style>
+        .cr-boundary {
+            background-color: darkblue;
+        }
+    </style>
+}
+
+@Html.Hidden("imagecount", Model.Count())
+@Html.Hidden("testmain", "")
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="demo-wrap upload-demo">
+
+            <a class="btn file-btn">
+                <span>Upload</span>
+                <input type="file" id="upload" value="Choose a file" accept="image/*" />
+            </a>
+
+            <button class="upload-result" data-dismiss="modal">Result</button>
+
+            @foreach (var item in Model)
+            {
+                @Html.Hidden("imagex_" + count)
+
+                string[] Size = new string[2];
+                if (Model.Any())
+                {
+                    Size = item.Val2.Split(',');
+                }
+
+                <br /><br /><br /><br />
+                <div id="divShow_@(count)" class="upload-msg1">
+                    @Html.Hidden("SetKey_" + count, item.SetKey)
+                    @Html.Hidden("Val1_" + count, item.Val1)
+                    @Html.Hidden("CurrentWidth" + count, Size[0])
+                    @Html.Hidden("CurrentHeight" + count, Size[1])
+                    Upload a file to start cropping
+                </div>
+
+                <div id="divCrop_@(count)" class="upload-demo-wrap">
+                    <div id="upload-demo_@(count)"></div>
+                </div>
+
+                count++;
+            }
+
+        </div>
+    </div>
+</div>
+@*<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
+
+
+@section scripts{
+    @*<script type="text/javascript" src="~/assets/js/lib/jquery-3.3.1.js"></script>*@
+    @*<script src="~/Scripts/js/jquery.extension.js"></script>*@
+    <script src="~/Scripts/Cropper/prism.js"></script>
+    <script src="~/Scripts/Cropper/croppie.js"></script>
+    <script src="~/Scripts/Cropper/demoArticle.js"></script>
+    <script src="~/Scripts/Cropper/exif.js"></script>
+    <script src="~/Scripts/sweetalert.min.js"></script>
+    <script>
+        Demo.init();
+    </script>
+}

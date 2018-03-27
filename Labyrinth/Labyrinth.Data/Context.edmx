@@ -1,0 +1,567 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ContextModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="smallint" />
+          <Property Name="AltImage" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Caption" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Path" Type="nvarchar(max)" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="Embed" Type="nvarchar" MaxLength="2000" />
+          <Property Name="IsPublish" Type="bit" Nullable="false" />
+          <Property Name="FolderName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CUser" Type="int" />
+          <Property Name="CDate" Type="datetime" Nullable="false" />
+          <Property Name="PicsData" Type="nvarchar(max)" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Editor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="AttachmentID" Type="bigint" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+          <Property Name="CUser" Type="int" Nullable="false" />
+          <Property Name="CDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="GeneralSettings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SetName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SetKey" Type="nvarchar" MaxLength="50" />
+          <Property Name="Val1" Type="nvarchar" MaxLength="50" />
+          <Property Name="Val2" Type="nvarchar" MaxLength="50" />
+          <Property Name="Val3" Type="nvarchar" MaxLength="50" />
+          <Property Name="Val4" Type="nvarchar(max)" />
+          <Property Name="Val5" Type="nvarchar(max)" />
+          <Property Name="Val6" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="News_Tags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NewsID" Type="int" Nullable="false" />
+          <Property Name="TagID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderLevels">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AliasLevelName" Type="nvarchar" MaxLength="50" />
+          <Property Name="NewsCount" Type="int" Nullable="false" />
+          <Property Name="TransitionLevelID" Type="int" />
+          <Property Name="SecIdInOrder" Type="int" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="AttachmentID" Type="bigint" />
+          <Property Name="Description" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="FBPage" Type="nvarchar(max)" />
+          <Property Name="TwitterPage" Type="nvarchar(max)" />
+          <Property Name="GooglePlusPage" Type="nvarchar(max)" />
+          <Property Name="DisplayOrder" Type="int" Nullable="false" />
+          <Property Name="CUser" Type="int" Nullable="false" />
+          <Property Name="CDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="AlbumID" Type="int" />
+          <Property Name="ParentID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="UsersAdmin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Fullname" Type="nvarchar" MaxLength="255" />
+          <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Profile_Picture" Type="nvarchar" MaxLength="255" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="CUser" Type="int" />
+          <Property Name="CDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Function Name="BN_CheckUser" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="BN_GetAllEditors" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Take" Type="int" Mode="In" />
+          <Parameter Name="PageID" Type="int" Mode="In" />
+          <Parameter Name="IsDeleted" Type="nvarchar" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="BN_GetAllEditors_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IsDeleted" Type="nvarchar" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="BN_GetAllEditors_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetAllEditors_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetAllSections" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Take" Type="int" Mode="In" />
+          <Parameter Name="PageID" Type="int" Mode="In" />
+          <Parameter Name="IsDeleted" Type="nvarchar" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="BN_GetAllSections_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IsDeleted" Type="nvarchar" Mode="In" />
+          <Parameter Name="Title" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="BN_GetAllSections_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetAllSections_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetNewsTags" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NewsID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ContextModelStoreContainer">
+          <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Editor" EntityType="Self.Editor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GeneralSettings" EntityType="Self.GeneralSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News_Tags" EntityType="Self.News_Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderLevels" EntityType="Self.OrderLevels" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersAdmin" EntityType="Self.UsersAdmin" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ContextEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="UsersAdmins" EntityType="ContextModel.UsersAdmin" />
+          <EntitySet Name="Sections" EntityType="ContextModel.Section" />
+          <EntitySet Name="OrderLevels" EntityType="ContextModel.OrderLevel" />
+          <EntitySet Name="Tags" EntityType="ContextModel.Tag" />
+          <EntitySet Name="News_Tags" EntityType="ContextModel.News_Tags" />
+          <EntitySet Name="Editors" EntityType="ContextModel.Editor" />
+          <FunctionImport Name="BN_CheckUser" ReturnType="Collection(ContextModel.BN_CheckUser_Result)">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllEditors" ReturnType="Collection(ContextModel.BN_GetAllEditors_Result)">
+            <Parameter Name="Take" Mode="In" Type="Int32" />
+            <Parameter Name="PageID" Mode="In" Type="Int32" />
+            <Parameter Name="IsDeleted" Mode="In" Type="String" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllEditors_Count" ReturnType="Collection(Int32)">
+            <Parameter Name="IsDeleted" Mode="In" Type="String" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllEditors_DDL" ReturnType="Collection(ContextModel.BN_GetAllEditors_DDL_Result)" />
+          <FunctionImport Name="BN_GetAllSections" ReturnType="Collection(ContextModel.BN_GetAllSections_Result)">
+            <Parameter Name="Take" Mode="In" Type="Int32" />
+            <Parameter Name="PageID" Mode="In" Type="Int32" />
+            <Parameter Name="IsDeleted" Mode="In" Type="String" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllSections_Count" ReturnType="Collection(Int32)">
+            <Parameter Name="IsDeleted" Mode="In" Type="String" />
+            <Parameter Name="Title" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllSections_DDL" ReturnType="Collection(ContextModel.BN_GetAllSections_DDL_Result)" />
+          <FunctionImport Name="BN_GetAllSections_ForReOrder" ReturnType="Collection(ContextModel.BN_GetAllSections_ForReOrder_Result)" />
+          <FunctionImport Name="BN_GetNewsTags" ReturnType="Collection(ContextModel.BN_GetNewsTags_Result)">
+          <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllEditors_ForReOrder" ReturnType="Collection(ContextModel.BN_GetAllEditors_ForReOrder_Result)" />
+          <EntitySet Name="GeneralSettings" EntityType="ContextModel.GeneralSetting" />
+          <EntitySet Name="Attachments" EntityType="ContextModel.Attachment" />
+        </EntityContainer>
+        <EntityType Name="UsersAdmin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Profile_Picture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="CUser" Type="Int32" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentID" Type="Int64" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FBPage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TwitterPage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="GooglePlusPage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="CUser" Type="Int32" Nullable="false" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="AlbumID" Type="Int32" />
+          <Property Name="ParentID" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderLevel">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AliasLevelName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NewsCount" Type="Int32" Nullable="false" />
+          <Property Name="TransitionLevelID" Type="Int32" />
+          <Property Name="SecIdInOrder" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="News_Tags">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsID" Type="Int32" Nullable="false" />
+          <Property Name="TagID" Type="Int64" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Editor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentID" Type="Int64" />
+          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
+          <Property Name="CUser" Type="Int32" Nullable="false" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="BN_CheckUser_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Fullname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="Profile_Picture" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Role" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllEditors_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CUser" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <Property Type="String" Name="Path" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllEditors_DDL_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllSections_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CUser" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <Property Type="Int32" Name="ParentID" Nullable="false" />
+          <Property Type="String" Name="Path" Nullable="true" />
+          <Property Type="String" Name="ParentTitle" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllSections_DDL_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllSections_ForReOrder_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="BN_GetNewsTags_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="300" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllEditors_ForReOrder_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="GeneralSetting">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SetName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SetKey" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Val1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Val2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Val3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Val4" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Val5" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Val6" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Attachment">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int16" />
+          <Property Name="AltImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Caption" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Embed" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="IsPublish" Type="Boolean" Nullable="false" />
+          <Property Name="FolderName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CUser" Type="Int32" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PicsData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ContextModelStoreContainer" CdmEntityContainer="ContextEntities">
+          <EntitySetMapping Name="UsersAdmins">
+            <EntityTypeMapping TypeName="ContextModel.UsersAdmin">
+              <MappingFragment StoreEntitySet="UsersAdmin">
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="ContextModel.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="AlbumID" ColumnName="AlbumID" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="GooglePlusPage" ColumnName="GooglePlusPage" />
+                <ScalarProperty Name="TwitterPage" ColumnName="TwitterPage" />
+                <ScalarProperty Name="FBPage" ColumnName="FBPage" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderLevels">
+            <EntityTypeMapping TypeName="ContextModel.OrderLevel">
+              <MappingFragment StoreEntitySet="OrderLevels">
+                <ScalarProperty Name="SecIdInOrder" ColumnName="SecIdInOrder" />
+                <ScalarProperty Name="TransitionLevelID" ColumnName="TransitionLevelID" />
+                <ScalarProperty Name="NewsCount" ColumnName="NewsCount" />
+                <ScalarProperty Name="AliasLevelName" ColumnName="AliasLevelName" />
+                <ScalarProperty Name="LevelName" ColumnName="LevelName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="ContextModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News_Tags">
+            <EntityTypeMapping TypeName="ContextModel.News_Tags">
+              <MappingFragment StoreEntitySet="News_Tags">
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Editors">
+            <EntityTypeMapping TypeName="ContextModel.Editor">
+              <MappingFragment StoreEntitySet="Editor">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BN_CheckUser" FunctionName="ContextModel.Store.BN_CheckUser">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_CheckUser_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllEditors" FunctionName="ContextModel.Store.BN_GetAllEditors">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllEditors_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllEditors_Count" FunctionName="ContextModel.Store.BN_GetAllEditors_Count" />
+          <FunctionImportMapping FunctionImportName="BN_GetAllEditors_DDL" FunctionName="ContextModel.Store.BN_GetAllEditors_DDL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllEditors_DDL_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllSections" FunctionName="ContextModel.Store.BN_GetAllSections">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllSections_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ParentID" ColumnName="ParentID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="ParentTitle" ColumnName="ParentTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllSections_Count" FunctionName="ContextModel.Store.BN_GetAllSections_Count" />
+          <FunctionImportMapping FunctionImportName="BN_GetAllSections_DDL" FunctionName="ContextModel.Store.BN_GetAllSections_DDL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllSections_DDL_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllSections_ForReOrder" FunctionName="ContextModel.Store.BN_GetAllSections_ForReOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllSections_ForReOrder_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetNewsTags" FunctionName="ContextModel.Store.BN_GetNewsTags">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetNewsTags_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllEditors_ForReOrder" FunctionName="ContextModel.Store.BN_GetAllEditors_ForReOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllEditors_ForReOrder_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="GeneralSettings">
+            <EntityTypeMapping TypeName="ContextModel.GeneralSetting">
+              <MappingFragment StoreEntitySet="GeneralSettings">
+                <ScalarProperty Name="Val6" ColumnName="Val6" />
+                <ScalarProperty Name="Val5" ColumnName="Val5" />
+                <ScalarProperty Name="Val4" ColumnName="Val4" />
+                <ScalarProperty Name="Val3" ColumnName="Val3" />
+                <ScalarProperty Name="Val2" ColumnName="Val2" />
+                <ScalarProperty Name="Val1" ColumnName="Val1" />
+                <ScalarProperty Name="SetKey" ColumnName="SetKey" />
+                <ScalarProperty Name="SetName" ColumnName="SetName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attachments">
+            <EntityTypeMapping TypeName="ContextModel.Attachment">
+              <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="PicsData" ColumnName="PicsData" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+                <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+                <ScalarProperty Name="Embed" ColumnName="Embed" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="AltImage" ColumnName="AltImage" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

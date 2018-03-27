@@ -1,0 +1,45 @@
+﻿@model List<Labyrinth.Model.SectionVM>
+@{
+    Layout = null;
+    int Count = 0;
+    if (ViewBag.Count != null)
+    {
+        Count = ViewBag.Count;
+    }
+}
+@Html.Hidden("ListCount", Count)
+<table id="ListTable" class="table table-bordered sar-table table-bottomless table-Index ">
+    <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>اجراء</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Title
+                </td>
+                <td>
+                    <a class="btn btn-primary btn-round" href="/section/Edit?ID=@item.ID">
+                        <i class="fa fa-pencil"></i>
+                    </a>
+                    <a class="btn ls-red-btn btn-round">
+                        <i class="fa fa-trash-o"></i>
+                    </a>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">
+                <div id="ListPager" class="paging-div" style="clear:both;">
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

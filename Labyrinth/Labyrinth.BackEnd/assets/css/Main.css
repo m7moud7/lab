@@ -1,0 +1,203 @@
+.form-group textarea {
+    width: 100%;
+    /* background-color: #f9f9f9; */
+}
+
+.backgruond {
+    width: 100%;
+    background-color: #f9f9f9;
+}
+
+.table-Index thead tr {
+    background-color: #cccccc61;
+}
+
+.AreaCatgTb thead th:first-child {
+    max-width: 50px;
+}
+
+.displayCategory {
+    display: none;
+}
+
+.DisCatContent {
+    margin: auto;
+    float: none;
+    border: 1px solid #e7e7e7;
+    background: #f9f9f9;
+    padding-top: 15px;
+}
+
+.paddingPlace {
+    padding-top: 0 !important;
+}
+
+.btnborder {
+    width: 100px;
+    border-radius: 10px !important;
+}
+
+.checkboxNum1 {
+    display: flex;
+    margin-top: 8px;
+}
+
+.regular-checkbox {
+    display: none;
+}
+
+.regular-checkbox+label {
+    background-color: #fafafa;
+    border: 1px solid #cacece;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05);
+    padding: 9px;
+    border-radius: 3px;
+    display: inline-block;
+    position: relative;
+    left: 75px;
+}
+
+.regular-checkbox+label:active,
+.regular-checkbox:checked+label:active {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.regular-checkbox:checked+label {
+    background-color: #6f9dbc;
+    border: 1px solid #4489bc;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), inset 0px -15px 10px -12px rgba(0, 0, 0, 0.05), inset 15px 10px -12px rgba(255, 255, 255, 0.1);
+    color: #99a1a7;
+}
+
+.regular-checkbox:checked+label:after {
+    content: '\2714';
+    font-size: 14px;
+    position: absolute;
+    top: 0px;
+    left: 3px;
+    color: #fdfdfd;
+}
+
+.panel-body ul.sortable li {
+    padding: 10px 0 10px;
+}
+
+#sortable .panel-body {
+    counter-reset: my-sec-counter;
+}
+
+#sortable .panel-body ul li:before {
+    counter-increment: my-sec-counter;
+    content: counter(my-sec-counter) "-";
+    border-left: 1px solid #ccc;
+    padding: 10px;
+    background-color: #DDDD;
+}
+
+#sortable {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em 0;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+}
+
+#sortable li span {
+    /* position: absolute;
+    margin-left: -1.3em; */
+}
+
+
+.GroupPage .marginH2 {
+    margin: 5px 0;
+}
+
+.GroupPage .selectWidth {
+    width:100%;
+    padding: 5px;
+}
+
+.GroupPage .marginTop {
+    margin-top: 24px;
+}
+.EditPosts-Row {
+    display: flex;
+    align-items: center;
+}
+
+.tableof-thepicture-upload-area {
+    min-height: 200px;
+    border: 2px solid red;
+}
+.DisCatContent-New {
+    float: none!important;
+    margin: 0 auto;
+}
+
+
+
+.field-container input[type="file"] {
+    display: block;
+}
+
+.field-container .imageThumb {
+    max-height: 75px;
+    border: 2px solid;
+    padding: 1px;
+    cursor: pointer;
+}
+
+.field-container .pip {
+    display: inline-block;
+    margin: 10px 10px 0 0;
+}
+
+.field-container .remove {
+    display: block;
+    background: #444;
+    border: 1px solid black;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+}
+
+    .field-container .remove:hover {
+        background: white;
+        color: black;
+    }
+
+.field-container .marginAuto {
+    margin: 0 auto;
+}
+
+.field-container #removefiles {
+    border-radius:0;
+}
+
+/* Start Wiki */
+
+.TeamStyle {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+    .TeamStyle label {
+        padding-top: 0;
+        text-align: center !important;
+        background-color: #EEE;
+        padding: 10px;
+        width: 49%;
+    }
+
+.marginZero {
+    margin-top:0;
+}
+
+/* End Wiki */
