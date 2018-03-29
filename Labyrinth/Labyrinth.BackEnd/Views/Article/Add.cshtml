@@ -1,4 +1,4 @@
-﻿@model Labyrinth.Model.ArticleVm
+﻿@model Labyrinth.Model.ArticleVM
 @{
     ViewBag.Title = "AddArticle";
 }
@@ -19,7 +19,8 @@
         </div>
         <!-- Main Content Element  Start-->
         <div class="row">
-            <form>
+            @using (Html.BeginForm("Add", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddArticle" }))
+            {
                 <div class="col-md-9">
                     <div class="col-md-12 noPadding">
                         <div class="panel panel-default">
@@ -116,6 +117,8 @@
 
                                     <div class="col-lg-12 noLeft">
                                         <img src="" id="featuredimage" name="featuredimage" class="img-responsive" />
+                                        <input type="hidden" id="AttachmentId" name="AttachmentId" value="0" />
+
                                     </div>
 
                                     <div class="col-lg-12 noLeft">
@@ -166,8 +169,20 @@
                         </div>
                     </div>
 
+                    <div class="col-md-12 noPadding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">اجراءات تكميليه</h3>
+                            </div>
+                            <div class="panel-body">
+                                <button type="submit" class="btn btn-info btn-lg">اضافة</button>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-            </form>
+            }
             <div class="clearfix"></div>
         </div>
         <!-- Main Content Element  End-->
@@ -208,7 +223,6 @@
             }
         }
 
-
         $('#main-content').on('change', '#Type', function () {
             var val = $(this).val();
             if (val == 1) {
@@ -221,6 +235,15 @@
                 $('#SecID').prop("disabled", true);
                 $('#divEditorID').show();
             }
+        });
+
+        $('#AddArticle').submit(function (e) {
+            var Story = htmlEscape($('#StoryCode').summernote().code());
+            $('<input />').attr('type', 'hidden')
+                .attr('name', "Story")
+                .attr('id', "Story")
+                .attr('value', Story)
+                .appendTo('form');
         });
 
     </script>

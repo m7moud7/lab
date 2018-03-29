@@ -103,6 +103,7 @@
     <Compile Include="OrderLevel.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Article.cs" />
     <Compile Include="Partials\Attachment.cs" />
     <Compile Include="Partials\Editor.cs" />
     <Compile Include="Partials\Section.cs" />

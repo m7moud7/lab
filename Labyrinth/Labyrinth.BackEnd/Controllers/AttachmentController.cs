@@ -39,7 +39,8 @@ namespace Labyrinth.BackEnd.Controllers
             long NewId = 0;
             var DateTimePath = DateTime.Now;
             AttachmentVM ViewModel = new AttachmentVM();
-            string MSG = "";
+            //string[] ;
+            dynamic MSG = new System.Dynamic.ExpandoObject();
             foreach (var key in frm.AllKeys.Where(k => k.Contains("Attach")).ToList())
             {
                 try
@@ -52,7 +53,9 @@ namespace Labyrinth.BackEnd.Controllers
                         ViewModel.CDate = DateTimePath;
                         ViewModel.Path = uservm.ID.ToString() + uservm.Username.GetHashCode().ToString().Replace("-", "") + DateTimePath.ToString("yyyyMMddhhmmssms") + ".jpg";
                         NewId = _Attachment.Save(ViewModel);
-                        MSG = "\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\" + "Large" + "\\" + ViewModel.Path;
+
+                        MSG.Path = "\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\" + "Large" + "\\" + ViewModel.Path;
+                        MSG.NewId = NewId;
                     }
 
                     if (NewId > 0)
@@ -101,7 +104,7 @@ namespace Labyrinth.BackEnd.Controllers
                 }
                 counter++;
             }
-            return Json(MSG);
+            return Json(MSG, JsonRequestBehavior.AllowGet);
         }
 
         //[HttpPost]

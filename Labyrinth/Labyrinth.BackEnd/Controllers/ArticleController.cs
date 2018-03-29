@@ -14,12 +14,14 @@ namespace Labyrinth.BackEnd.Controllers
     {
         private readonly ISection _SectionService;
         private readonly IEditor _EditorService;
-        private static ArticleVm _Article;
+        private static IArticle _ArticleService;
+        private static ArticleVM _Article;
 
         public ArticleController()
         {
             _SectionService = new SectionServices();
             _EditorService = new EditorServices();
+            _ArticleService = new ArticleServices();
         }
 
         [SessionExpireFilter]
@@ -36,6 +38,7 @@ namespace Labyrinth.BackEnd.Controllers
         }
 
 
+        [SessionExpireFilter]
         public ActionResult Add()
         {
             ViewBag.SecIdList = CurrentSections();
@@ -47,9 +50,31 @@ namespace Labyrinth.BackEnd.Controllers
                 Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
             }).ToList();
 
+            return View();
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult Add(ArticleVM ViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewModel.CUser = uservm.ID;
+                ViewModel.CDate = DateTime.Now;
+
+                if (ViewModel.CurrentGroupId == null && ViewModel.CurrentUserId == null)
+                    ViewModel.CurrentUserId = uservm.ID;
+
+                if (ViewModel.CurrentGroupId != null && ViewModel.CurrentUserId == 0)
+                    ViewModel.CurrentUserId = null;
+
+                if (ViewModel.CurrentGroupId != null && (ViewModel.CurrentUserId > 0))
+                    ViewModel.CurrentGroupId = null;
 
 
+                var result = _ArticleService.Save(ViewModel);
 
+            }
             return View();
         }
 

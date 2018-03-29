@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArticleVm.cs" />
+    <Compile Include="ArticleVM.cs" />
     <Compile Include="AttachmentVM.cs" />
     <Compile Include="LookUpVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

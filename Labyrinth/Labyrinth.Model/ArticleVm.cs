@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Labyrinth.Model
 {
-    public class ArticleVm
+    public class ArticleVM
     {
         public int ID { get; set; }
 
@@ -89,25 +89,23 @@ namespace Labyrinth.Model
         [Display(Name = "حذف الخبر")]
         public bool IsDeleted { get; set; }
 
+        public Int64? AttachmentId { get; set; }
+
         [Display(Name = "تعليق الصورة"), MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
         public string ImageCaption { get; set; }
 
-        public Int64? Image { get; set; }
+
+        public int? CurrentGroupId { get; set; }
+        public int? CurrentUserId { get; set; }
+
+
         //[Required(ErrorMessage = "من فضلك ادخل تعليق الصورة")]
         //public Int64? CoverImage { get; set; }
 
 
-
-
-
-
-
-
-
-
-        public int? AlbumID { get; set; }
-        public int? GoldID { get; set; }
-        public int? CurrencyID { get; set; }
+        //public int? AlbumID { get; set; }
+        //public int? GoldID { get; set; }
+        //public int? CurrencyID { get; set; }
 
 
 
@@ -130,8 +128,7 @@ namespace Labyrinth.Model
         //public List<AttachmentVM> WorkFlowAttachment { get; set; }
         //public string SecName { get; set; }
         //public string Date { get; set; }
-        //public int? CurrentGroupId { get; set; }
-        //public int? CurrentUserId { get; set; }
+        
         //public AttachmentVM ImageDetails { get; set; }
         //public AttachmentVM CoverDetails { get; set; }
 

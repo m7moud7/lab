@@ -10,6 +10,19 @@
     }
 }
 
+
+function countSubTitle(what) {
+    formcontent = what.form.SubTitle.value;
+    what.form.countsubtitle.value = formcontent.length;
+    var ff = what.form.countsubtitle.value;
+    if (ff > 70) {
+        document.getElementById("countsubtitle").style.color = "red";
+    }
+    else {
+        document.getElementById("countsubtitle").style.color = "green";
+    }
+}
+
 function countBrief(what) {
     formcontent = what.form.Brief.value;
     what.form.countbrief.value = formcontent.length;
@@ -23,7 +36,6 @@ function countBrief(what) {
 }
 
 
-
 function countWrittenby(what) {
     formcontent = what.form.WrittenBy.value;
     what.form.countwrittenby.value = formcontent.length;
@@ -35,3 +47,4 @@ function countWrittenby(what) {
         document.getElementById("countwrittenby").style.color = "green";
     }
 }
+
