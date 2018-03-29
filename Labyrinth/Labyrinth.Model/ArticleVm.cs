@@ -47,10 +47,10 @@ namespace Labyrinth.Model
         public string[] SelectedRelatedNews { get; set; }
         public List<RelatedNewsVM> RelatedNewsList { get; set; }
 
-        [Display(Name = "الملخص"),Required(ErrorMessage = "من فضلك ادخل الملخص")]
+        [Display(Name = "الملخص"), Required(ErrorMessage = "من فضلك ادخل الملخص")]
         public string Brief { get; set; }
 
-        [Display(Name = "الخبر"),Required(ErrorMessage = "من فضلك ادخل  متن الخبر")]
+        [Display(Name = "الخبر"), Required(ErrorMessage = "من فضلك ادخل  متن الخبر")]
         public string Story { get; set; }
 
         [Display(Name = "ملاحظات")]
@@ -89,9 +89,29 @@ namespace Labyrinth.Model
         [Display(Name = "حذف الخبر")]
         public bool IsDeleted { get; set; }
 
+        [Display(Name = "تعليق الصورة"), MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
+        public string ImageCaption { get; set; }
+
+        public Int64? Image { get; set; }
+        //[Required(ErrorMessage = "من فضلك ادخل تعليق الصورة")]
+        //public Int64? CoverImage { get; set; }
+
+
+
+
+
+
+
+
+
+
         public int? AlbumID { get; set; }
         public int? GoldID { get; set; }
         public int? CurrencyID { get; set; }
+
+
+
+
 
         //public List<AlbumVm> Albums { get; set; }
         //public string AlbumList { get; set; }
@@ -131,12 +151,7 @@ namespace Labyrinth.Model
 
 
 
-        //public Int64? Image { get; set; }
-        ////[Required(ErrorMessage = "من فضلك ادخل تعليق الصورة")]
-        //[Display(Name = "تعليق الصورة   ")]
-        //[MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
-        //public string ImageCaption { get; set; }
-        //public Int64? CoverImage { get; set; }
+
 
         //[Display(Name = "صورة ال cover  ")]
         //public AttachmentVM Cover { get; set; }
@@ -146,7 +161,7 @@ namespace Labyrinth.Model
         //[Display(Name = "نشر فى")]
         //public string SchdeuledPublish { get; set; }
 
-       
-        
+
+
     }
 }
