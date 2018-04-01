@@ -51,6 +51,35 @@
           <Property Name="Val5" Type="nvarchar(max)" />
           <Property Name="Val6" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SecID" Type="int" Nullable="false" />
+          <Property Name="WrittenBy" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Title" Type="nvarchar" MaxLength="1000" />
+          <Property Name="SubTitle" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Brief" Type="nvarchar(max)" />
+          <Property Name="Story" Type="nvarchar(max)" />
+          <Property Name="AttachmentID" Type="bigint" />
+          <Property Name="ImageCaption" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Cover" Type="bigint" />
+          <Property Name="CoverCaption" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="Type" Type="int" />
+          <Property Name="EditorID" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="CUser" Type="int" />
+          <Property Name="CDate" Type="datetime" Nullable="false" />
+          <Property Name="Embed" Type="nvarchar(max)" />
+          <Property Name="CurrentGroup" Type="int" />
+          <Property Name="CurrentUser" Type="int" />
+          <Property Name="ViewsCount" Type="int" />
+          <Property Name="RelatedNews" Type="nvarchar" MaxLength="500" />
+        </EntityType>
         <EntityType Name="News_Tags">
           <Key>
             <PropertyRef Name="ID" />
@@ -58,6 +87,16 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NewsID" Type="int" Nullable="false" />
           <Property Name="TagID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewsPublish">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NewsID" Type="int" />
+          <Property Name="CDate" Type="datetime" />
+          <Property Name="Type" Type="int" />
+          <Property Name="SecID" Type="int" />
         </EntityType>
         <EntityType Name="OrderLevels">
           <Key>
@@ -144,7 +183,9 @@
           <EntitySet Name="Attachment" EntityType="Self.Attachment" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Editor" EntityType="Self.Editor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeneralSettings" EntityType="Self.GeneralSettings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News_Tags" EntityType="Self.News_Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsPublish" EntityType="Self.NewsPublish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderLevels" EntityType="Self.OrderLevels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
@@ -194,6 +235,8 @@
           <FunctionImport Name="BN_GetAllEditors_ForReOrder" ReturnType="Collection(ContextModel.BN_GetAllEditors_ForReOrder_Result)" />
           <EntitySet Name="GeneralSettings" EntityType="ContextModel.GeneralSetting" />
           <EntitySet Name="Attachments" EntityType="ContextModel.Attachment" />
+          <EntitySet Name="News" EntityType="ContextModel.News" />
+          <EntitySet Name="NewsPublishes" EntityType="ContextModel.NewsPublish" />
         </EntityContainer>
         <EntityType Name="UsersAdmin">
           <Key>
@@ -343,6 +386,45 @@
           <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="PicsData" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="News">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SecID" Type="Int32" Nullable="false" />
+          <Property Name="WrittenBy" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="SubTitle" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Brief" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Story" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AttachmentID" Type="Int64" />
+          <Property Name="ImageCaption" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Cover" Type="Int64" />
+          <Property Name="CoverCaption" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="EditorID" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="IsApproved" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CUser" Type="Int32" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Embed" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CurrentGroup" Type="Int32" />
+          <Property Name="CurrentUser" Type="Int32" />
+          <Property Name="ViewsCount" Type="Int32" />
+          <Property Name="RelatedNews" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="NewsPublish">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsID" Type="Int32" />
+          <Property Name="CDate" Type="DateTime" Precision="3" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="SecID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -537,6 +619,47 @@
                 <ScalarProperty Name="Caption" ColumnName="Caption" />
                 <ScalarProperty Name="AltImage" ColumnName="AltImage" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="News">
+            <EntityTypeMapping TypeName="ContextModel.News">
+              <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="RelatedNews" ColumnName="RelatedNews" />
+                <ScalarProperty Name="ViewsCount" ColumnName="ViewsCount" />
+                <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
+                <ScalarProperty Name="CurrentGroup" ColumnName="CurrentGroup" />
+                <ScalarProperty Name="Embed" ColumnName="Embed" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="EditorID" ColumnName="EditorID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CoverCaption" ColumnName="CoverCaption" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="ImageCaption" ColumnName="ImageCaption" />
+                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+                <ScalarProperty Name="Story" ColumnName="Story" />
+                <ScalarProperty Name="Brief" ColumnName="Brief" />
+                <ScalarProperty Name="SubTitle" ColumnName="SubTitle" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="WrittenBy" ColumnName="WrittenBy" />
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsPublishes">
+            <EntityTypeMapping TypeName="ContextModel.NewsPublish">
+              <MappingFragment StoreEntitySet="NewsPublish">
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

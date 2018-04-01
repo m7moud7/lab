@@ -56,12 +56,14 @@ namespace Labyrinth.Model
         [Display(Name = "ملاحظات")]
         public string Notes { get; set; }
 
-
         public int CUser { get; set; }
+
         public DateTime CDate { get; set; }
 
         [Display(Name = "نوع الخبر")]
         public int Type { get; set; }
+
+        public string SchdeuledPublish { get; set; }
 
         [Display(Name = "نشر")]
         public bool IsApproved { get; set; }
@@ -89,26 +91,21 @@ namespace Labyrinth.Model
         [Display(Name = "حذف الخبر")]
         public bool IsDeleted { get; set; }
 
-        public Int64? AttachmentId { get; set; }
+        public Int64? AttachmentID { get; set; }
 
         [Display(Name = "تعليق الصورة"), MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
         public string ImageCaption { get; set; }
 
 
-        public int? CurrentGroupId { get; set; }
-        public int? CurrentUserId { get; set; }
-
+        public int? CurrentGroupID { get; set; }
+        public int? CurrentUserID { get; set; }
 
         //[Required(ErrorMessage = "من فضلك ادخل تعليق الصورة")]
         //public Int64? CoverImage { get; set; }
 
-
         //public int? AlbumID { get; set; }
         //public int? GoldID { get; set; }
         //public int? CurrencyID { get; set; }
-
-
-
 
 
         //public List<AlbumVm> Albums { get; set; }
@@ -128,7 +125,7 @@ namespace Labyrinth.Model
         //public List<AttachmentVM> WorkFlowAttachment { get; set; }
         //public string SecName { get; set; }
         //public string Date { get; set; }
-        
+
         //public AttachmentVM ImageDetails { get; set; }
         //public AttachmentVM CoverDetails { get; set; }
 
@@ -156,7 +153,6 @@ namespace Labyrinth.Model
         //[MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
         //public string CoverCaption { get; set; }
         //[Display(Name = "نشر فى")]
-        //public string SchdeuledPublish { get; set; }
 
 
 

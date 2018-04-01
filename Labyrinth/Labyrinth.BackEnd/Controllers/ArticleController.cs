@@ -7,6 +7,7 @@ using Labyrinth.BackEnd.App_Start;
 using Labyrinth.Model;
 using Labyrinth.Abstracts;
 using Labyrinth.Services;
+using System.Net;
 
 namespace Labyrinth.BackEnd.Controllers
 {
@@ -61,22 +62,28 @@ namespace Labyrinth.BackEnd.Controllers
             {
                 ViewModel.CUser = uservm.ID;
                 ViewModel.CDate = DateTime.Now;
+                ViewModel.Story = WebUtility.HtmlDecode(ViewModel.Story).ToString();
 
-                if (ViewModel.CurrentGroupId == null && ViewModel.CurrentUserId == null)
-                    ViewModel.CurrentUserId = uservm.ID;
+                if (ViewModel.CurrentGroupID == null && ViewModel.CurrentUserID == null)
+                    ViewModel.CurrentUserID = uservm.ID;
 
-                if (ViewModel.CurrentGroupId != null && ViewModel.CurrentUserId == 0)
-                    ViewModel.CurrentUserId = null;
+                if (ViewModel.CurrentGroupID != null && ViewModel.CurrentUserID == 0)
+                    ViewModel.CurrentUserID = null;
 
-                if (ViewModel.CurrentGroupId != null && (ViewModel.CurrentUserId > 0))
-                    ViewModel.CurrentGroupId = null;
-
+                if (ViewModel.CurrentGroupID != null && (ViewModel.CurrentUserID > 0))
+                    ViewModel.CurrentGroupID = null;
 
                 var result = _ArticleService.Save(ViewModel);
-
             }
+
+            ViewBag.SecIdList = CurrentSections();
+            ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
+            {
+                Text = item.Name,
+                Value = item.ID.ToString(),
+                Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
+            }).ToList();
             return View();
         }
-
     }
 }

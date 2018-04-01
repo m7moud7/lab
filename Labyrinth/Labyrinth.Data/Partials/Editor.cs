@@ -9,19 +9,19 @@ namespace Labyrinth.Data
 {
     public partial class Editor
     {
-        public static Editor Clone(EditorVM viewmodel)
+        public static Editor Clone(EditorVM ViewModel)
         {
             return new Editor()
             {
-                ID = viewmodel.ID,
-                Name = viewmodel.Name,
-                Email = viewmodel.Email,
-                Description = viewmodel.Description,
-                AttachmentID = viewmodel.AttachmentId,
-                DisplayOrder = (viewmodel.DisplayOrder > 0) ? viewmodel.DisplayOrder : 100000,
-                CUser = viewmodel.CUser,
-                CDate = viewmodel.CDate,
-                IsDeleted = viewmodel.IsDeleted,
+                ID = ViewModel.ID,
+                Name = ViewModel.Name,
+                Email = ViewModel.Email,
+                Description = ViewModel.Description,
+                AttachmentID = ViewModel.AttachmentId,
+                DisplayOrder = (ViewModel.DisplayOrder > 0) ? ViewModel.DisplayOrder : 100000,
+                CUser = ViewModel.CUser,
+                CDate = ViewModel.CDate,
+                IsDeleted = ViewModel.IsDeleted,
             };
         }
     }

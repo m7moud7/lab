@@ -37,6 +37,14 @@
                                     </div>
                                 *@
                                 <div class="form-group">
+                                    <label class="col-lg-2 control-label noRight">العنوان الفرعى</label>
+                                    <div class="col-lg-10 noLeft">
+                                        @Html.EditorFor(model => model.SubTitle, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countsubtitle(this)", @onkeydown = "countsubtitle(this)" } })
+                                        @Html.ValidationMessageFor(model => model.SubTitle, "", new { @class = "text-danger" })
+                                        <input type="text" id="countsubtitle" name="countsubtitle" class="count-num" size="20" disabled>
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label class="col-lg-2 control-label noRight">العنوان الرئيسى</label>
                                     <div class="col-lg-10 noLeft">
                                         @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countTitle(this)", @onkeydown = "countTitle(this)" } })
@@ -99,6 +107,29 @@
                     </div>
                 </div>
                 <div class="col-md-3">
+
+                    <div class="col-md-12 noPadding">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">اجراءات تكميليه</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <div class="col-lg-12 noLeft" id="Schdeuled" name="Schdeuled">
+                                        @Html.LabelFor(model => model.SchdeuledPublish, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10 borderForFields">
+                                            @Html.EditorFor(model => model.SchdeuledPublish, new { htmlAttributes = new { @class = "form-control dateTimePicker" } })
+                                            @Html.ValidationMessageFor(model => model.SchdeuledPublish, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-12 noLeft">
+                                        <button type="submit" class="btn btn-info btn-lg">حفظ</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-md-12 noPadding">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -106,7 +137,6 @@
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">
-
                                     <div class="col-lg-6 noLeft">
                                         <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddImage">اضافة</button>
                                     </div>
@@ -117,8 +147,7 @@
 
                                     <div class="col-lg-12 noLeft">
                                         <img src="" id="featuredimage" name="featuredimage" class="img-responsive" />
-                                        <input type="hidden" id="AttachmentId" name="AttachmentId" value="0" />
-
+                                        <input type="hidden" id="AttachmentID" name="AttachmentID" value="0" />
                                     </div>
 
                                     <div class="col-lg-12 noLeft">
@@ -168,19 +197,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-md-12 noPadding">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">اجراءات تكميليه</h3>
-                            </div>
-                            <div class="panel-body">
-                                <button type="submit" class="btn btn-info btn-lg">اضافة</button>
-                            </div>
-                        </div>
-                    </div>
-
-
                 </div>
             }
             <div class="clearfix"></div>
@@ -209,6 +225,10 @@
     </div>
 
     <script src="~/Scripts/js/ArticleValidation.js"></script>
+
+    @Scripts.Render("~/Scripts/jquery.datetimepicker.full.min.js")
+    @*@Scripts.Render("~/assets/js/jquery.datetimepicker.js")*@
+
     <script>
         if ($('#Type').length > 0) {
             if ($('#Type').val() == 1) {
@@ -246,5 +266,13 @@
                 .appendTo('form');
         });
 
+        function htmlEscape(str) {
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;');
+        }
     </script>
 }

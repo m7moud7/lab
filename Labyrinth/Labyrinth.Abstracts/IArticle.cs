@@ -9,6 +9,6 @@ namespace Labyrinth.Abstracts
 {
     public interface IArticle
     {
-        int Save(AttachmentVM ViewModel);
+        int Save(ArticleVM ViewModel);
     }
 }

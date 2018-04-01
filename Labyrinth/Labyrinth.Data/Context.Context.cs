@@ -35,6 +35,8 @@ namespace Labyrinth.Data
         public virtual DbSet<Editor> Editors { get; set; }
         public virtual DbSet<GeneralSetting> GeneralSettings { get; set; }
         public virtual DbSet<Attachment> Attachments { get; set; }
+        public virtual DbSet<News> News { get; set; }
+        public virtual DbSet<NewsPublish> NewsPublishes { get; set; }
     
         public virtual ObjectResult<BN_CheckUser_Result> BN_CheckUser(string username, string password)
         {

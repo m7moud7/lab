@@ -9,23 +9,23 @@ namespace Labyrinth.Data
 {
     public partial class Attachment
     {
-        public static Attachment Clone(AttachmentVM viewmodel)
+        public static Attachment Clone(AttachmentVM ViewModel)
         {
             return new Attachment()
             {
-                ID = viewmodel.ID,
-                Type = viewmodel.Type,
-                AltImage = viewmodel.ALtImage,
-                Caption = viewmodel.Caption,
-                Path = viewmodel.Path,
-                Notes = viewmodel.Notes,
-                Embed = viewmodel.Embed,
-                IsPublish = viewmodel.IsPublish,
-                FolderName = viewmodel.FolderName,
-                CDate = viewmodel.CDate,
-                CUser = viewmodel.CUser,
-                PicsData = viewmodel.PicsData,
-                IsDeleted = viewmodel.IsDeleted
+                ID = ViewModel.ID,
+                Type = ViewModel.Type,
+                AltImage = ViewModel.ALtImage,
+                Caption = ViewModel.Caption,
+                Path = ViewModel.Path,
+                Notes = ViewModel.Notes,
+                Embed = ViewModel.Embed,
+                IsPublish = ViewModel.IsPublish,
+                FolderName = ViewModel.FolderName,
+                CDate = ViewModel.CDate,
+                CUser = ViewModel.CUser,
+                PicsData = ViewModel.PicsData,
+                IsDeleted = ViewModel.IsDeleted
             };
         }
     }
