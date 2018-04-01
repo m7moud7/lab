@@ -710,6 +710,7 @@
     <Content Include="assets\js\validationEngine\languages\jquery.validationEngine-vi.js" />
     <Content Include="assets\js\validationEngine\languages\jquery.validationEngine-zh_CN.js" />
     <Content Include="assets\js\validationEngine\languages\jquery.validationEngine-zh_TW.js" />
+    <Content Include="Content\Addons_Library\jquery.datetimepicker-rtl.css" />
     <Content Include="Content\Cropper\croppie.css" />
     <Content Include="Content\Cropper\demo.css" />
     <Content Include="Content\Cropper\prism.css" />
@@ -719,6 +720,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Addons_Library\jquery-2.1.4.min.js" />
     <Content Include="Scripts\Addons_Library\jquery.datetimepicker.full.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -779,6 +781,7 @@
     <Content Include="assets\images\file-manager\src\quicklook-icons.pxm" />
     <Content Include="assets\images\file-manager\src\toolbar.pxm" />
     <Content Include="assets\images\Luscious-gmap.zip" />
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Cropper\croppie.js" />
     <Content Include="Scripts\Cropper\croppie.min.js" />

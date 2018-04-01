@@ -2,6 +2,10 @@
 @{
     ViewBag.Title = "AddArticle";
 }
+
+@section Head{
+    <link href="~/Content/Addons_Library/jquery.datetimepicker-rtl.css" rel="stylesheet" />
+}
 <div id="main-content" name="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -107,7 +111,6 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-
                     <div class="col-md-12 noPadding">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -118,8 +121,18 @@
                                     <div class="col-lg-12 noLeft" id="Schdeuled" name="Schdeuled">
                                         @Html.LabelFor(model => model.SchdeuledPublish, htmlAttributes: new { @class = "control-label col-md-2" })
                                         <div class="col-md-10 borderForFields">
-                                            @Html.EditorFor(model => model.SchdeuledPublish, new { htmlAttributes = new { @class = "form-control dateTimePicker" } })
+                                            @Html.EditorFor(model => model.SchdeuledPublish, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.SchdeuledPublish, "", new { @class = "text-danger" })
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group checkbox3">
+                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                                        <div class="col-md-10">
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                            </div>
                                         </div>
                                     </div>
 
@@ -157,7 +170,6 @@
                                             @Html.ValidationMessageFor(model => model.ImageCaption, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -225,11 +237,11 @@
     </div>
 
     <script src="~/Scripts/js/ArticleValidation.js"></script>
-
-    @Scripts.Render("~/Scripts/jquery.datetimepicker.full.min.js")
-    @*@Scripts.Render("~/assets/js/jquery.datetimepicker.js")*@
-
+    @Scripts.Render("~/Scripts/Addons_Library/jquery.datetimepicker.full.min.js")
     <script>
+
+        jQuery('#SchdeuledPublish').datetimepicker();
+
         if ($('#Type').length > 0) {
             if ($('#Type').val() == 1) {
                 $('#SecID').prop("disabled", false);
@@ -274,5 +286,6 @@
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;');
         }
+
     </script>
 }

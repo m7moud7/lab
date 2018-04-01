@@ -54,6 +54,22 @@ namespace Labyrinth.BackEnd.Controllers
             return View();
         }
 
+
+        [SessionExpireFilter]
+        public ActionResult Edit(int ID)
+        {
+            ViewBag.SecIdList = CurrentSections();
+            ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
+            {
+                Text = item.Name,
+                Value = item.ID.ToString(),
+                Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
+            }).ToList();
+
+            return View();
+        }
+
+
         [HttpPost]
         [SessionExpireFilter]
         public ActionResult Add(ArticleVM ViewModel)
@@ -85,5 +101,7 @@ namespace Labyrinth.BackEnd.Controllers
             }).ToList();
             return View();
         }
+
+
     }
 }
