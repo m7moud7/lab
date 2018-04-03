@@ -13,7 +13,12 @@ namespace Labyrinth.Services
     public class ArticleServices : IArticle
     {
         ContextEntities _DB = new ContextEntities();
+        private readonly ITag _TagServices;
 
+        public ArticleServices()
+        {
+            _TagServices = new TagServices();
+        }
 
         public int Save(ArticleVM ViewModel)
         {
@@ -97,6 +102,71 @@ namespace Labyrinth.Services
             }
         }
 
+
+        public ArticleVM GetNewsByID(int ID)
+        {
+            //try
+            //{
+                var model = (from NS in _DB.BN_GetNewsById(ID)
+                             select new ArticleVM
+                             {
+                                 ID = NS.ID,
+                                 SecID = NS.SecID,
+                                 WrittenBy = NS.WrittenBy,
+                                 Title = NS.Title,
+                                 SubTitle = NS.SubTitle,
+                                 Brief = NS.Brief,
+                                 Story = NS.Story,
+                                 AttachmentID = NS.AttachmentID,
+                                 ImageCaption = NS.ImageCaption,
+                                 CoverID = NS.Cover,
+                                 ImageCaptionCover = NS.CoverCaption,
+                                 Notes = NS.Notes,
+                                 Type = NS.Type.Value,
+                                 //EditorID = NS.EditorID.Value,
+                                 Status = NS.Status,
+                                 IsApproved = NS.IsApproved,
+                                 IsDeleted = NS.IsDeleted,
+                                 CUser = NS.CUser.Value,
+                                 CDate = NS.CDate,
+                                 Embed = NS.Embed,
+                                 CurrentGroupID = NS.CurrentGroup,
+                                 CurrentUserID = NS.CurrentUser,
+                                 RelatedNews = NS.RelatedNews,
+                                 AlbumID = NS.AlbumId,
+                                 CurrencyID = NS.CurrencyId,
+                                 GoldID = NS.GoldId,
+                             }).FirstOrDefault();
+                if (model != null)
+                {
+                    model.Tags = _TagServices.GetNewsTags(ID);
+                    model.NewsMeta = GetNewsMeta(ID);
+                }
+                return model;
+            //}
+            //catch
+            //{
+            //    return new ArticleVM();
+            //}
+        }
+
+        private List<NewsMetaVM> GetNewsMeta(int ID)
+        {
+            try
+            {
+                return (from nm in _DB.BN_GetNewsMeta(ID)
+                        select new NewsMetaVM
+                        {
+                            ID = nm.ID,
+                            Meta = nm.Meta,
+                            Value = nm.Value
+                        }).ToList();
+            }
+            catch
+            {
+                return new List<NewsMetaVM>();
+            }
+        }
 
         private string RemoveSpaces(string content)
         {

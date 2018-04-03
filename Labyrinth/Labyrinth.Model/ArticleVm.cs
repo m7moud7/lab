@@ -100,12 +100,22 @@ namespace Labyrinth.Model
         public int? CurrentGroupID { get; set; }
         public int? CurrentUserID { get; set; }
 
-        //[Required(ErrorMessage = "من فضلك ادخل تعليق الصورة")]
-        //public Int64? CoverImage { get; set; }
 
-        //public int? AlbumID { get; set; }
-        //public int? GoldID { get; set; }
-        //public int? CurrencyID { get; set; }
+        public Int64? CoverID { get; set; }
+
+        [Required(ErrorMessage = "من فضلك ادخل تعليق صورة الكافر")]
+        public string ImageCaptionCover { get; set; }
+
+
+
+        public string Embed { get; set; }
+
+        public int? AlbumID { get; set; }
+        public int? GoldID { get; set; }
+        public int? CurrencyID { get; set; }
+
+
+        public List<NewsMetaVM> NewsMeta { get; set; }
 
 
         //public List<AlbumVm> Albums { get; set; }
@@ -132,8 +142,6 @@ namespace Labyrinth.Model
         //public string CurrentGroupName { get; set; }
         //public string CurrentUserName { get; set; }
 
-        //public string Embed { get; set; }
-        //public List<NewsMetaVM> NewsMeta { get; set; }
         //public string AttachmentPath { get; set; }
         //public bool FromAddEdit { get; set; }//True From Add Article, False From Edit Article
         //public string Path { get; set; }

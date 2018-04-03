@@ -1,6 +1,6 @@
 ﻿@model Labyrinth.Model.ArticleVM
 @{
-    ViewBag.Title = "AddArticle";
+    ViewBag.Title = "تعديل : ";
 }
 
 @section Head{
@@ -23,7 +23,7 @@
         </div>
         <!-- Main Content Element  Start-->
         <div class="row">
-            @using (Html.BeginForm("Add", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddArticle" }))
+            @using (Html.BeginForm("Edit", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "EditArticle" }))
             {
                 <div class="col-md-9">
                     <div class="col-md-12 noPadding">
@@ -101,6 +101,7 @@
                                             </div>
                                             <div class="panel-body no-padding">
                                                 <div class="summernote " id="StoryCode" name="StoryCode">
+                                                    @Model.Story
                                                 </div>
                                             </div>
                                         </div>
@@ -269,7 +270,7 @@
             }
         });
 
-        $('#AddArticle').submit(function (e) {
+        $('#EditArticle').submit(function (e) {
             var Story = htmlEscape($('#StoryCode').summernote().code());
             $('<input />').attr('type', 'hidden')
                 .attr('name', "Story")

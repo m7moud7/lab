@@ -785,8 +785,10 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Cropper\croppie.js" />
     <Content Include="Scripts\Cropper\croppie.min.js" />
+    <Content Include="Scripts\Cropper\demo - Copy %282%29.js" />
     <Content Include="Scripts\Cropper\demo - Copy.js" />
     <Content Include="Scripts\Cropper\demo.js" />
+    <Content Include="Scripts\Cropper\demoArticle.js" />
     <Content Include="Scripts\Cropper\deploy.js" />
     <Content Include="Scripts\Cropper\exif.js" />
     <Content Include="Scripts\Cropper\jquery.min.js" />
@@ -835,6 +837,7 @@
     <Content Include="Views\Article\Add.cshtml" />
     <Content Include="Views\Shared\_LayoutImages.cshtml" />
     <Content Include="Views\Attachment\AddFeaturedImageArticle.cshtml" />
+    <Content Include="Views\Article\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

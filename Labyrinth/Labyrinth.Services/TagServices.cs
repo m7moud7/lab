@@ -16,16 +16,23 @@ namespace Labyrinth.Services
 
         public string GetNewsTags(int NewsID)
         {
-            var model = (from Tg in _DB.BN_GetNewsTags(NewsID)
-                         select new TagVM()
-                         {
-                             ID = Tg.ID,
-                             Name = Tg.Name,
-                         }).ToList();
-            string TagName = "";
-            if (model != null && model.Count > 0)
-                TagName = string.Join(",", model.Select(a => a.Name));
-            return TagName;
+            try
+            {
+                var model = (from Tg in _DB.BN_GetNewsTags(NewsID)
+                             select new TagVM()
+                             {
+                                 ID = Tg.ID,
+                                 Name = Tg.Name,
+                             }).ToList();
+                string TagName = "";
+                if (model != null && model.Count > 0)
+                    TagName = string.Join(",", model.Select(a => a.Name));
+                return TagName;
+            }
+            catch
+            {
+                return "";
+            }
         }
 
         public int QuickAddNews(string viewmodel, int NewsID)

@@ -73,6 +73,12 @@
     <Compile Include="BN_GetAllSections_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="BN_GetNewsById_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BN_GetNewsMeta_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="BN_GetNewsTags_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
@@ -98,6 +104,9 @@
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="News.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewsMeta.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="NewsPublish.cs">

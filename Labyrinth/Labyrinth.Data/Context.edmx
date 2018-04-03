@@ -88,6 +88,16 @@
           <Property Name="NewsID" Type="int" Nullable="false" />
           <Property Name="TagID" Type="bigint" Nullable="false" />
         </EntityType>
+        <EntityType Name="NewsMeta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NewsID" Type="int" Nullable="false" />
+          <Property Name="Meta" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Value" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="NewsPublish">
           <Key>
             <PropertyRef Name="ID" />
@@ -176,6 +186,12 @@
         </Function>
         <Function Name="BN_GetAllSections_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAllSections_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetNewsById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NewsID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BN_GetNewsMeta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NewsID" Type="int" Mode="In" />
+        </Function>
         <Function Name="BN_GetNewsTags" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsID" Type="int" Mode="In" />
         </Function>
@@ -185,6 +201,7 @@
           <EntitySet Name="GeneralSettings" EntityType="Self.GeneralSettings" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News_Tags" EntityType="Self.News_Tags" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NewsMeta" EntityType="Self.NewsMeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewsPublish" EntityType="Self.NewsPublish" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderLevels" EntityType="Self.OrderLevels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
@@ -237,6 +254,13 @@
           <EntitySet Name="Attachments" EntityType="ContextModel.Attachment" />
           <EntitySet Name="News" EntityType="ContextModel.News" />
           <EntitySet Name="NewsPublishes" EntityType="ContextModel.NewsPublish" />
+          <FunctionImport Name="BN_GetNewsById" ReturnType="Collection(ContextModel.BN_GetNewsById_Result)">
+          <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="NewsMetas" EntityType="ContextModel.NewsMeta" />
+          <FunctionImport Name="BN_GetNewsMeta" ReturnType="Collection(ContextModel.BN_GetNewsMeta_Result)">
+            <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="UsersAdmin">
           <Key>
@@ -426,6 +450,50 @@
           <Property Name="Type" Type="Int32" />
           <Property Name="SecID" Type="Int32" />
         </EntityType>
+        <ComplexType Name="BN_GetNewsById_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="SecID" Nullable="false" />
+          <Property Type="String" Name="WrittenBy" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="SubTitle" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Brief" Nullable="true" />
+          <Property Type="String" Name="Story" Nullable="true" />
+          <Property Type="Int64" Name="AttachmentID" Nullable="true" />
+          <Property Type="String" Name="ImageCaption" Nullable="true" MaxLength="1000" />
+          <Property Type="Int64" Name="Cover" Nullable="true" />
+          <Property Type="String" Name="CoverCaption" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="Int32" Name="EditorID" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <Property Type="Int32" Name="CUser" Nullable="true" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Embed" Nullable="true" />
+          <Property Type="Int32" Name="CurrentGroup" Nullable="true" />
+          <Property Type="Int32" Name="CurrentUser" Nullable="true" />
+          <Property Type="String" Name="RelatedNews" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="AlbumId" Nullable="true" />
+          <Property Type="Int32" Name="GoldId" Nullable="true" />
+          <Property Type="Int32" Name="CurrencyId" Nullable="true" />
+          <Property Type="DateTime" Name="NSP_CDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <EntityType Name="NewsMeta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsID" Type="Int32" Nullable="false" />
+          <Property Name="Meta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <ComplexType Name="BN_GetNewsMeta_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Meta" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Value" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -664,6 +732,59 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetNewsById" FunctionName="ContextModel.Store.BN_GetNewsById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetNewsById_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+                <ScalarProperty Name="WrittenBy" ColumnName="WrittenBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SubTitle" ColumnName="SubTitle" />
+                <ScalarProperty Name="Brief" ColumnName="Brief" />
+                <ScalarProperty Name="Story" ColumnName="Story" />
+                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+                <ScalarProperty Name="ImageCaption" ColumnName="ImageCaption" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="CoverCaption" ColumnName="CoverCaption" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="EditorID" ColumnName="EditorID" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="Embed" ColumnName="Embed" />
+                <ScalarProperty Name="CurrentGroup" ColumnName="CurrentGroup" />
+                <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
+                <ScalarProperty Name="RelatedNews" ColumnName="RelatedNews" />
+                <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
+                <ScalarProperty Name="GoldId" ColumnName="GoldId" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="NSP_CDate" ColumnName="NSP_CDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="NewsMetas">
+            <EntityTypeMapping TypeName="ContextModel.NewsMeta">
+              <MappingFragment StoreEntitySet="NewsMeta">
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Meta" ColumnName="Meta" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetNewsMeta" FunctionName="ContextModel.Store.BN_GetNewsMeta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetNewsMeta_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Meta" ColumnName="Meta" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

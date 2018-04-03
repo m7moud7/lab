@@ -58,6 +58,8 @@ namespace Labyrinth.BackEnd.Controllers
         [SessionExpireFilter]
         public ActionResult Edit(int ID)
         {
+            _Article = _ArticleService.GetNewsByID(ID);
+
             ViewBag.SecIdList = CurrentSections();
             ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
             {
@@ -66,7 +68,7 @@ namespace Labyrinth.BackEnd.Controllers
                 Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
             }).ToList();
 
-            return View();
+            return View(_Article);
         }
 
 
@@ -90,6 +92,8 @@ namespace Labyrinth.BackEnd.Controllers
                     ViewModel.CurrentGroupID = null;
 
                 var result = _ArticleService.Save(ViewModel);
+                if (result > 0)
+                    return RedirectToAction("Edit", "Article", new { ID = result });
             }
 
             ViewBag.SecIdList = CurrentSections();

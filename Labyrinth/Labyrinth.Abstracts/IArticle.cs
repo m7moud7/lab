@@ -10,5 +10,6 @@ namespace Labyrinth.Abstracts
     public interface IArticle
     {
         int Save(ArticleVM ViewModel);
+        ArticleVM GetNewsByID(int ID);
     }
 }
