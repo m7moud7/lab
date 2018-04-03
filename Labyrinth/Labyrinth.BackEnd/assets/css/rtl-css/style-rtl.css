@@ -10110,3 +10110,15 @@ hr.footer-border {
 .weatherItem {
     text-align: right;
 }
+
+
+
+.count-num {
+    max-width: 30px;
+    float: left;
+    margin-bottom: 20px;
+    text-align: center;
+    line-height: 20px;
+    height: 30px;
+}
+.img-Block{margin:10px 0;}

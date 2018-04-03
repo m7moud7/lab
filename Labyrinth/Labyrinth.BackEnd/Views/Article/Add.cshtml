@@ -26,7 +26,7 @@
             @using (Html.BeginForm("Add", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddArticle" }))
             {
                 <div class="col-md-9">
-                    <div class="col-md-12 noPadding">
+                    <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">الاساسيات</h3>
@@ -45,7 +45,7 @@
                                     <div class="col-lg-10 noLeft">
                                         @Html.EditorFor(model => model.SubTitle, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countSubTitle(this)", @onkeydown = "countSubTitle(this)" } })
                                         @Html.ValidationMessageFor(model => model.SubTitle, "", new { @class = "text-danger" })
-                                        <input type="text" id="countsubtitle" name="countsubtitle" class="count-num" size="20" disabled>
+                                        <input type="text" id="countsubtitle" name="countsubtitle" class="count-num" disabled>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -56,8 +56,6 @@
                                         <input type="text" id="counttitle" name="counttitle" class="count-num" size="20" disabled>
                                     </div>
                                 </div>
-                                <br /><br /><br />
-
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label noRight">نوع الخبر</label>
                                     <div class="col-md-10 borderForFields">
@@ -68,7 +66,6 @@
                                         @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <br /><br /><br />
                                 <div class="form-group" id="divEditorID" name="divEditorID">
                                     @Html.LabelFor(model => model.EditorID, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10 borderForFields">
@@ -76,7 +73,7 @@
                                         @Html.ValidationMessageFor(model => model.EditorID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <br /><br /><br />
+                                
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label noRight">القسم</label>
                                     <div class="col-md-10 borderForFields">
@@ -84,14 +81,14 @@
                                         @Html.ValidationMessageFor(model => model.SecID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <br /><br /><br />
+                                
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label noRight">الملخص</label>
                                     @Html.TextAreaFor(model => model.Brief, new { @class = "form-control col-lg-10 noLeft", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7" })
                                     @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
                                     <input type="text" id="countbrief" name="countbrief" class="count-num" size="20" disabled>
                                 </div>
-                                <br /><br /><br />
+                                
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Story</label>
@@ -111,7 +108,7 @@
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="col-md-12 noPadding">
+                    <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">اجراءات تكميليه</h3>
@@ -143,22 +140,22 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 noPadding">
+                    <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">الصورة</h3>
                             </div>
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <div class="col-lg-6 noLeft">
-                                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#AddImage">اضافة</button>
+                                    <div class="col-lg-6 noLeft noPadding">
+                                        <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#AddImage">اضافة</button>
                                     </div>
 
-                                    <div class="col-lg-6 noLeft">
-                                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#ChooseImage">اختيار</button>
+                                    <div class="col-lg-6 noLeft noPadding">
+                                        <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#ChooseImage">اختيار</button>
                                     </div>
 
-                                    <div class="col-lg-12 noLeft">
+                                    <div class="col-lg-12 noLeft noPadding img-Block">
                                         <img src="" id="featuredimage" name="featuredimage" class="img-responsive" />
                                         <input type="hidden" id="AttachmentID" name="AttachmentID" value="0" />
                                     </div>
@@ -174,7 +171,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 noPadding">
+                    <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">اجراءات تكميليه</h3>
