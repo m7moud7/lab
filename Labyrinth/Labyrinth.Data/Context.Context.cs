@@ -149,15 +149,6 @@ namespace Labyrinth.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllEditors_ForReOrder_Result>("BN_GetAllEditors_ForReOrder");
         }
     
-        public virtual ObjectResult<BN_GetNewsById_Result> BN_GetNewsById(Nullable<int> newsID)
-        {
-            var newsIDParameter = newsID.HasValue ?
-                new ObjectParameter("NewsID", newsID) :
-                new ObjectParameter("NewsID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsById_Result>("BN_GetNewsById", newsIDParameter);
-        }
-    
         public virtual ObjectResult<BN_GetNewsMeta_Result> BN_GetNewsMeta(Nullable<int> newsID)
         {
             var newsIDParameter = newsID.HasValue ?
@@ -165,6 +156,15 @@ namespace Labyrinth.Data
                 new ObjectParameter("NewsID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsMeta_Result>("BN_GetNewsMeta", newsIDParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetNewsById_Result> BN_GetNewsById(Nullable<int> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsById_Result>("BN_GetNewsById", newsIDParameter);
         }
     }
 }

@@ -102,11 +102,10 @@ namespace Labyrinth.Services
             }
         }
 
-
         public ArticleVM GetNewsByID(int ID)
         {
-            //try
-            //{
+            try
+            {
                 var model = (from NS in _DB.BN_GetNewsById(ID)
                              select new ArticleVM
                              {
@@ -119,11 +118,12 @@ namespace Labyrinth.Services
                                  Story = NS.Story,
                                  AttachmentID = NS.AttachmentID,
                                  ImageCaption = NS.ImageCaption,
+                                 ImagePath = NS.ImagePath,
                                  CoverID = NS.Cover,
                                  ImageCaptionCover = NS.CoverCaption,
                                  Notes = NS.Notes,
                                  Type = NS.Type.Value,
-                                 //EditorID = NS.EditorID.Value,
+                                 EditorID = NS.EditorID.Value,
                                  Status = NS.Status,
                                  IsApproved = NS.IsApproved,
                                  IsDeleted = NS.IsDeleted,
@@ -141,14 +141,22 @@ namespace Labyrinth.Services
                 {
                     model.Tags = _TagServices.GetNewsTags(ID);
                     model.NewsMeta = GetNewsMeta(ID);
+                    //if (model.AttachmentID != 0)
                 }
                 return model;
-            //}
-            //catch
-            //{
-            //    return new ArticleVM();
-            //}
+            }
+            catch
+            {
+                return new ArticleVM();
+            }
         }
+
+
+
+
+
+
+
 
         private List<NewsMetaVM> GetNewsMeta(int ID)
         {

@@ -162,7 +162,7 @@
                         swal("", "تم الحفظ بنجاح", "success");
                         if ($('#featuredimage').length > 0) {
                             $('#featuredimage').attr('src', MSG[0].Value);
-                            $('#AttachmentId').val(MSG[1].Value);
+                            $('#AttachmentID').val(MSG[1].Value);
 
                             //for (i = 1; i < $("#imagecount").val() + 1; i++) {
                             //    $('#upload-demo_' + i).croppie('destroy');

@@ -73,7 +73,7 @@
                                         @Html.ValidationMessageFor(model => model.EditorID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label noRight">القسم</label>
                                     <div class="col-md-10 borderForFields">
@@ -81,14 +81,14 @@
                                         @Html.ValidationMessageFor(model => model.SecID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label class="col-lg-2 control-label noRight">الملخص</label>
                                     @Html.TextAreaFor(model => model.Brief, new { @class = "form-control col-lg-10 noLeft", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7" })
                                     @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
                                     <input type="text" id="countbrief" name="countbrief" class="count-num" size="20" disabled>
                                 </div>
-                                
+
 
                                 <div class="form-group">
                                     <label class="col-lg-3 control-label">Story</label>

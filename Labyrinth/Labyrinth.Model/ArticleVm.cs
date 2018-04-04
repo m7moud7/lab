@@ -96,6 +96,7 @@ namespace Labyrinth.Model
         [Display(Name = "تعليق الصورة"), MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
         public string ImageCaption { get; set; }
 
+        public string ImagePath { get; set; }
 
         public int? CurrentGroupID { get; set; }
         public int? CurrentUserID { get; set; }

@@ -254,11 +254,11 @@
           <EntitySet Name="Attachments" EntityType="ContextModel.Attachment" />
           <EntitySet Name="News" EntityType="ContextModel.News" />
           <EntitySet Name="NewsPublishes" EntityType="ContextModel.NewsPublish" />
-          <FunctionImport Name="BN_GetNewsById" ReturnType="Collection(ContextModel.BN_GetNewsById_Result)">
-          <Parameter Name="NewsID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <EntitySet Name="NewsMetas" EntityType="ContextModel.NewsMeta" />
           <FunctionImport Name="BN_GetNewsMeta" ReturnType="Collection(ContextModel.BN_GetNewsMeta_Result)">
+          <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetNewsById" ReturnType="Collection(ContextModel.BN_GetNewsById_Result)">
             <Parameter Name="NewsID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -450,6 +450,21 @@
           <Property Name="Type" Type="Int32" />
           <Property Name="SecID" Type="Int32" />
         </EntityType>
+        <EntityType Name="NewsMeta">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NewsID" Type="Int32" Nullable="false" />
+          <Property Name="Meta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <ComplexType Name="BN_GetNewsMeta_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Meta" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Value" Nullable="false" />
+        </ComplexType>
         <ComplexType Name="BN_GetNewsById_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Int32" Name="SecID" Nullable="false" />
@@ -474,25 +489,11 @@
           <Property Type="Int32" Name="CurrentGroup" Nullable="true" />
           <Property Type="Int32" Name="CurrentUser" Nullable="true" />
           <Property Type="String" Name="RelatedNews" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ImagePath" Nullable="true" />
           <Property Type="Int32" Name="AlbumId" Nullable="true" />
           <Property Type="Int32" Name="GoldId" Nullable="true" />
           <Property Type="Int32" Name="CurrencyId" Nullable="true" />
           <Property Type="DateTime" Name="NSP_CDate" Nullable="true" Precision="23" />
-        </ComplexType>
-        <EntityType Name="NewsMeta">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NewsID" Type="Int32" Nullable="false" />
-          <Property Name="Meta" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
-        <ComplexType Name="BN_GetNewsMeta_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="String" Name="Meta" Nullable="false" MaxLength="50" />
-          <Property Type="String" Name="Value" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -732,6 +733,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="NewsMetas">
+            <EntityTypeMapping TypeName="ContextModel.NewsMeta">
+              <MappingFragment StoreEntitySet="NewsMeta">
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Meta" ColumnName="Meta" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetNewsMeta" FunctionName="ContextModel.Store.BN_GetNewsMeta">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetNewsMeta_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Meta" ColumnName="Meta" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="BN_GetNewsById" FunctionName="ContextModel.Store.BN_GetNewsById">
             <ResultMapping>
               <ComplexTypeMapping TypeName="ContextModel.BN_GetNewsById_Result">
@@ -758,30 +779,11 @@
                 <ScalarProperty Name="CurrentGroup" ColumnName="CurrentGroup" />
                 <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
                 <ScalarProperty Name="RelatedNews" ColumnName="RelatedNews" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
                 <ScalarProperty Name="GoldId" ColumnName="GoldId" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
                 <ScalarProperty Name="NSP_CDate" ColumnName="NSP_CDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <EntitySetMapping Name="NewsMetas">
-            <EntityTypeMapping TypeName="ContextModel.NewsMeta">
-              <MappingFragment StoreEntitySet="NewsMeta">
-                <ScalarProperty Name="CDate" ColumnName="CDate" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Meta" ColumnName="Meta" />
-                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="BN_GetNewsMeta" FunctionName="ContextModel.Store.BN_GetNewsMeta">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="ContextModel.BN_GetNewsMeta_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Meta" ColumnName="Meta" />
-                <ScalarProperty Name="Value" ColumnName="Value" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
