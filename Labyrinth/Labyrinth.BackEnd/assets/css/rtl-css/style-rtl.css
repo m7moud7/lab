@@ -19,7 +19,13 @@ Primary use :	Dashboard
 @import "../rtl-css/plugins/switchery-rtl.css";
 
 @import "../rtl-css/plugins/bootstrap-switch-rtl.css";
-
+@font-face {
+    font-family: "newfont";
+    src: url(../../fonts/textFonts/Hacen-Tunisia.otf) format("opentype");
+    src: url(../../fonts/textFonts/Hacen-Tunisia.woff) format("woff"),
+         url(../../fonts/textFonts/Hacen-Tunisia.ttf) format("truetype"),
+         url(../../fonts/textFonts/Hacen-Tunisia.svg) format("svg")
+}
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -1300,7 +1306,7 @@ ul.mainNav.active ul ul ul {
   width: 100%;
   float: right;
   padding-right: 200px;
-  /*background: #58595B;*/
+  background: #58595B;
 }
 
 #min-wrapper.active {
@@ -7779,7 +7785,8 @@ a.expand:hover {
 }
 
 h3.panel-title {
-  font-size: 15px;
+    font-family: "newfont";
+    font-size: 18px
 }
 
 .modal-content {
@@ -10116,9 +10123,21 @@ hr.footer-border {
 .count-num {
     max-width: 30px;
     float: left;
-    margin-bottom: 20px;
     text-align: center;
     line-height: 20px;
     height: 30px;
 }
 .img-Block{margin:10px 0;}
+
+.control-label {
+    font-family: "newfont";
+    font-size: 16px;
+}
+.TextEditorBlock{display:table; clear:both;}
+.TextEditorBlockBorder {
+    border: 1px solid #e0e0e0;
+    padding-top: 20px;
+}
+.marginBlock{margin:20px 0; clear:both; display:table; width:100%;}
+
+.SubmitBlock{clear:both;}

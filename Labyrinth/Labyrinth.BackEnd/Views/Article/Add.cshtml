@@ -34,70 +34,69 @@
                             <div class="panel-body">
                                 @*
                                     <div class="form-group">
-                                        <label class="col-lg-2 control-label noRight">عنوان فرعى</label>
+                                        <label class="col-lg-2 control-label noRight HeadLabel">عنوان فرعى</label>
                                         <div class="col-lg-10 noLeft">
                                             <input type="text" placeholder="عنوان فرعى" name="text" class="form-control">
                                         </div>
                                     </div>
                                 *@
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">العنوان الفرعى</label>
+                                <div class="form-group marginBlock">
+                                    <label class="col-lg-2 control-label noRight HeadLabel">العنوان الفرعى</label>
                                     <div class="col-lg-10 noLeft">
                                         @Html.EditorFor(model => model.SubTitle, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countSubTitle(this)", @onkeydown = "countSubTitle(this)" } })
                                         @Html.ValidationMessageFor(model => model.SubTitle, "", new { @class = "text-danger" })
                                         <input type="text" id="countsubtitle" name="countsubtitle" class="count-num" disabled>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">العنوان الرئيسى</label>
+                                <div class="form-group marginBlock">
+                                    <label class="col-lg-2 control-label noRight HeadLabel">العنوان الرئيسى</label>
                                     <div class="col-lg-10 noLeft">
                                         @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countTitle(this)", @onkeydown = "countTitle(this)" } })
                                         @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
                                         <input type="text" id="counttitle" name="counttitle" class="count-num" size="20" disabled>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">نوع الخبر</label>
+                                <div class="form-group marginBlock">
+                                    <label class="col-lg-2 control-label noRight HeadLabel">نوع الخبر</label>
                                     <div class="col-md-10 borderForFields">
-                                        <select id="Type" name="Type" style="width: 100%;" class="chosen-container-single">
+                                        <select id="Type" name="Type" style="width: 100%;" class="chosen-container-single selectize-input">
                                             <option value="1" @(Model != null && Model.Type == 1 ? "selected" : "")>خبر</option>
                                             <option value="2" @(Model != null && Model.Type == 2 ? "selected" : "")>مقال</option>
                                         </select>
                                         @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="form-group" id="divEditorID" name="divEditorID">
+                                <div class="form-group marginBlock" id="divEditorID" name="divEditorID">
                                     @Html.LabelFor(model => model.EditorID, htmlAttributes: new { @class = "control-label col-md-2" })
                                     <div class="col-md-10 borderForFields">
-                                        @Html.DropDownListFor(model => model.EditorID, (IEnumerable<SelectListItem>)ViewBag.EditorIdList, "اختر الكاتب", new { style = "width: 100%;" })
-                                        @Html.ValidationMessageFor(model => model.EditorID, "", new { @class = "text-danger" })
+                                        @Html.DropDownListFor(model => model.EditorID, (IEnumerable<SelectListItem>)ViewBag.EditorIdList, "اختر الكاتب", new { @class = "selectize-input", @style = "width: 100%;" })
+                                        @Html.ValidationMessageFor(model => model.EditorID, "", new { @class = "text-danger " })
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">القسم</label>
+                                <div class="form-group marginBlock">
+                                    <label class="col-lg-2 control-label noRight HeadLabel">القسم</label>
                                     <div class="col-md-10 borderForFields">
-                                        @Html.DropDownListFor(model => model.SecID, (IEnumerable<SelectListItem>)ViewBag.SecIdList, "اختر القسم", new { style = "width: 100%;" })
+                                        @Html.DropDownListFor(model => model.SecID, (IEnumerable<SelectListItem>)ViewBag.SecIdList, "اختر القسم", new { @class = "selectize-input", @style = "width: 100%;" })
                                         @Html.ValidationMessageFor(model => model.SecID, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">الملخص</label>
-                                    @Html.TextAreaFor(model => model.Brief, new { @class = "form-control col-lg-10 noLeft", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7" })
+                                <div class="form-group marginBlock">
+                                    <label class="col-md-2 control-label noRight HeadLabel">الملخص</label>
+                                    @Html.TextAreaFor(model => model.Brief, new { @class = "col-md-10", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7", @style = "max-width: 83.33333333% !important" })
                                     @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
                                     <input type="text" id="countbrief" name="countbrief" class="count-num" size="20" disabled>
                                 </div>
 
 
-                                <div class="form-group">
-                                    <label class="col-lg-3 control-label">Story</label>
-                                    <div class="col-lg-6">
+                                <div class="form-group marginBlock TextEditorBlock">
+                                    <label class="col-lg-12 control-label HeadLabel">الخبر</label>
+                                    <div class="col-lg-12 TextEditorBlockBorder">
                                         <div class="panel panel-default EditWidth">
-                                            <div class="panel-heading">
-                                            </div>
                                             <div class="panel-body no-padding">
                                                 <div class="summernote " id="StoryCode" name="StoryCode">
+
                                                 </div>
                                             </div>
                                         </div>
@@ -113,28 +112,27 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">اجراءات تكميليه</h3>
                             </div>
-                            <div class="panel-body">
-                                <div class="form-group">
+                            <div class="">
+                                <div class="form-group marginBlock">
                                     <div class="col-lg-12 noLeft" id="Schdeuled" name="Schdeuled">
-                                        @Html.LabelFor(model => model.SchdeuledPublish, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10 borderForFields">
+                                        @*@Html.LabelFor(model => model.SchdeuledPublish, htmlAttributes: new { @class = "control-label col-md-2" })*@
+                                        <div class="col-md-12 borderForFields">
                                             @Html.EditorFor(model => model.SchdeuledPublish, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.SchdeuledPublish, "", new { @class = "text-danger" })
                                         </div>
                                     </div>
-
-                                    <div class="form-group checkbox3">
-                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-                                        <div class="col-md-10">
+                                    <div class="col-lg-12 form-group marginBlock checkbox3 SubmitBlock">
+                                        <div class="col-md-7">
                                             <div class="checkbox">
                                                 @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
                                                 @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+
                                             </div>
                                         </div>
-                                    </div>
-
-                                    <div class="col-lg-12 noLeft">
-                                        <button type="submit" class="btn btn-info btn-lg">حفظ</button>
+                                        <div class="col-md-5">
+                                            <button type="submit" class="btn btn-info btn-lg">حفظ</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -145,8 +143,8 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">الصورة</h3>
                             </div>
-                            <div class="panel-body">
-                                <div class="form-group">
+                            <div class="">
+                                <div class="form-group marginBlock">
                                     <div class="col-lg-6 noLeft noPadding">
                                         <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#AddImage">اضافة</button>
                                     </div>
@@ -160,9 +158,9 @@
                                         <input type="hidden" id="AttachmentID" name="AttachmentID" value="0" />
                                     </div>
 
-                                    <div class="col-lg-12 noLeft">
-                                        <label class="col-lg-2 control-label noRight">تعليق الصوره</label>
-                                        <div class="col-lg-10 noLeft">
+                                    <div>
+                                        <label class="col-md-12 control-label noRight HeadLabel">تعليق الصوره</label>
+                                        <div class="col-md-12 noLeft">
                                             @Html.EditorFor(model => model.ImageCaption, new { htmlAttributes = new { @class = "form-control" } })
                                             @Html.ValidationMessageFor(model => model.ImageCaption, "", new { @class = "text-danger" })
                                         </div>
@@ -176,32 +174,32 @@
                             <div class="panel-heading">
                                 <h3 class="panel-title">اجراءات تكميليه</h3>
                             </div>
-                            <div class="panel-body">
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">بقلم</label>
+                            <div class="">
+                                <div class="form-group marginBlock">
+                                    <label class="col-lg-2 control-label noRight HeadLabel">بقلم</label>
                                     <div class="col-lg-10 noLeft">
                                         @Html.EditorFor(model => model.WrittenBy, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countWrittenby(this)", @onkeydown = "countWrittenby(this)" } })
                                         @Html.ValidationMessageFor(model => model.WrittenBy, "", new { @class = "text-danger" })
                                         <input ng-model="writtenbydata" type="text" id="countwrittenby" name="countwrittenby" class="count-num" size="20" disabled>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">تاجز</label>
-                                    <div class="col-lg-10 noLeft">
-                                        @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "input-tags col-lg-10 noLeft" } })
+                                <div class="form-group marginBlock">
+                                    <label class="col-md-12 control-label noRight HeadLabel">تاجز</label>
+                                    <div class="col-md-12 noLeft">
+                                        @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "input-tags col-lg-12 noLeft" } })
                                         @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">الاخبار المتعلقه</label>
-                                    <div class="control-group col-lg-10 noLeft">
-                                        <select id="relatedNews" class="demo-default"></select>
+                                <div class="form-group marginBlock">
+                                    <label class="col-md-12 control-label noRight HeadLabel">الاخبار المتعلقه</label>
+                                    <div class="control-group col-md-12 noLeft">
+                                        <select id="relatedNews" class="demo-default selectize-input"></select>
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label class="col-lg-2 control-label noRight">ملاحظات</label>
-                                    @Html.TextAreaFor(model => model.Notes, new { htmlAttributes = new { @class = "form-control col-lg-10 noLeft", @rows = "7" } })
+                                <div class="form-group marginBlock">
+                                    <label class="col-md-12 control-label noRight HeadLabel">ملاحظات</label>
+                                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control col-md-12 noLeft", @rows = "7", @style = "max-width: 90% !important; margin:auto; float:none" })
                                 </div>
                             </div>
                         </div>

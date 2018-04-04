@@ -422,6 +422,7 @@
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\fonts\Slide-icons.dev.svg" />
     <Content Include="assets\fonts\Slide-icons.svg" />
+    <Content Include="assets\fonts\textFonts\Hacen-Tunisia.svg" />
     <Content Include="assets\images\404.png" />
     <Content Include="assets\images\AjaxLoader.gif" />
     <Content Include="assets\images\arrows.png" />
@@ -781,6 +782,9 @@
     <Content Include="assets\images\file-manager\src\quicklook-icons.pxm" />
     <Content Include="assets\images\file-manager\src\toolbar.pxm" />
     <Content Include="assets\images\Luscious-gmap.zip" />
+    <Content Include="assets\fonts\textFonts\Hacen-Tunisia.otf" />
+    <Content Include="assets\fonts\textFonts\Hacen-Tunisia.ttf" />
+    <Content Include="assets\fonts\textFonts\Hacen-Tunisia.woff" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\Cropper\croppie.js" />
