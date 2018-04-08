@@ -151,10 +151,10 @@ namespace Labyrinth.Services
             }
         }
 
-
-
-
-
+        public List<ArticleVM> GetAllNews(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsDeleted)
+        {
+            throw new NotImplementedException();
+        }
 
 
 
@@ -201,5 +201,7 @@ namespace Labyrinth.Services
                 content = content.Remove(content.LastIndexOf('-'));
             return content;
         }
+
+      
     }
 }

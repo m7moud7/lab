@@ -73,6 +73,9 @@
     <Compile Include="BN_GetAllSections_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="BN_GetAttachments_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="BN_GetNewsById_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>

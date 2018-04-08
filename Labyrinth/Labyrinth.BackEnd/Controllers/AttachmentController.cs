@@ -32,6 +32,13 @@ namespace Labyrinth.BackEnd.Controllers
             return View(_Attachment.GetSettings("Images", ""));
         }
 
+
+        public ActionResult ChooseImageArticle(int Take, int PageID, string Filter)
+        {
+            return View(_Attachment.GatAllImage(Take, PageID, Filter));
+        }
+
+
         [HttpPost]
         public JsonResult Add(FormCollection frm)
         {
@@ -52,10 +59,14 @@ namespace Labyrinth.BackEnd.Controllers
                         ViewModel.CUser = uservm.ID;
                         ViewModel.CDate = DateTimePath;
                         ViewModel.Path = uservm.ID.ToString() + uservm.Username.GetHashCode().ToString().Replace("-", "") + DateTimePath.ToString("yyyyMMddhhmmssms") + ".jpg";
+                        ViewModel.IsPublish = true;
+                        ViewModel.Type = 1;
+                        ViewModel.FolderName = "\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\";
                         NewId = _Attachment.Save(ViewModel);
 
-                        MSG.Path = "\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\" + "Large" + "\\" + ViewModel.Path;
+                        MSG.Path = ViewModel.FolderName + "Thumb" + "\\" + ViewModel.Path;
                         MSG.NewId = NewId;
+
                     }
 
                     if (NewId > 0)
@@ -63,14 +74,18 @@ namespace Labyrinth.BackEnd.Controllers
                         var KeyPath = frm[frm.AllKeys.Where(k => k.Contains("SetKey_" + counter)).FirstOrDefault()];
                         var OriginalPath = frm[frm.AllKeys.Where(k => k.Contains("Val1_" + counter)).FirstOrDefault()];
 
+
+                        //Create Folder Year
                         var FolderYear = Server.MapPath("\\Images\\" + DateTimePath.Year);
                         if (!Directory.Exists(FolderYear))
                             Directory.CreateDirectory(FolderYear);
 
+                        //Create Folder Month
                         var FolderMonth = Server.MapPath("\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month);
                         if (!Directory.Exists(FolderMonth))
                             Directory.CreateDirectory(FolderMonth);
 
+                        //Create Folder KeyPath
                         var FolderSetKey = Server.MapPath("\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\" + KeyPath);
                         if (!Directory.Exists(FolderSetKey))
                             Directory.CreateDirectory(FolderSetKey);
@@ -94,6 +109,23 @@ namespace Labyrinth.BackEnd.Controllers
                             using (Bitmap bm2 = new Bitmap(ms2))
                             {
                                 bm2.Save(Server.MapPath("\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\" + KeyPath + "\\" + ViewModel.Path));
+
+                                if (counter == 0)
+                                {
+                                    var FolderThumb = Server.MapPath("\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\Thumb");
+                                    if (!Directory.Exists(FolderThumb))
+                                        Directory.CreateDirectory(FolderThumb);
+
+                                    Size ThumbSize = new Size((bm2.Width * 30) / 100, (bm2.Height * 30) / 100);
+
+                                    var newImage = new Bitmap(ThumbSize.Width, ThumbSize.Height);
+
+                                    using (var graphics = Graphics.FromImage(newImage))
+                                        graphics.DrawImage(bm2, 0, 0, ThumbSize.Width, ThumbSize.Height);
+
+                                    newImage.Save(Server.MapPath("\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\Thumb\\" + ViewModel.Path));
+                                    newImage.Dispose();
+                                }
                             }
                         }
                     }

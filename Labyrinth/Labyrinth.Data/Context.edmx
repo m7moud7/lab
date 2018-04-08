@@ -186,6 +186,11 @@
         </Function>
         <Function Name="BN_GetAllSections_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAllSections_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetAttachments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Filter" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageID" Type="int" Mode="In" />
+          <Parameter Name="Take" Type="int" Mode="In" />
+        </Function>
         <Function Name="BN_GetNewsById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsID" Type="int" Mode="In" />
         </Function>
@@ -259,7 +264,12 @@
           <Parameter Name="NewsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="BN_GetNewsById" ReturnType="Collection(ContextModel.BN_GetNewsById_Result)">
-            <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAttachments" ReturnType="Collection(ContextModel.BN_GetAttachments_Result)">
+            <Parameter Name="Filter" Mode="In" Type="String" />
+            <Parameter Name="PageID" Mode="In" Type="Int32" />
+            <Parameter Name="Take" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <EntityType Name="UsersAdmin">
@@ -494,6 +504,17 @@
           <Property Type="Int32" Name="GoldId" Nullable="true" />
           <Property Type="Int32" Name="CurrencyId" Nullable="true" />
           <Property Type="DateTime" Name="NSP_CDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAttachments_Result">
+          <Property Type="Int64" Name="ID" Nullable="false" />
+          <Property Type="String" Name="AltImage" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Caption" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Path" Nullable="true" />
+          <Property Type="Boolean" Name="IsPublish" Nullable="false" />
+          <Property Type="String" Name="FolderName" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <Property Type="String" Name="IsUsedToday" Nullable="false" MaxLength="5" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -784,6 +805,21 @@
                 <ScalarProperty Name="GoldId" ColumnName="GoldId" />
                 <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
                 <ScalarProperty Name="NSP_CDate" ColumnName="NSP_CDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAttachments" FunctionName="ContextModel.Store.BN_GetAttachments">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAttachments_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="AltImage" ColumnName="AltImage" />
+                <ScalarProperty Name="Caption" ColumnName="Caption" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="IsPublish" ColumnName="IsPublish" />
+                <ScalarProperty Name="FolderName" ColumnName="FolderName" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsUsedToday" ColumnName="IsUsedToday" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

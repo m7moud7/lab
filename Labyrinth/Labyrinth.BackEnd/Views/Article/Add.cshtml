@@ -32,14 +32,6 @@
                                 <h3 class="panel-title">الاساسيات</h3>
                             </div>
                             <div class="panel-body">
-                                @*
-                                    <div class="form-group">
-                                        <label class="col-lg-2 control-label noRight HeadLabel">عنوان فرعى</label>
-                                        <div class="col-lg-10 noLeft">
-                                            <input type="text" placeholder="عنوان فرعى" name="text" class="form-control">
-                                        </div>
-                                    </div>
-                                *@
                                 <div class="form-group marginBlock">
                                     <label class="col-lg-2 control-label noRight HeadLabel">العنوان الفرعى</label>
                                     <div class="col-lg-10 noLeft">
@@ -96,7 +88,6 @@
                                         <div class="panel panel-default EditWidth">
                                             <div class="panel-body no-padding">
                                                 <div class="summernote " id="StoryCode" name="StoryCode">
-
                                                 </div>
                                             </div>
                                         </div>
@@ -231,6 +222,25 @@
         </div>
     </div>
 
+
+    <div id="ChooseImage" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">اختار صورة</h4>
+                </div>
+                <div class="modal-body">
+                    @{ Html.RenderAction("ChooseImageArticle", "Attachment", new { @Take = 100, @PageID = 0 });}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">اغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/Scripts/js/ArticleValidation.js"></script>
     @Scripts.Render("~/Scripts/Addons_Library/jquery.datetimepicker.full.min.js")
     <script>
@@ -281,6 +291,11 @@
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;');
         }
+
+        $('#ChooseImage').on('click', '#btnChooseimage', function () {
+            $('#featuredimage').attr('src', $('#ImgChooseimage_' + $(this).attr("data-id")).attr('src'));
+            $('#AttachmentID').val($(this).attr("data-id"));
+        });
 
     </script>
 }

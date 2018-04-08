@@ -11,5 +11,8 @@ namespace Labyrinth.Abstracts
     {
         int Save(ArticleVM ViewModel);
         ArticleVM GetNewsByID(int ID);
+
+        List<ArticleVM> GetAllNews(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsDeleted);
+
     }
 }

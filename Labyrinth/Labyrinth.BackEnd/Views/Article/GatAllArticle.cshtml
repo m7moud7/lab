@@ -1,0 +1,128 @@
+﻿
+@{
+    ViewBag.Title = "GatAllArticle";
+}
+
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Top header start-->
+                <h3 class="ls-top-header">Dashboard</h3>
+                <!--Top header end -->
+                <!--Top breadcrumb start -->
+                <ol class="breadcrumb">
+                    <li><a href="#"><i class="fa fa-home"></i></a></li>
+                    <li class="active">الاخبار المنشوره</li>
+                </ol>
+                <!--Top breadcrumb start -->
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div>
+                <ul class="subsubsub">
+                    <li class="allsubsubsub"><a href="" class="current">الاخبار المنشوره <span class="count">(@ViewBag.CountPublishArticle)</span></a> |</li>
+                    <li class="allsubsubsub"><a href="" class="current">الاخبار الغير منشوره<span class="count">(@ViewBag.CountUnPublishArticle)</span></a> |</li>
+                    <li class="allsubsubsub"><a href="" class="current">الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a></li>
+                </ul>
+            </div>
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">بحث مفصل</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form class="ls_form">
+                            <div class="col-md-2">
+                                <input type="text" class="form-control rounded" name="rounded_text" placeholder="رقم الخبر">
+                            </div>
+                            <div class="col-md-4">
+                                <input type="text" class="form-control rounded" name="rounded_text" placeholder="اسم الخبر">
+                            </div>
+                            <div class="col-md-2 ls-group-input">
+                                <select class="form-control">
+                                    <option>القسم</option>
+                                    <option>القسم1</option>
+                                    <option>القسم 2</option>
+                                    <option>القسم 3</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 ls-group-input">
+                                <select class="form-control">
+                                    <option>حاله الخبر</option>
+                                    <option>منشور</option>
+                                    <option>غير منشور</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-default btn-round">بحث</button>
+                            </div>
+                        </form>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <!--Table Wrapper Start-->
+            <div class="table-responsive ls-table">
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input class="icheck-blue checkAll" type="checkbox" id="checkRed2" value="option2" />
+                            </th>
+                            <th>#</th>
+                            <th>العنوان</th>
+                            <th>تفاصيل</th>
+                            <th>الحاله</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <input class="icheck-blue" type="checkbox" id="checkRed2" value="option2" />
+                            </td>
+                            <td>1</td>
+                            <td class="firstTh">
+                                عنوان الخبر
+                                <div class="row-actions">
+                                    <span class="edit">تعديل</span>
+                                    <span class="quickedit">تعديل سريع</span>
+                                    <span class="edit">حذف</span>
+                                    <span class="edit">عرض</span>
+                                </div>
+                                <div class="quickEditForm">
+                                    <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
+                                </div>
+                            </td>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td><span class="label label-warning">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input class="icheck-blue" type="checkbox" id="checkRed2" value="option2" />
+                            </td>
+                            <td>1</td>
+                            <td class="firstTh">
+                                عنوان الخبر
+                                <div class="row-actions">
+                                    <span class="edit">تعديل</span>
+                                    <span class="quickedit">تعديل سريع</span>
+                                    <span class="edit">حذف</span>
+                                    <span class="edit">عرض</span>
+                                </div>
+                                <div class="quickEditForm">
+                                    <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
+                                </div>
+                            </td>
+                            <td>Lorem ipsum dolor sit amet</td>
+                            <td><span class="label label-warning">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--Table Wrapper Finish-->
+        </div>
+        <!-- Main Content Element  End-->
+    </div>
+</div>
+

@@ -11,6 +11,7 @@ namespace Labyrinth.Abstracts
     {
         List<GeneralSettingsVM> GetSettings(string SetName, string SetKey);
         long Save(AttachmentVM ViewModel);
+        List<AttachmentVM> GatAllImage(int Take, int PageID, string Filter);
 
     }
 }

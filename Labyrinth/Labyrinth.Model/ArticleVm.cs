@@ -104,7 +104,7 @@ namespace Labyrinth.Model
 
         public Int64? CoverID { get; set; }
 
-        [Required(ErrorMessage = "من فضلك ادخل تعليق صورة الكافر")]
+        //[Required(ErrorMessage = "من فضلك ادخل تعليق صورة الكافر")]
         public string ImageCaptionCover { get; set; }
 
 

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Labyrinth.Model.AttachmentVM>
+@{
+    ViewBag.Title = "ChooseImageArticle";
+    Layout = "";
+}
+<div style="width:100%;">
+    <!-- ls Gallery Item Start -->
+    @foreach (var item in Model)
+    {
+        <div>
+            <img src="@item.FolderName\Thumb\@item.Path" data-id="@item.ID" id="ImgChooseimage_@item.ID" name="ImgChooseimage_@item.ID" />
+            <button type="button" id="btnChooseimage" name="btnChooseimage" data-id="@item.ID" data-dismiss="modal">اختار</button>
+        </div>
+    }
+</div>

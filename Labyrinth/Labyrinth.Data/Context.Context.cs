@@ -166,5 +166,22 @@ namespace Labyrinth.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsById_Result>("BN_GetNewsById", newsIDParameter);
         }
+    
+        public virtual ObjectResult<BN_GetAttachments_Result> BN_GetAttachments(string filter, Nullable<int> pageID, Nullable<int> take)
+        {
+            var filterParameter = filter != null ?
+                new ObjectParameter("Filter", filter) :
+                new ObjectParameter("Filter", typeof(string));
+    
+            var pageIDParameter = pageID.HasValue ?
+                new ObjectParameter("PageID", pageID) :
+                new ObjectParameter("PageID", typeof(int));
+    
+            var takeParameter = take.HasValue ?
+                new ObjectParameter("Take", take) :
+                new ObjectParameter("Take", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAttachments_Result>("BN_GetAttachments", filterParameter, pageIDParameter, takeParameter);
+        }
     }
 }

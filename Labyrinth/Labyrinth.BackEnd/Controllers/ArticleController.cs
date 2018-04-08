@@ -54,24 +54,6 @@ namespace Labyrinth.BackEnd.Controllers
             return View();
         }
 
-
-        [SessionExpireFilter]
-        public ActionResult Edit(int ID)
-        {
-            _Article = _ArticleService.GetNewsByID(ID);
-
-            ViewBag.SecIdList = CurrentSections();
-            ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
-            {
-                Text = item.Name,
-                Value = item.ID.ToString(),
-                Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
-            }).ToList();
-
-            return View(_Article);
-        }
-
-
         [HttpPost]
         [SessionExpireFilter]
         public ActionResult Add(ArticleVM ViewModel)
@@ -106,6 +88,68 @@ namespace Labyrinth.BackEnd.Controllers
             return View();
         }
 
+
+        [SessionExpireFilter]
+        public ActionResult Edit(int ID)
+        {
+            _Article = _ArticleService.GetNewsByID(ID);
+            if (_Article.ID > 0)
+            {
+                ViewBag.SecIdList = CurrentSections();
+                ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
+                {
+                    Text = item.Name,
+                    Value = item.ID.ToString(),
+                    Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
+                }).ToList();
+                return View(_Article);
+            }
+            else
+            {
+                return RedirectToAction("Add", "Article");
+            }
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult Edit(ArticleVM ViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewModel.CUser = uservm.ID;
+                ViewModel.CDate = DateTime.Now;
+                ViewModel.Story = WebUtility.HtmlDecode(ViewModel.Story).ToString();
+
+                if (ViewModel.CurrentGroupID == null && ViewModel.CurrentUserID == null)
+                    ViewModel.CurrentUserID = uservm.ID;
+
+                if (ViewModel.CurrentGroupID != null && ViewModel.CurrentUserID == 0)
+                    ViewModel.CurrentUserID = null;
+
+                if (ViewModel.CurrentGroupID != null && (ViewModel.CurrentUserID > 0))
+                    ViewModel.CurrentGroupID = null;
+
+                var result = _ArticleService.Save(ViewModel);
+                if (result > 0)
+                    return RedirectToAction("Edit", "Article", new { ID = result });
+            }
+
+            return RedirectToAction("Edit", new { ID = ViewModel.ID });
+
+        }
+
+
+        [SessionExpireFilter]
+        public ActionResult GatAllArticle()
+        {
+            ViewBag.CountPublishArticle = "";
+            ViewBag.CountUnPublishArticle = "";
+            ViewBag.CountDeletedArticle = "";
+
+
+
+            return View();
+        }
 
     }
 }

@@ -62,5 +62,29 @@ namespace Labyrinth.Services
             }
         }
 
+
+        public List<AttachmentVM> GatAllImage(int Take, int PageID, string Filter)
+        {
+            try
+            {
+                return (from Att in _DB.BN_GetAttachments(Filter, PageID, Take)
+                        select new AttachmentVM()
+                        {
+                            ID = Att.ID,
+                            Caption = Att.Caption,
+                            ALtImage = Att.AltImage,
+                            Path = Att.Path,
+                            FolderName = Att.FolderName,
+                            IsPublish = Att.IsPublish,
+                            IsDeleted = Att.IsDeleted,
+                            CDate = Att.CDate,
+                            IsUsedToday = bool.Parse(Att.IsUsedToday)
+                        }).ToList();
+            }
+            catch
+            {
+                return new List<AttachmentVM>();
+            }
+        }
     }
 }

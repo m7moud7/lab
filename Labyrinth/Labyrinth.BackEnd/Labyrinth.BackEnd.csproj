@@ -842,6 +842,8 @@
     <Content Include="Views\Shared\_LayoutImages.cshtml" />
     <Content Include="Views\Attachment\AddFeaturedImageArticle.cshtml" />
     <Content Include="Views\Article\Edit.cshtml" />
+    <Content Include="Views\Attachment\ChooseImageArticle.cshtml" />
+    <Content Include="Views\Article\GatAllArticle.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
