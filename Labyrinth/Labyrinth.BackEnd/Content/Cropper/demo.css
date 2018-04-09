@@ -234,10 +234,10 @@ h2 {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 }
-[class*='col-'] {
+/*[class*='col-'] {
 	float: right;
-	padding-right: 20px; /* column-space */
-}
+	padding-right: 20px;
+}*/
 
 .grid {
 	width: 100%;
