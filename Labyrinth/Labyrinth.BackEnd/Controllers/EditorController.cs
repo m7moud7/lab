@@ -102,13 +102,13 @@ namespace Labyrinth.BackEnd.Controllers
 
 
         [SessionExpireFilter]
-        public ActionResult SectionsReorder()
+        public ActionResult EditorsReorder()
         {
             return View(_Editor.GetAllEditors_ForReOrder());
         }
 
         [SessionExpireFilter]
-        public JsonResult SaveSectionsOrder(EditorOrderVM viewmodel)
+        public JsonResult SaveEditorsOrder(EditorOrderVM viewmodel)
         {
             string result = _Editor.SaveEditorsReOrder(viewmodel.EditorOrder);
             return Json(result, JsonRequestBehavior.AllowGet);

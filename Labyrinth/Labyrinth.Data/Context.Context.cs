@@ -183,5 +183,76 @@ namespace Labyrinth.Data
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAttachments_Result>("BN_GetAttachments", filterParameter, pageIDParameter, takeParameter);
         }
+    
+        public virtual ObjectResult<Nullable<int>> BN_GetAllNews_Count(string srchTerm, string newsID, string secID, string type, Nullable<bool> isApproved, Nullable<bool> isDeleted)
+        {
+            var srchTermParameter = srchTerm != null ?
+                new ObjectParameter("SrchTerm", srchTerm) :
+                new ObjectParameter("SrchTerm", typeof(string));
+    
+            var newsIDParameter = newsID != null ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(string));
+    
+            var secIDParameter = secID != null ?
+                new ObjectParameter("SecID", secID) :
+                new ObjectParameter("SecID", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(string));
+    
+            var isApprovedParameter = isApproved.HasValue ?
+                new ObjectParameter("IsApproved", isApproved) :
+                new ObjectParameter("IsApproved", typeof(bool));
+    
+            var isDeletedParameter = isDeleted.HasValue ?
+                new ObjectParameter("IsDeleted", isDeleted) :
+                new ObjectParameter("IsDeleted", typeof(bool));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("BN_GetAllNews_Count", srchTermParameter, newsIDParameter, secIDParameter, typeParameter, isApprovedParameter, isDeletedParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetAllNews_Result> BN_GetAllNews(string srchTerm, string newsID, string secID, string type, Nullable<bool> isApproved, Nullable<bool> isDeleted, Nullable<int> take, Nullable<int> pageID)
+        {
+            var srchTermParameter = srchTerm != null ?
+                new ObjectParameter("SrchTerm", srchTerm) :
+                new ObjectParameter("SrchTerm", typeof(string));
+    
+            var newsIDParameter = newsID != null ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(string));
+    
+            var secIDParameter = secID != null ?
+                new ObjectParameter("SecID", secID) :
+                new ObjectParameter("SecID", typeof(string));
+    
+            var typeParameter = type != null ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(string));
+    
+            var isApprovedParameter = isApproved.HasValue ?
+                new ObjectParameter("IsApproved", isApproved) :
+                new ObjectParameter("IsApproved", typeof(bool));
+    
+            var isDeletedParameter = isDeleted.HasValue ?
+                new ObjectParameter("IsDeleted", isDeleted) :
+                new ObjectParameter("IsDeleted", typeof(bool));
+    
+            var takeParameter = take.HasValue ?
+                new ObjectParameter("Take", take) :
+                new ObjectParameter("Take", typeof(int));
+    
+            var pageIDParameter = pageID.HasValue ?
+                new ObjectParameter("PageID", pageID) :
+                new ObjectParameter("PageID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllNews_Result>("BN_GetAllNews", srchTermParameter, newsIDParameter, secIDParameter, typeParameter, isApprovedParameter, isDeletedParameter, takeParameter, pageIDParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetAllUsers_DDL_Result> BN_GetAllUsers_DDL()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllUsers_DDL_Result>("BN_GetAllUsers_DDL");
+        }
     }
 }

@@ -836,7 +836,7 @@
     <Content Include="Views\Editor\Add.cshtml" />
     <Content Include="Views\Editor\Edit.cshtml" />
     <Content Include="Views\Section\SectionsReorder.cshtml" />
-    <Content Include="Views\Editor\SectionsReorder.cshtml" />
+    <Content Include="Views\Editor\EditorsReorder.cshtml" />
     <Content Include="Views\Attachment\AddFeaturedImage.cshtml" />
     <Content Include="Views\Article\Add.cshtml" />
     <Content Include="Views\Shared\_LayoutImages.cshtml" />

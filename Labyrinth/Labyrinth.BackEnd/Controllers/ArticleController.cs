@@ -142,13 +142,30 @@ namespace Labyrinth.BackEnd.Controllers
         [SessionExpireFilter]
         public ActionResult GatAllArticle()
         {
-            ViewBag.CountPublishArticle = "";
-            ViewBag.CountUnPublishArticle = "";
-            ViewBag.CountDeletedArticle = "";
+            ViewBag.SecIdList = CurrentSections();
+            ViewBag.SecIdList.Insert(0, new SelectListItem { Text = "الكل", Value = "0" });
 
+            ViewBag.CountPublishArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, true, false);
+            ViewBag.CountUnPublishArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, false);
+            ViewBag.CountDeletedArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, true);
 
+            var model = _ArticleService.GetAllNews(50, 0, "", 0, 0, 0, true, false);
 
-            return View();
+            return View(model);
+        }
+
+        [SessionExpireFilter]
+        public ActionResult GatAllArticle1(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
+        {
+            ViewBag.SecIdList = CurrentSections();
+
+            ViewBag.CountPublishArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, true, false);
+            ViewBag.CountUnPublishArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, false, false);
+            ViewBag.CountDeletedArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, false, true);
+
+            var model = _ArticleService.GetAllNews(Take, PageID, Filter, NewsID, SecID, TypeID, false, true);
+
+            return PartialView(model);
         }
 
     }

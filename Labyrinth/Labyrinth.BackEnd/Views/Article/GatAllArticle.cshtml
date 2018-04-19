@@ -1,8 +1,10 @@
-﻿
+﻿@model List<Labyrinth.Model.ArticleVM>
 @{
     ViewBag.Title = "GatAllArticle";
 }
-
+@section Head{
+    <link href="~/Content/simplePagination.css" rel="stylesheet" />
+}
 <div id="main-content">
     <div class="container-fluid">
         <div class="row">
@@ -21,9 +23,9 @@
         <div class="col-md-12">
             <div>
                 <ul class="subsubsub">
-                    <li class="allsubsubsub"><a href="" class="current">الاخبار المنشوره <span class="count">(@ViewBag.CountPublishArticle)</span></a> |</li>
-                    <li class="allsubsubsub"><a href="" class="current">الاخبار الغير منشوره<span class="count">(@ViewBag.CountUnPublishArticle)</span></a> |</li>
-                    <li class="allsubsubsub"><a href="" class="current">الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a></li>
+                    <li class="allsubsubsub"><a class="current">الاخبار المنشوره <span class="count">(@ViewBag.CountPublishArticle)</span></a> |</li>
+                    <li class="allsubsubsub"><a class="current">الاخبار الغير منشوره<span class="count">(@ViewBag.CountUnPublishArticle)</span></a> |</li>
+                    <li class="allsubsubsub"><a class="current">الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a></li>
                 </ul>
             </div>
             <div>
@@ -33,12 +35,29 @@
                     </div>
                     <div class="panel-body">
                         <form class="ls_form">
+
+                            <div class="col-md-2 ls-group-input">
+                                <select class="form-control">
+                                    <option value="0">النوع</option>
+                                    <option value="1">خبر</option>
+                                    <option value="2">مقال</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 ls-group-input">
+                                @*@Html.DropDownList("SecId", new List<SelectListItem>()@ViewBag.SecIdList})*@
+                                @Html.DropDownList("SecId", new SelectList(ViewBag.SecIdList, "Value", "Text"),new { @class = "form-control" })
+
+                            </div>
+
                             <div class="col-md-2">
                                 <input type="text" class="form-control rounded" name="rounded_text" placeholder="رقم الخبر">
                             </div>
+
                             <div class="col-md-4">
                                 <input type="text" class="form-control rounded" name="rounded_text" placeholder="اسم الخبر">
                             </div>
+
                             <div class="col-md-2 ls-group-input">
                                 <select class="form-control">
                                     <option>القسم</option>
@@ -47,6 +66,7 @@
                                     <option>القسم 3</option>
                                 </select>
                             </div>
+
                             <div class="col-md-2 ls-group-input">
                                 <select class="form-control">
                                     <option>حاله الخبر</option>
@@ -54,38 +74,45 @@
                                     <option>غير منشور</option>
                                 </select>
                             </div>
+
                             <div class="col-md-2">
                                 <button class="btn btn-default btn-round">بحث</button>
                             </div>
+
                         </form>
+
                         <div class="clear"></div>
+
                     </div>
                 </div>
             </div>
             <!--Table Wrapper Start-->
-            <div class="table-responsive ls-table">
+            <div id="DivGetAllNews" name="DivGetAllNews" class="table-responsive ls-table">
+                @Html.Hidden("ListCount", (object) ViewBag.CountPublishArticle)
                 <table class="table table-bordered table-striped table-responsive">
                     <thead>
                         <tr>
                             <th>
                                 <input class="icheck-blue checkAll" type="checkbox" id="checkRed2" value="option2" />
                             </th>
-                            <th>#</th>
                             <th>العنوان</th>
-                            <th>تفاصيل</th>
-                            <th>الحاله</th>
+                            <th>النوع / القسم</th>
+                            <th>التاريخ</th>
+                            <th>أخر تعديل</th>
+                            @*<th>#</th>*@
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach (var item in Model.Take(5))
+                                                {
                         <tr>
                             <td>
                                 <input class="icheck-blue" type="checkbox" id="checkRed2" value="option2" />
                             </td>
-                            <td>1</td>
                             <td class="firstTh">
-                                عنوان الخبر
+                                @item.Title
                                 <div class="row-actions">
-                                    <span class="edit">تعديل</span>
+                                    <span class="/Article/@item.ID">تعديل</span>
                                     <span class="quickedit">تعديل سريع</span>
                                     <span class="edit">حذف</span>
                                     <span class="edit">عرض</span>
@@ -94,30 +121,61 @@
                                     <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
                                 </div>
                             </td>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                        </tr>
-                        <tr>
                             <td>
-                                <input class="icheck-blue" type="checkbox" id="checkRed2" value="option2" />
+                                @if (item.Type == 1)
+                                                                    {
+                                @Html.Raw("خبر ( <span class='label label-warning'>" + item.SecTitle + "</span> )");
+                                                                    }
+                                                                    else if (item.Type == 2)
+                                                                    {
+                                @Html.Raw("مقال ( <span class='label label-warning'>" + item.EditorName + "</span> )");
+                                                                    }
                             </td>
-                            <td>1</td>
-                            <td class="firstTh">
-                                عنوان الخبر
-                                <div class="row-actions">
-                                    <span class="edit">تعديل</span>
-                                    <span class="quickedit">تعديل سريع</span>
-                                    <span class="edit">حذف</span>
-                                    <span class="edit">عرض</span>
-                                </div>
-                                <div class="quickEditForm">
-                                    <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
-                                </div>
+                            <td>
+                                @item.CurrentUserName
+                                <br />
+                                @if (item.SchdeuledPublish != "")
+                                                                    {
+                                <span style="color: red;font-size: 12px;line-height: 25px;font-weight: 600;">[نشر مؤرخ] <br />  @item.SchdeuledPublish</span>
+                                                                    }
+                                                                    else
+                                                                    {
+                                @item.CDate
+                                                                    }
                             </td>
-                            <td>Lorem ipsum dolor sit amet</td>
-                            <td><span class="label label-warning">Pending</span></td>
+                            <td>
+
+                                @if ((item.IsDeleted == false) && (item.IsApproved == true))
+                                                                    {
+                                <span class='label label-warning'>
+                                    منشور
+                                </span>
+                                                                    }
+                                                                    else if ((item.IsDeleted == true) && (item.IsApproved == false))
+                                                                    {
+                                <span class='label label-warning'>
+                                    غير منشور
+                                </span>
+                                                                    }
+                                                                    else if ((item.IsDeleted == true))
+                                                                    {
+                                <span class='label label-warning'>
+                                    محذوف
+                                </span>
+                                                                    }
+
+                            </td>
                         </tr>
+                                                }
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div id="ListPager" class="paging-div" style="clear:both;">
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <!--Table Wrapper Finish-->
@@ -126,3 +184,55 @@
     </div>
 </div>
 
+@section scripts {
+    <script src="~/Scripts/jquery.simplePagination.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var ArticleCount = $('#ListCount').val();
+            $('#ListPager').pagination({
+                items: ArticleCount,
+                itemsOnPage: 5,
+                prevText: null,
+                //nextText: null,
+                //cssStyle: 'light-theme',
+                onPageClick: function (pageNumber, event) {
+                    LoadMore(pageNumber - 1);
+                    //$("body").animate({ scrollTop: 0 }, 500);
+                }
+            });
+
+
+            function LoadMore(PageID) {
+                var Name = $('#txtfilter').val();
+                var ddlIsDeleted = $('#ddlIsDeleted').val();
+                var ddlIsDeleted = $('#ddlIsDeleted').val();
+                var ddlIsDeleted = $('#ddlIsDeleted').val();
+
+                $.ajax({
+                    type: "GET",
+                    url: '/Editor/GetAllEditors?Take=20' + '&PageID=' + PageID + '&Name=' + Name + '&IsDeleted=' + ddlIsDeleted,
+                    contentType: "html",
+                    //data: SearchArticles,
+                    cache: false,
+                    async: false,
+                    success: function (msg) {
+                        $('#dvAlllist').html('');
+                        $('#dvAlllist').html(msg);
+                        var ArticleCount = $('#ListCount').val();
+                        $('#ListPager').pagination({
+                            items: ArticleCount,
+                            itemsOnPage: 20,
+                            cssStyle: 'light-theme',
+                            onPageClick: function (pageNumber, event) {
+                                LoadMore(pageNumber - 1);
+                            }
+                        });
+                        $('#ListPager').pagination('drawPage', PageID + 1);
+                    }
+                });
+            }
+
+        });
+    </script>
+}

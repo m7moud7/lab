@@ -14,10 +14,12 @@ namespace Labyrinth.Services
     {
         ContextEntities _DB = new ContextEntities();
         private readonly ITag _TagServices;
+        private readonly IUserAdmin _UserAdminServices;
 
         public ArticleServices()
         {
             _TagServices = new TagServices();
+            _UserAdminServices = new UserAdminServices();
         }
 
         public int Save(ArticleVM ViewModel)
@@ -151,12 +153,77 @@ namespace Labyrinth.Services
             }
         }
 
-        public List<ArticleVM> GetAllNews(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsDeleted)
+        public List<ArticleVM> GetAllNews(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var model = (from NS in _DB.BN_GetAllNews(Filter, NewsID.ToString(), SecID.ToString(), TypeID.ToString(), IsApproved, IsDeleted, Take, PageID)
+                             select new ArticleVM
+                             {
+                                 ID = NS.ID,
+                                 Type = NS.Type.Value,
+                                 Title = NS.Title,
+
+                                 SecID = NS.SecID,
+                                 SecTitle = NS.SecTitle,
+
+                                 EditorID = NS.EditorID.Value,
+                                 EditorName = NS.EditorName,
+
+                                 Notes = NS.Notes,
+
+                                 CUser = NS.CUser.Value,
+                                 CDate = NS.CDate,
+
+                                 CurrentUserID = NS.CurrentUser,
+                                 CurrentGroupID = NS.CurrentGroup,
+
+                                 Status = NS.Status,
+                                 SchdeuledPublish = NS.SchdeuledPublish.ToString(),
+
+                                 IsApproved = IsApproved,
+                                 IsDeleted = IsDeleted,
+                             }).ToList();
+                var Users = _UserAdminServices.GetAllUsers_DDL();
+                foreach (var item in model)
+                {
+                    try
+                    {
+                        if (item.CurrentUserID != null)
+                            item.CurrentUserName = Users.Where(a => a.ID == item.CurrentUserID).FirstOrDefault().Fullname;
+                    }
+                    catch
+                    {
+
+                    }
+                    //else if (item.CurrentGroupID != null)
+                    //    item.CurrentGroupName = GetGroupNameByID(item.LastGroupID);
+                }
+
+                return model;
+            }
+            catch (Exception ex)
+            {
+                var msg = ex.Message;
+                return new List<ArticleVM>();
+            }
         }
 
-
+        public int GetAllNewsCount(string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
+        {
+            var Count = 0;
+            try
+            {
+                var RetVal = _DB.BN_GetAllNews_Count(Filter, NewsID.ToString(), SecID.ToString(), TypeID.ToString(), IsApproved, IsDeleted);
+                if (RetVal != null)
+                    Count = RetVal.FirstOrDefault().Value;
+                return int.Parse(Count.ToString());
+            }
+            catch
+            {
+                return int.Parse(Count.ToString());
+            }
+        }
 
         private List<NewsMetaVM> GetNewsMeta(int ID)
         {
@@ -202,6 +269,6 @@ namespace Labyrinth.Services
             return content;
         }
 
-      
+
     }
 }

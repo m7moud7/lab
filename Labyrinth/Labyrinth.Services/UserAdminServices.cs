@@ -20,14 +20,14 @@ namespace Labyrinth.Services
             {
                 string EncryptPassword = StringCipher.Encrypt(Password);
                 var model = (from Us in _DB.BN_CheckUser(Username.ToLower(), EncryptPassword)
-                            select new UsersAdminVM()
-                            {
-                                ID = Us.ID,
-                                Fullname = Us.Fullname,
-                                Username = Us.Username,
-                                Profile_Picture = Us.Profile_Picture,
-                                Role = Us.Role,
-                            }).FirstOrDefault();
+                             select new UsersAdminVM()
+                             {
+                                 ID = Us.ID,
+                                 Fullname = Us.Fullname,
+                                 Username = Us.Username,
+                                 Profile_Picture = Us.Profile_Picture,
+                                 Role = Us.Role,
+                             }).FirstOrDefault();
 
                 if (model == null)
                     return null;
@@ -37,6 +37,25 @@ namespace Labyrinth.Services
             catch
             {
                 return null;
+            }
+        }
+
+
+        public List<UsersAdminVM> GetAllUsers_DDL()
+        {
+            try
+            {
+                return (from Us in _DB.BN_GetAllUsers_DDL()
+                        select new UsersAdminVM()
+                        {
+                            ID = Us.ID,
+                            Fullname = Us.Fullname,
+                            Username = Us.Username,
+                        }).ToList();
+            }
+            catch
+            {
+                return new List<UsersAdminVM>();
             }
         }
     }

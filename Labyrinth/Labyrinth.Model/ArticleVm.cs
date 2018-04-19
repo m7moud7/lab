@@ -15,6 +15,8 @@ namespace Labyrinth.Model
         [Required(ErrorMessage = "من فضلك ادخل القسم")]
         public int SecID { get; set; }
 
+        public string SecTitle { get; set; }
+
         [Display(Name = "بقلم"), MaxLength(200, ErrorMessage = "اقصى عدد احرف 200")]
         public string WrittenBy { get; set; }
 
@@ -71,6 +73,8 @@ namespace Labyrinth.Model
         [Display(Name = "الكاتب")]
         public int? EditorID { get; set; }
 
+        public string EditorName { get; set; }
+
         [Display(Name = "تمرير اللى")]
         public int? Status { get; set; }
 
@@ -97,10 +101,12 @@ namespace Labyrinth.Model
         public string ImageCaption { get; set; }
 
         public string ImagePath { get; set; }
+        
+        public int? CurrentUserID { get; set; }
+        public string CurrentUserName { get; set; }
 
         public int? CurrentGroupID { get; set; }
-        public int? CurrentUserID { get; set; }
-
+        public string CurrentGroupName { get; set; }
 
         public Int64? CoverID { get; set; }
 
@@ -134,15 +140,12 @@ namespace Labyrinth.Model
 
         //public List<AttachmentVM> Images { get; set; }
         //public List<AttachmentVM> WorkFlowAttachment { get; set; }
-        //public string SecName { get; set; }
         //public string Date { get; set; }
 
         //public AttachmentVM ImageDetails { get; set; }
         //public AttachmentVM CoverDetails { get; set; }
 
-        //public string CurrentGroupName { get; set; }
-        //public string CurrentUserName { get; set; }
-
+    
         //public string AttachmentPath { get; set; }
         //public bool FromAddEdit { get; set; }//True From Add Article, False From Edit Article
         //public string Path { get; set; }

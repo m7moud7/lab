@@ -174,6 +174,24 @@
         </Function>
         <Function Name="BN_GetAllEditors_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAllEditors_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetAllNews" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SrchTerm" Type="nvarchar" Mode="In" />
+          <Parameter Name="NewsID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SecID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsApproved" Type="bit" Mode="In" />
+          <Parameter Name="IsDeleted" Type="bit" Mode="In" />
+          <Parameter Name="Take" Type="int" Mode="In" />
+          <Parameter Name="PageID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BN_GetAllNews_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SrchTerm" Type="nvarchar" Mode="In" />
+          <Parameter Name="NewsID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SecID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Type" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsApproved" Type="bit" Mode="In" />
+          <Parameter Name="IsDeleted" Type="bit" Mode="In" />
+        </Function>
         <Function Name="BN_GetAllSections" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Take" Type="int" Mode="In" />
           <Parameter Name="PageID" Type="int" Mode="In" />
@@ -186,6 +204,7 @@
         </Function>
         <Function Name="BN_GetAllSections_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAllSections_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetAllUsers_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAttachments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Filter" Type="nvarchar" Mode="In" />
           <Parameter Name="PageID" Type="int" Mode="In" />
@@ -271,6 +290,25 @@
             <Parameter Name="PageID" Mode="In" Type="Int32" />
             <Parameter Name="Take" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="BN_GetAllNews_Count" ReturnType="Collection(Int32)">
+            <Parameter Name="SrchTerm" Mode="In" Type="String" />
+            <Parameter Name="NewsID" Mode="In" Type="String" />
+            <Parameter Name="SecID" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="IsApproved" Mode="In" Type="Boolean" />
+            <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllNews" ReturnType="Collection(ContextModel.BN_GetAllNews_Result)">
+            <Parameter Name="SrchTerm" Mode="In" Type="String" />
+            <Parameter Name="NewsID" Mode="In" Type="String" />
+            <Parameter Name="SecID" Mode="In" Type="String" />
+            <Parameter Name="Type" Mode="In" Type="String" />
+            <Parameter Name="IsApproved" Mode="In" Type="Boolean" />
+            <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+            <Parameter Name="Take" Mode="In" Type="Int32" />
+            <Parameter Name="PageID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllUsers_DDL" ReturnType="Collection(ContextModel.BN_GetAllUsers_DDL_Result)" />
         </EntityContainer>
         <EntityType Name="UsersAdmin">
           <Key>
@@ -515,6 +553,27 @@
           <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <Property Type="String" Name="IsUsedToday" Nullable="false" MaxLength="5" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllNews_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="SecID" Nullable="false" />
+          <Property Type="String" Name="SecTitle" Nullable="false" MaxLength="255" />
+          <Property Type="Int32" Name="EditorID" Nullable="true" />
+          <Property Type="String" Name="EditorName" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Int32" Name="CurrentUser" Nullable="true" />
+          <Property Type="Int32" Name="CurrentGroup" Nullable="true" />
+          <Property Type="Int32" Name="CUser" Nullable="true" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="SchdeuledPublish" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Status" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="BN_GetAllUsers_DDL_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Fullname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="255" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -820,6 +879,36 @@
                 <ScalarProperty Name="CDate" ColumnName="CDate" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IsUsedToday" ColumnName="IsUsedToday" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllNews_Count" FunctionName="ContextModel.Store.BN_GetAllNews_Count" />
+          <FunctionImportMapping FunctionImportName="BN_GetAllNews" FunctionName="ContextModel.Store.BN_GetAllNews">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllNews_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+                <ScalarProperty Name="SecTitle" ColumnName="SecTitle" />
+                <ScalarProperty Name="EditorID" ColumnName="EditorID" />
+                <ScalarProperty Name="EditorName" ColumnName="EditorName" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
+                <ScalarProperty Name="CurrentGroup" ColumnName="CurrentGroup" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="SchdeuledPublish" ColumnName="SchdeuledPublish" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllUsers_DDL" FunctionName="ContextModel.Store.BN_GetAllUsers_DDL">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetAllUsers_DDL_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -10,5 +10,7 @@ namespace Labyrinth.Abstracts
     public interface IUserAdmin
     {
         UsersAdminVM CheckUserLogin(string Username, string Password);
+        List<UsersAdminVM> GetAllUsers_DDL();
+        
     }
 }

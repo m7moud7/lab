@@ -64,6 +64,9 @@
     <Compile Include="BN_GetAllEditors_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="BN_GetAllNews_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="BN_GetAllSections_DDL_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
@@ -71,6 +74,9 @@
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="BN_GetAllSections_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BN_GetAllUsers_DDL_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="BN_GetAttachments_Result.cs">
