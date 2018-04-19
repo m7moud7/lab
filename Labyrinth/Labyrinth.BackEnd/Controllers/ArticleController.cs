@@ -149,13 +149,13 @@ namespace Labyrinth.BackEnd.Controllers
             ViewBag.CountUnPublishArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, false);
             ViewBag.CountDeletedArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, true);
 
-            var model = _ArticleService.GetAllNews(50, 0, "", 0, 0, 0, true, false);
+            var model = _ArticleService.GetAllNews(5, 0, "", 0, 0, 0, true, false);
 
             return View(model);
         }
 
         [SessionExpireFilter]
-        public ActionResult GatAllArticle1(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
+        public ActionResult FetchArticles(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
         {
             ViewBag.SecIdList = CurrentSections();
 
