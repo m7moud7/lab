@@ -1,0 +1,92 @@
+﻿@model List<Labyrinth.Model.ArticleVM>
+@{
+    ViewBag.Title = "FetchArticles";
+}
+
+@Html.Hidden("ListCount", (object)ViewBag.CountPublishArticle)
+<table class="table table-bordered table-striped table-responsive">
+    <thead>
+        <tr>
+            <th>
+                <input class="icheck-blue checkAll" type="checkbox" id="checkRed2" value="option2" />
+            </th>
+            <th>العنوان</th>
+            <th>النوع / القسم</th>
+            <th>التاريخ</th>
+            <th>أخر تعديل</th>
+            @*<th>#</th>*@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Take(5))
+        {
+            <tr>
+                <td>
+                    <input class="icheck-blue" type="checkbox" id="checkRed2" value="option2" />
+                </td>
+                <td class="firstTh">
+                    @item.Title
+                    <div class="row-actions">
+                        <span class="/Article/@item.ID">تعديل</span>
+                        <span class="quickedit">تعديل سريع</span>
+                        <span class="edit">حذف</span>
+                        <span class="edit">عرض</span>
+                    </div>
+                    <div class="quickEditForm">
+                        <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
+                    </div>
+                </td>
+                <td>
+                    @if (item.Type == 1)
+                    {
+                        @Html.Raw("خبر ( <span class='label label-warning'>" + item.SecTitle + "</span> )");
+                    }
+                    else if (item.Type == 2)
+                    {
+                        @Html.Raw("مقال ( <span class='label label-warning'>" + item.EditorName + "</span> )");
+                    }
+                </td>
+                <td>
+                    @item.CurrentUserName
+                    <br />
+                    @if (item.SchdeuledPublish != "")
+                    {
+                        <span style="color: red;font-size: 12px;line-height: 25px;font-weight: 600;">[نشر مؤرخ] <br />  @item.SchdeuledPublish</span>
+                    }
+                    else
+                    {
+                        @item.CDate
+                    }
+                </td>
+                <td>
+                    @if ((item.IsDeleted == false) && (item.IsApproved == true))
+                    {
+                        <span class='label label-warning'>
+                            منشور
+                        </span>
+                    }
+                    else if ((item.IsDeleted == true) && (item.IsApproved == false))
+                    {
+                        <span class='label label-warning'>
+                            غير منشور
+                        </span>
+                    }
+                    else if ((item.IsDeleted == true))
+                    {
+                        <span class='label label-warning'>
+                            محذوف
+                        </span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div id="ListPager" class="paging-div" style="clear:both;">
+                </div>
+            </td>
+        </tr>
+    </tfoot>
+</table>

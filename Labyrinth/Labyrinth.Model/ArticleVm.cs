@@ -156,9 +156,6 @@ namespace Labyrinth.Model
         //public DateTime? LastPasserDate { get; set; }
 
 
-
-
-
         //[Display(Name = "صورة ال cover  ")]
         //public AttachmentVM Cover { get; set; }
         //[Display(Name = "تعليق صورة ال cover")]

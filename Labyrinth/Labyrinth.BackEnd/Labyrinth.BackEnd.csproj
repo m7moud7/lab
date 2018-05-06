@@ -844,6 +844,7 @@
     <Content Include="Views\Article\Edit.cshtml" />
     <Content Include="Views\Attachment\ChooseImageArticle.cshtml" />
     <Content Include="Views\Article\GatAllArticle.cshtml" />
+    <Content Include="Views\Article\FetchArticles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

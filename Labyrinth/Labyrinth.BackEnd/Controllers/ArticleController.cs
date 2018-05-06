@@ -154,7 +154,8 @@ namespace Labyrinth.BackEnd.Controllers
             return View(model);
         }
 
-        [SessionExpireFilter]
+        //[SessionExpireFilter]
+
         public ActionResult FetchArticles(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
         {
             ViewBag.SecIdList = CurrentSections();
@@ -163,7 +164,7 @@ namespace Labyrinth.BackEnd.Controllers
             ViewBag.CountUnPublishArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, false, false);
             ViewBag.CountDeletedArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, false, true);
 
-            var model = _ArticleService.GetAllNews(Take, PageID, Filter, NewsID, SecID, TypeID, false, true);
+            var model = _ArticleService.GetAllNews(Take, PageID, Filter, NewsID, SecID, TypeID, IsApproved, IsDeleted);
 
             return PartialView(model);
         }

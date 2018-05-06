@@ -28,8 +28,8 @@
                     <li class="allsubsubsub"><a class="current">الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a></li>
                 </ul>
 
-                <input type="hidden" id="IsApproved" name="IsApproved" value="1" />
-                <input type="hidden" id="IsDeleted" name="IsDeleted" value="0" />
+                <input type="hidden" id="IsApproved" name="IsApproved" value="true" />
+                <input type="hidden" id="IsDeleted" name="IsDeleted" value="false" />
 
             </div>
             <div>
@@ -38,8 +38,7 @@
                         <h3 class="panel-title">بحث مفصل</h3>
                     </div>
                     <div class="panel-body">
-                        <form class="ls_form">
-
+                        <div class="ls_form">
                             <div class="col-md-2 ls-group-input">
                                 <select class="form-control" id="ddlType" name="ddlType">
                                     <option value="0">النوع</option>
@@ -54,17 +53,18 @@
                             </div>
 
                             <div class="col-md-4">
-                                <input type="text" class="form-control rounded" name="rounded_text" placeholder="اسم الخبر">
+                                <input type="text" class="form-control rounded" name="txtfilter" id="txtfilter" placeholder="اسم الخبر">
                             </div>
 
                             <div class="col-md-2">
-                                <button class="btn btn-default btn-round">بحث</button>
+                                <input type="text" class="form-control rounded" name="txtNewsID" id="txtNewsID" placeholder="رقم الخبر">
                             </div>
 
-                        </form>
-
+                            <div class="col-md-2">
+                                <button name="btnSearch" id="btnSearch" class="btn btn-default btn-round" type="button">بحث</button>
+                            </div>
+                        </div>
                         <div class="clear"></div>
-
                     </div>
                 </div>
             </div>
@@ -191,25 +191,25 @@
                 var SecID = $('#ddlSecID').val();
                 var NewsID = $('#txtNewsID').val();
 
+                if (!NewsID)
+                    NewsID = 0;
+
+                if (!SecID)
+                    SecID = 0;
+
                 Filter = "";
-                IsDeleted = 0;
                 SecID = 0;
-                IsApproved = 1;
-                TypeID = 1;
-                NewsID = 0;
 
                 $.ajax({
                     type: "GET",
-                    url: '/Article/FetchArticles?Take=50'
-                        + '&PageID=' + PageID + '&Filter=' + Filter + '&NewsID=' + NewsID
-                        + '&SecID=' + SecID + '&TypeID=' + TypeID + '&IsApproved=' + IsApproved + '&IsDeleted=' + IsDeleted,
+                    url: '/Article/FetchArticles?Take=5' + '&PageID=' + PageID + '&Filter=' + Filter + '&NewsID=' + NewsID + '&SecID=' + SecID + '&TypeID=' + TypeID + '&IsApproved=' + IsApproved + '&IsDeleted=' + IsDeleted,
                     contentType: "html",
                     //data: SearchArticles,
                     cache: false,
                     async: false,
                     success: function (msg) {
-                        $('#dvAlllist').html('');
-                        $('#dvAlllist').html(msg);
+                        $('#DivGetAllNews').html('');
+                        $('#DivGetAllNews').html(msg);
                         var ArticleCount = $('#ListCount').val();
                         $('#ListPager').pagination({
                             items: ArticleCount,
@@ -223,6 +223,11 @@
                     }
                 });
             }
+
+
+            $("#btnSearch").click(function () {
+                LoadMore(0);
+            });
 
         });
     </script>
