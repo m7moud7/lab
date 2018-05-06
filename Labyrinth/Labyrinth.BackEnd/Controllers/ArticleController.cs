@@ -135,7 +135,6 @@ namespace Labyrinth.BackEnd.Controllers
             }
 
             return RedirectToAction("Edit", new { ID = ViewModel.ID });
-
         }
 
 
@@ -154,8 +153,7 @@ namespace Labyrinth.BackEnd.Controllers
             return View(model);
         }
 
-        //[SessionExpireFilter]
-
+        [SessionExpireFilter]
         public ActionResult FetchArticles(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
         {
             ViewBag.SecIdList = CurrentSections();
