@@ -209,7 +209,7 @@ namespace Labyrinth.Services
             }
         }
 
-        public int GetAllNewsCount(string Filter, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
+        public int GetAllNewsCount(string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
         {
             var Count = 0;
             try
