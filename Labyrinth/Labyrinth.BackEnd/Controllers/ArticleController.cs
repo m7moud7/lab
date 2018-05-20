@@ -167,5 +167,50 @@ namespace Labyrinth.BackEnd.Controllers
             return PartialView(model);
         }
 
+        /// <summary>
+        /// Reorder
+        /// </summary>
+        /// <returns></returns>
+
+        [SessionExpireFilter]
+        public ActionResult ArticleReorder()
+        {
+            var List = CurrentSections();
+            var levels = _SectionService.GeAllOrderLevels();
+
+            int count = 0;
+            foreach (var item in levels.Where(a => a.Text != "sections").ToList())
+            {
+                List.Insert(count++, new SelectListItem { Text = item.Text, Value = item.ID.ToString() });
+            }
+
+            ViewBag.Section = List;
+            return View(_ArticleService.GetArticleForReOrder(1, int.Parse(List.FirstOrDefault().Value.ToString())));
+        }
+
+        [SessionExpireFilter]
+        public ActionResult GetArticleReorderBySection(int SecID, int Type = 1)
+        {
+            var model = _ArticleService.GetArticleForReOrder(Type, SecID);
+            return PartialView(model);
+        }
+
+        [SessionExpireFilter]
+        public ActionResult GetArticleForReOrderByID(int SecID, int Type = 1, int Num = 0)
+        {
+            var model = _ArticleService.GetArticleForReOrderByID(Type, SecID, Num);
+            return PartialView(model);
+        }
+
+        [SessionExpireFilter]
+        public JsonResult SaveArticlesOrder(ArticleOrderVm viewmodel, int SecId, int Type)
+        {
+            //string result = _ArticleService.SaveNewsReorder(viewmodel.NewsOrder, SecId, Type);
+            //return Json(result, JsonRequestBehavior.AllowGet);
+            return Json("", JsonRequestBehavior.AllowGet);
+        }
+
+
+
     }
 }

@@ -269,6 +269,66 @@ namespace Labyrinth.Services
             return content;
         }
 
+        ///ReOrder
+        public List<OrderVM> GetArticleForReOrder(int Type, int SecID = 0)
+        {
+            try
+            {
+                return (from n in _DB.BN_GetNewsReOrder(Type, SecID.ToString())
+                        select new OrderVM
+                        {
+                            NewsID = n.NewsID,
+                            NewsTitle = n.Title,
+                            Index = n.Index.Value,
+                            CDate = n.CDate,
+                            Notes = n.Notes,
+                            SecTitle = n.SecTitle,
+                            OrderSecID = SecID
+                        }).ToList();
+            }
+            catch
+            {
+                return new List<OrderVM>();
+            }
+        }
 
+        public OrderVM GetArticleForReOrderByID(int Type, int SecID = 0, int Num = 0)
+        {
+            try
+            {
+                var model = (from n in _DB.BN_GetArticleForReOrderByID(Type, SecID, Num)
+                             select new OrderVM()
+                             {
+                                 NewsID = n.ID,
+                                 NewsTitle = n.Title,
+                                 SecID = n.SecId,
+                                 SecTitle = n.SecTitle,
+                                 OrderSecID = n.OrderSecID,
+                                 Notes = n.Notes
+                             }).FirstOrDefault();
+
+                //// -1 = Don'tMiss
+                if (SecID != -50)
+                {
+                    if (model.OrderSecID != null)
+                    {
+                        if (model.OrderSecID != -50)
+                        {
+                            if (model.OrderSecID == 0)
+                                model.SecID = 0;
+                            else if (model.OrderSecID == -1)
+                                model.SecID = -1;
+                            else
+                                model.SecID = -1000;
+                        }
+                    }
+                }
+                return model;
+            }
+            catch
+            {
+                return new OrderVM();
+            }
+        }
     }
 }

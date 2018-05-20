@@ -38,6 +38,7 @@ namespace Labyrinth.Data
         public virtual DbSet<News> News { get; set; }
         public virtual DbSet<NewsPublish> NewsPublishes { get; set; }
         public virtual DbSet<NewsMeta> NewsMetas { get; set; }
+        public virtual DbSet<Order> Orders { get; set; }
     
         public virtual ObjectResult<BN_CheckUser_Result> BN_CheckUser(string username, string password)
         {
@@ -253,6 +254,36 @@ namespace Labyrinth.Data
         public virtual ObjectResult<BN_GetAllUsers_DDL_Result> BN_GetAllUsers_DDL()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllUsers_DDL_Result>("BN_GetAllUsers_DDL");
+        }
+    
+        public virtual ObjectResult<BN_GetNewsReOrder_Result> BN_GetNewsReOrder(Nullable<int> type, string secID)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var secIDParameter = secID != null ?
+                new ObjectParameter("SecID", secID) :
+                new ObjectParameter("SecID", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsReOrder_Result>("BN_GetNewsReOrder", typeParameter, secIDParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetArticleForReOrderByID_Result> BN_GetArticleForReOrderByID(Nullable<int> type, Nullable<int> secID, Nullable<int> newsID)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var secIDParameter = secID.HasValue ?
+                new ObjectParameter("SecID", secID) :
+                new ObjectParameter("SecID", typeof(int));
+    
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetArticleForReOrderByID_Result>("BN_GetArticleForReOrderByID", typeParameter, secIDParameter, newsIDParameter);
         }
     }
 }

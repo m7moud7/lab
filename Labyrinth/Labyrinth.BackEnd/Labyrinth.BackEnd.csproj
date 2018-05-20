@@ -808,6 +808,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\js\ArticleValidation.js" />
     <Content Include="Scripts\Addons_Library\jquery.extension.js" />
+    <Content Include="Scripts\js\ArticleReorder.js" />
     <Content Include="Scripts\js\EditorReorder.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -845,6 +846,11 @@
     <Content Include="Views\Attachment\ChooseImageArticle.cshtml" />
     <Content Include="Views\Article\GatAllArticle.cshtml" />
     <Content Include="Views\Article\FetchArticles.cshtml" />
+    <Content Include="Views\Article\NewsReorderNew.cshtml" />
+    <Content Include="Views\Article\ArticleReorder.cshtml" />
+    <Content Include="Views\Article\GetArticleReorderBySection.cshtml" />
+    <Content Include="Views\Article\GetArticleForREorder.cshtml" />
+    <Content Include="Views\Article\GetArticleForReOrderByID.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

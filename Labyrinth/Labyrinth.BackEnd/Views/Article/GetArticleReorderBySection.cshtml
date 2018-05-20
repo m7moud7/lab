@@ -1,0 +1,12 @@
+﻿@model List<Labyrinth.Model.OrderVM>
+@{
+    ViewBag.Title = "GetNewsReorderBySection";
+    //int Counters = 50;
+}
+
+<ul id="sortable">
+    @foreach (var item in Model)
+    {
+        <li data-id="@item.NewsID" data-type="@item.Type" title="@item.Notes" class="ui-state-default"> <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>@item.NewsTitle<span style="color: red;"> [@item.SecTitle]</span></li>
+    }
+</ul>

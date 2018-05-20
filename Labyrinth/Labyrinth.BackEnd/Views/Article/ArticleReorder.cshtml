@@ -1,0 +1,93 @@
+﻿@model List<Labyrinth.Model.OrderVM>
+@{
+    ViewBag.Title = "ترتيب الاخبار";
+    //int Counters = 50;
+}
+@section Head{
+    <link rel="stylesheet" href="~/assets/css/jquery-ui.css">
+}
+
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Top header start-->
+                <!-- <h3 class="ls-top-header">الرئسية</h3> -->
+                <!--Top header end -->
+                <!--Top breadcrumb start -->
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="/">
+                            <i class="fa fa-home"></i>
+                        </a>
+                    </li>
+                    <li>الرئسية</li>
+                    <li class="active">الترتيب </li>
+                </ol>
+                <!--Top breadcrumb start -->
+            </div>
+        </div>
+        <div>
+            <div class="panel panel-default" id="ReorderContainerAction">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ترتيب مفصل</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="ls_form">
+
+                        <div class="col-md-2 ls-group-input">
+                            <select id="Type" name="Type" class="form-control">
+                                <option value="1" selected>خبر</option>
+                                <option value="2">مقال</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 ls-group-input">
+                            @Html.DropDownList("SecID", (IEnumerable<SelectListItem>)ViewBag.Section, new { @class = "form-control" })
+                        </div>
+
+                        <div class="col-md-4">
+                            <label class="control-label">العدد</label>
+                            <input type="text" id="txtNum" class="form-control rounded" style="display: inline-block;width: auto;">
+                            <input type="submit" value="اضافة رقم الخبر" class="btn btn-red" id="btnAddNum" />
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="submit" value="حفظ الترتيب" class="btn btn-default btn-round" id="btnSave" />
+                        </div>
+
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content Element  Start-->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">ترتيب الاخبار</h3>
+                </div>
+                <div class="panel-body" id="ReorderContainer">
+                    <ul id="sortable">
+                        @foreach (var item in Model)
+                        {
+                            <li data-id="@item.NewsID" data-type="@item.Type" title="@item.Notes" class="ui-state-default"> <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>@item.NewsTitle<span style="color: red;"> [@item.SecTitle]</span></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- Main Content Element  End-->
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/assets/js/jquery-ui.js"></script>
+    @Scripts.Render("~/Scripts/js/ArticleReorder.js")
+    <script>
+        savearticlereorder.init('@Url.Action("SaveArticlesOrder", "Article")');
+        articlereorder.init('@Url.Action("GetArticleReorderBySection", "Article")');
+    </script>
+}

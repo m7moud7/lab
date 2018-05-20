@@ -108,6 +108,16 @@
           <Property Name="Type" Type="int" />
           <Property Name="SecID" Type="int" />
         </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="NewsID" Type="int" Nullable="false" />
+          <Property Name="SecID" Type="int" Nullable="false" />
+          <Property Name="Index" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="OrderLevels">
           <Key>
             <PropertyRef Name="ID" />
@@ -205,6 +215,11 @@
         <Function Name="BN_GetAllSections_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAllSections_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAllUsers_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetArticleForReOrderByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Type" Type="int" Mode="In" />
+          <Parameter Name="SecID" Type="int" Mode="In" />
+          <Parameter Name="NewsID" Type="int" Mode="In" />
+        </Function>
         <Function Name="BN_GetAttachments" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Filter" Type="nvarchar" Mode="In" />
           <Parameter Name="PageID" Type="int" Mode="In" />
@@ -215,6 +230,10 @@
         </Function>
         <Function Name="BN_GetNewsMeta" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="BN_GetNewsReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Type" Type="int" Mode="In" />
+          <Parameter Name="SecID" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="BN_GetNewsTags" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NewsID" Type="int" Mode="In" />
@@ -227,6 +246,7 @@
           <EntitySet Name="News_Tags" EntityType="Self.News_Tags" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewsMeta" EntityType="Self.NewsMeta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NewsPublish" EntityType="Self.NewsPublish" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderLevels" EntityType="Self.OrderLevels" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Section" EntityType="Self.Section" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
@@ -309,6 +329,16 @@
             <Parameter Name="PageID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="BN_GetAllUsers_DDL" ReturnType="Collection(ContextModel.BN_GetAllUsers_DDL_Result)" />
+          <EntitySet Name="Orders" EntityType="ContextModel.Order" />
+          <FunctionImport Name="BN_GetNewsReOrder" ReturnType="Collection(ContextModel.BN_GetNewsReOrder_Result)">
+            <Parameter Name="Type" Mode="In" Type="Int32" />
+            <Parameter Name="SecID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetArticleForReOrderByID" ReturnType="Collection(ContextModel.BN_GetArticleForReOrderByID_Result)">
+            <Parameter Name="Type" Mode="In" Type="Int32" />
+            <Parameter Name="SecID" Mode="In" Type="Int32" />
+            <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="UsersAdmin">
           <Key>
@@ -574,6 +604,32 @@
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Fullname" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="Username" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="NewsID" Type="Int32" Nullable="false" />
+          <Property Name="SecID" Type="Int32" Nullable="false" />
+          <Property Name="Index" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="BN_GetNewsReOrder_Result">
+          <Property Type="Int32" Name="NewsID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="Index" Nullable="true" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="String" Name="SecTitle" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="BN_GetArticleForReOrderByID_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="SecId" Nullable="false" />
+          <Property Type="String" Name="SecTitle" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="OrderSecID" Nullable="true" />
+          <Property Type="String" Name="Notes" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -909,6 +965,41 @@
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Fullname" ColumnName="Fullname" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="ContextModel.Order">
+              <MappingFragment StoreEntitySet="Order">
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetNewsReOrder" FunctionName="ContextModel.Store.BN_GetNewsReOrder">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetNewsReOrder_Result">
+                <ScalarProperty Name="NewsID" ColumnName="NewsID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Index" ColumnName="Index" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="SecTitle" ColumnName="SecTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetArticleForReOrderByID" FunctionName="ContextModel.Store.BN_GetArticleForReOrderByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ContextModel.BN_GetArticleForReOrderByID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SecId" ColumnName="SecId" />
+                <ScalarProperty Name="SecTitle" ColumnName="SecTitle" />
+                <ScalarProperty Name="OrderSecID" ColumnName="OrderSecID" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
