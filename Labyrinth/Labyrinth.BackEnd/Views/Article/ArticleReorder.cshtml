@@ -1,7 +1,7 @@
 ﻿@model List<Labyrinth.Model.OrderVM>
 @{
     ViewBag.Title = "ترتيب الاخبار";
-    //int Counters = 50;
+    int Counters = 50;
 }
 @section Head{
     <link rel="stylesheet" href="~/assets/css/jquery-ui.css">
@@ -61,24 +61,39 @@
                 </div>
             </div>
         </div>
-
-        <!-- Main Content Element  Start-->
-        <div class="col-md-12">
+        <div>
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">ترتيب الاخبار</h3>
                 </div>
-                <div class="panel-body" id="ReorderContainer">
-                    <ul id="sortable">
-                        @foreach (var item in Model)
+                <div class="col-md-1 hidden-sm hidden-xs" style="padding-left: 0px;text-align: center;padding-top: 15px;">
+                    <ul class="ui-sortable" style="margin-top:2px;padding-right:0;list-style:none;">
+                        @for (int i = 1; i <= Counters; i++)
                         {
-                            <li data-id="@item.NewsID" data-type="@item.Type" title="@item.Notes" class="ui-state-default"> <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>@item.NewsTitle<span style="color: red;"> [@item.SecTitle]</span></li>
+                            <li class="ui-state-default ui-sortable-handle" style="@if (i == 21) { @Html.Raw("background: rgb(236, 23, 32);") } padding:5px; max-width: 50px;margin: 0px auto 5px 0; height: 60px;"> @(i) </li>
                         }
                     </ul>
                 </div>
+                <!-- Main Content Element  Start-->
+                <div class="col-md-11 col-sm-12" style="padding-right: 0px;">
+                    <div class="panel-body" id="ReorderContainer">
+                        <ul id="sortable">
+                            @foreach (var item in Model)
+                            {
+                                <li data-id="@item.NewsID" data-type="@item.Type" title="@item.Notes" class="ui-state-default">
+                                    <span class="ui-icon Nuidlmcdei-icon ui-icon-arrowthick-2-n-s"></span>
+                                    <div class="Nuidlmcde">
+                                        <span class="Nuidlm">@item.NewsTitle</span>
+                                        <span style="color: red;float: left;" > [@item.SecTitle]</span>
+                                    </div>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
             </div>
+            <!-- Main Content Element  End-->
         </div>
-        <!-- Main Content Element  End-->
     </div>
 </div>
 

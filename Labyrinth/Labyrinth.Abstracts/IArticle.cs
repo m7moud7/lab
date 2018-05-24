@@ -19,5 +19,6 @@ namespace Labyrinth.Abstracts
         ///ReOrder
         List<OrderVM> GetArticleForReOrder(int Type, int SecID = 0);
         OrderVM GetArticleForReOrderByID(int Type, int SecID = 0, int Num = 0);
+        string SaveArticlesReorder(List<OrderVM> ViewModel, int SecID, int Type);
     }
 }

@@ -37,17 +37,36 @@
         $('#ReorderContainerAction').on('click', '#btnAddNum', function () {
             var SecID = encodeURI($('#SecID').val());
             var Type = encodeURI($('#Type').val());
-            var Num = encodeURI($('#txtNum').val());
+            var Num = encodeURI($('#txtNum').val().trim());
 
             var RetVal = null;
+            if ((Num) && (Num != "0")) {
+                $.ajax({
+                    url: '/Article/GetArticleForReOrderByID',
+                    data: { 'SecID': SecID, 'Type': Type, 'Num': Num },
+                    // dataType: "Json",
+                    success: function (result) {
+                        RetVal = result;
 
-            $.ajax({
-                url: '/Article/GetArticleForReOrderByID',
-                data: { 'SecID': SecID, 'Type': Type, 'Num': Num },
-                // dataType: "Json",
-                success: function (result) {
+                        if (result.indexOf('li') < 0) {
+
+                            if (result == '0') {
+                                swal('هذا الخبر مرتب فى التوب برجاء أعادة ترتيبة بنفسك');
+                            }
+                            else if (result == '-1') {
+                                swal('هذا الخبر مرتب فى عاجل الدوار برجاء أعادة ترتيبة بنفسك');
+                            }
+                            else {
+                                swal('هذا الخبر مرتب فى قسمه برجاء أعادة ترتيبة بنفسك');
+                            }
+                        }
+                        else {
+                            $('#sortable li:eq(0)').before(result);
+                        }
+                    },
+                    async: false
+                }).done(function (result) {
                     RetVal = result;
-
                     if (result.indexOf('li') < 0) {
 
                         if (result == '0') {
@@ -59,39 +78,24 @@
                         else {
                             swal('هذا الخبر مرتب فى قسمه برجاء أعادة ترتيبة بنفسك');
                         }
+
                     }
                     else {
-                        $('#sortable li:eq(0)').before(result);
+                        var deleteditem = $('#sortable li:eq(0)').attr("data-id");
+                        var length = $("ul").find('[data-id="' + deleteditem + '"]').length;
+                        if (length == 2) {
+                            $("ul").find("[data-id='" + deleteditem + "']").last().remove();
+                        }
+                        if (RetVal && RetVal.length > 3)
+                            swal("", "تم  اضافة الخبر", "success");
+                        else
+                            swal("", "لم يتم اضافة الخبر", "warning");
                     }
-                },
-                async: false
-            }).done(function (result) {
-                RetVal = result;
-                if (result.indexOf('li') < 0) {
-
-                    if (result == '0') {
-                        swal('هذا الخبر مرتب فى التوب برجاء أعادة ترتيبة بنفسك');
-                    }
-                    else if (result == '-1') {
-                        swal('هذا الخبر مرتب فى عاجل الدوار برجاء أعادة ترتيبة بنفسك');
-                    }
-                    else {
-                        swal('هذا الخبر مرتب فى قسمه برجاء أعادة ترتيبة بنفسك');
-                    }
-
-                }
-                else {
-                    var deleteditem = $('#sortable li:eq(0)').attr("data-id");
-                    var length = $("ul").find('[data-id="' + deleteditem + '"]').length;
-                    if (length == 2) {
-                        $("ul").find("[data-id='" + deleteditem + "']").last().remove();
-                    }
-                    if (RetVal && RetVal.length > 3)
-                        swal("", "تم  اضافة الخبر", "success");
-                    else
-                        swal("", "لم يتم اضافة الخبر", "warning");
-                }
-            });
+                });
+            }
+            else {
+                swal("", "برجاء وضع رقم", "warning");
+            }
         });
 
 

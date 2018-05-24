@@ -26,7 +26,7 @@ namespace Labyrinth.Model
 
     }
 
-    public class ArticleOrderVm
+    public class ArticleOrderVM
     {
         public List<OrderVM> ArticleOrder { get; set; }
     }

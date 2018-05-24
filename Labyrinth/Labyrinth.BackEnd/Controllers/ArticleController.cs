@@ -198,16 +198,18 @@ namespace Labyrinth.BackEnd.Controllers
         [SessionExpireFilter]
         public ActionResult GetArticleForReOrderByID(int SecID, int Type = 1, int Num = 0)
         {
-            var model = _ArticleService.GetArticleForReOrderByID(Type, SecID, Num);
-            return PartialView(model);
+            if (Num != 0)
+                return PartialView(_ArticleService.GetArticleForReOrderByID(Type, SecID, Num));
+            else
+                return PartialView(new OrderVM());
+
         }
 
         [SessionExpireFilter]
-        public JsonResult SaveArticlesOrder(ArticleOrderVm viewmodel, int SecId, int Type)
+        public JsonResult SaveArticlesOrder(ArticleOrderVM ViewModel, int SecID, int Type)
         {
-            //string result = _ArticleService.SaveNewsReorder(viewmodel.NewsOrder, SecId, Type);
-            //return Json(result, JsonRequestBehavior.AllowGet);
-            return Json("", JsonRequestBehavior.AllowGet);
+            string result = _ArticleService.SaveArticlesReorder(ViewModel.ArticleOrder, SecID, Type);
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
 
