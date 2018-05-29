@@ -51,7 +51,8 @@ namespace Labyrinth.BackEnd.Controllers
                 Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
             }).ToList();
 
-            return View();
+
+            return View(new ArticleVM());
         }
 
         [HttpPost]

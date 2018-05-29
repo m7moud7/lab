@@ -33,6 +33,9 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">الاساسيات</h3>
+                                <ul class="panel-control">
+                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                                </ul>
                             </div>
                             <div class="panel-body">
                                 <div class="form-group marginBlock">
@@ -79,9 +82,11 @@
 
                                 <div class="form-group marginBlock">
                                     <label class="col-md-2 control-label noRight HeadLabel">الملخص</label>
-                                    @Html.TextAreaFor(model => model.Brief, new { @class = "col-md-10", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7", @style = "max-width: 83.33333333% !important" })
-                                    @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
-                                    <input type="text" id="countbrief" name="countbrief" class="count-num" size="20" disabled>
+                                    <div class="col-md-10 borderForFields">
+                                        @Html.TextAreaFor(model => model.Brief, new { @class = "col-md-12", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7", })
+                                        @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
+                                        <input type="text" id="countbrief" name="countbrief" class="count-numText" size="20" disabled>
+                                    </div>
                                 </div>
 
 
@@ -91,7 +96,7 @@
                                         <div class="panel panel-default EditWidth">
                                             <div class="panel-body no-padding">
                                                 <div class="summernote " id="StoryCode" name="StoryCode">
-                                                    @Model.Story
+                                                    @Html.Raw(Model.Story)
                                                 </div>
                                             </div>
                                         </div>
@@ -106,10 +111,13 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">اجراءات تكميليه</h3>
+                                <ul class="panel-control">
+                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                                </ul>
                             </div>
-                            <div class="">
+                            <div class="panel-body">
                                 <div class="form-group marginBlock">
-                                    <div class="col-lg-12 noLeft" id="Schdeuled" name="Schdeuled">
+                                    <div class="noLeft" id="Schdeuled" name="Schdeuled">
                                         @*@Html.LabelFor(model => model.SchdeuledPublish, htmlAttributes: new { @class = "control-label col-md-2" })*@
                                         <div class="col-md-12 borderForFields">
                                             @Html.EditorFor(model => model.SchdeuledPublish, new { htmlAttributes = new { @class = "form-control" } })
@@ -117,15 +125,37 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-12 form-group marginBlock checkbox3 SubmitBlock">
-                                        <div class="col-md-7">
-                                            <div class="checkbox">
-                                                @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
-                                                @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
-                                                @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-
+                                        <div class="col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                    @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                    @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                </div>
                                             </div>
+                                            @*<div class="col-md-6">
+                                                    <div class="checkbox">
+                                                        @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                        @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="checkbox">
+                                                        @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                        @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="checkbox">
+                                                        @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                        @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                    </div>
+                                                </div>*@
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-12">
                                             <button type="submit" class="btn btn-info btn-lg">حفظ</button>
                                         </div>
                                     </div>
@@ -137,8 +167,11 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">الصورة</h3>
+                                <ul class="panel-control">
+                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                                </ul>
                             </div>
-                            <div class="">
+                            <div class="panel-body">
                                 <div class="form-group marginBlock">
                                     <div class="col-lg-6 noLeft noPadding">
                                         <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#AddImage">اضافة</button>
