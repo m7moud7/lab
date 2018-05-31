@@ -234,3 +234,36 @@
 }
 
 /* End Wiki */
+
+.subsubsub {
+    height: 20px;
+    margin-right: 0;
+    padding-right: 0;
+}
+.allsubsubsub {
+    float: right;
+    list-style: none;
+    height: 18px;
+    line-height: 18px;
+    margin-left: 1%;
+    border-left: 1px solid #cacece;
+    padding-left: 1%;
+}
+.allsubsubsub:nth-child(3) {
+    border-left:none;
+}
+    .allsubsubsub a{
+    font-family: "newfont";
+    font-size: 16px;
+    color: #555557;
+    text-decoration: none;
+    text-align: right;
+}
+
+#btnSearch {
+    font-family: "newfont";
+    font-size: 16px;
+    border: none;
+    outline: none;
+    padding: 5px 10%;
+}
