@@ -133,16 +133,32 @@
 }
 
     #sortable li {
-        margin: 0 3px 3px 3px;
+        margin: 0 3px 6px 3px;
         padding: 0.4em 0;
         padding-left: 1.5em;
-        font-size: 1.4em;
+        height: 60px;
+        line-height: 1.3;
+        font-family: "newfont";
+        font-size: 19px;
+        padding-right: 10px;
+        height: 60px;
     }
-
-        #sortable li span {
-            /* position: absolute;
+.Nuidlmcdei-icon {
+    float: right;
+    margin-top: 9px!important;
+}
+.Nuidlmcde {
+    float: right;
+    width: calc(100% - 46px);
+}
+.Nuidlm {
+    margin-right: 10px;
+    
+}
+#sortable li span {
+    /* position: absolute;
     margin-left: -1.3em; */
-        }
+}
 
 
 .GroupPage .marginH2 {

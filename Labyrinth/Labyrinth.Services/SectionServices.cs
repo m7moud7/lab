@@ -184,16 +184,22 @@ namespace Labyrinth.Services
 
 
 
-        /// Unknown
+        /// Return Order Levels
         public List<LookUpVM> GeAllOrderLevels()
         {
-            var model = (from OL in _DB.OrderLevels
-                         select new LookUpVM
-                         {
-                             ID = (int)OL.SecIdInOrder,
-                             Text = OL.AliasLevelName
-                         }).ToList();
-            return model;
+            try
+            {
+                return (from OL in _DB.OrderLevels
+                        select new LookUpVM
+                        {
+                            ID = (int)OL.SecIdInOrder,
+                            Text = OL.AliasLevelName
+                        }).ToList();
+            }
+            catch
+            {
+                return new List<LookUpVM>();
+            }
         }
 
 

@@ -1,0 +1,12 @@
+﻿@model  Labyrinth.Model.OrderVM
+@if (Model != null)
+{
+    if (Model.SecID > 0)
+    {
+        <li data-id="@Model.NewsID" data-type="@Model.Type" title="@Model.Notes" class="ui-state-default" > <span class="ui-icon ui-icon-arrowthick-2-n-s"></span>@Model.NewsTitle<span style="color: red;"> [@Model.SecTitle]</span></li>
+    }
+    else
+    {
+        @Model.SecID
+    }
+}

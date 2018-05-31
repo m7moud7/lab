@@ -269,6 +269,186 @@ namespace Labyrinth.Services
             return content;
         }
 
+        ///ReOrder
+        public List<OrderVM> GetArticleForReOrder(int Type, int SecID = 0)
+        {
+            try
+            {
+                return (from n in _DB.BN_GetNewsReOrder(Type, SecID.ToString())
+                        select new OrderVM
+                        {
+                            NewsID = n.NewsID,
+                            NewsTitle = n.Title,
+                            Index = n.Index.Value,
+                            CDate = n.CDate,
+                            Notes = n.Notes,
+                            SecTitle = n.SecTitle,
+                            OrderSecID = SecID
+                        }).ToList();
+            }
+            catch
+            {
+                return new List<OrderVM>();
+            }
+        }
+
+        public OrderVM GetArticleForReOrderByID(int Type, int SecID = 0, int Num = 0)
+        {
+            try
+            {
+                var model = (from n in _DB.BN_GetArticleForReOrderByID(Type, SecID, Num)
+                             select new OrderVM()
+                             {
+                                 NewsID = n.ID,
+                                 NewsTitle = n.Title,
+                                 SecID = n.SecId,
+                                 SecTitle = n.SecTitle,
+                                 OrderSecID = n.OrderSecID,
+                                 Notes = n.Notes
+                             }).FirstOrDefault();
+
+                //// -1 = Don'tMiss
+                if (SecID != -50)
+                {
+                    if (model.OrderSecID != null)
+                    {
+                        if (model.OrderSecID != -50)
+                        {
+                            if (model.OrderSecID == 0)
+                                model.SecID = 0;
+                            else if (model.OrderSecID == -1)
+                                model.SecID = -1;
+                            else
+                                model.SecID = -1000;
+                        }
+                    }
+                }
+                return model;
+            }
+            catch
+            {
+                return new OrderVM();
+            }
+        }
+
+        public string SaveArticlesReorder(List<OrderVM> ViewModel, int SecID, int Type)
+        {
+            try
+            {
+                _DB.Orders.Where(a => a.SecID == SecID && a.Type == Type).ToList().ForEach(p => _DB.Orders.Remove(p));
+                _DB.SaveChanges();
+
+                int _OrderCount = 1;
+                var _NewOrderCount = 1;
+                foreach (var item in ViewModel)
+                {
+                    if (SecID == 0 && Type == 1 && _OrderCount > 4 && _OrderCount < 17)
+                    {
+                        SecID = -1;
+                        _OrderCount = _NewOrderCount;
+                        _NewOrderCount++;
+                    }
+                    else if (SecID == 0 && Type == 1 && _OrderCount == 5)
+                        OrderNews(item.NewsID, -1, Type);
+
+                    if (_OrderCount > 20)
+                        break;
+
+                    item.Index = _OrderCount;
+                    item.SecID = SecID;
+                    item.Type = Type;
+
+                    _OrderCount++;
+                    var NewOrder = Order.Clone(item);
+                    _DB.Orders.Add(NewOrder);
+                }
+
+                _DB.SaveChanges();
+                return "تم الحفظ بنجاح";
+            }
+            catch
+            {
+                return "حدث خطأ";
+            }
+        }
+
+        private string OrderNews(int NewsID, int SecID, int Type)
+        {
+            try
+            {
+                OrderVM ViewModel = new OrderVM();
+                ViewModel.NewsID = NewsID;
+                ViewModel.Type = Type;
+                Transition_Article(ViewModel, SecID);
+                return "تم الحفظ بنجاح";
+            }
+            catch (Exception)
+            {
+                return "حدث خطأ";
+            }
+        }
+
+        public void Transition_Article(OrderVM ViewModel, int SecID)
+        {
+            try
+            {
+                var oldarticle = _DB.Orders.Where(a => a.NewsID == ViewModel.NewsID).FirstOrDefault();
+                if (oldarticle != null)
+                {
+                    _DB.Orders.Remove(oldarticle);
+                    _DB.SaveChanges();
+                }
+
+                var Updatedorders = _DB.Orders.Where(a => a.SecID == SecID).OrderBy(a => a.Index).ToList();
+                foreach (var item in Updatedorders)
+                {
+                    item.Index = item.Index + 1;
+                }
+                _DB.SaveChanges();
+                var cur = new Order();
+                cur.Type = 1;
+                cur.SecID = SecID;
+                cur.NewsID = ViewModel.NewsID;
+                cur.Index = 1;
+                _DB.Orders.Add(cur);
+                _DB.SaveChanges();
+                var transitionLevelDeeper = _DB.OrderLevels.Where(a => a.SecIdInOrder == SecID).FirstOrDefault();
+                if (transitionLevelDeeper != null)
+                {
+                    if (transitionLevelDeeper.TransitionLevelID != null)
+                    {
+                        var transitionedlevel = _DB.OrderLevels.Where(a => a.ID == transitionLevelDeeper.TransitionLevelID).FirstOrDefault();
+                        if (transitionedlevel != null)
+                        {
+                            if (transitionedlevel.SecIdInOrder == -100)
+                            {
+                                var transitionedarticlevm = Updatedorders.Skip(transitionLevelDeeper.NewsCount - 1).Take(1).FirstOrDefault();
+                                var article = _DB.News.Where(a => a.ID == transitionedarticlevm.NewsID).FirstOrDefault();
+                                var curtrans = new OrderVM();
+                                curtrans.Type = 1;
+                                curtrans.SecID = article.SecID;
+                                curtrans.NewsID = article.ID;
+                                Transition_Article(curtrans, curtrans.SecID);
+                            }
+                            else
+                            {
+                                var transitionedarticlevm = Updatedorders.Skip(transitionLevelDeeper.NewsCount - 1).Take(1).FirstOrDefault();
+                                var article = _DB.News.Where(a => a.ID == transitionedarticlevm.NewsID).FirstOrDefault();
+                                var curtrans = new OrderVM();
+                                curtrans.Type = 1;
+                                curtrans.SecID = article.SecID;
+                                curtrans.NewsID = article.ID;
+                                Transition_Article(curtrans, (int)transitionedlevel.SecIdInOrder);
+                            }
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
+        }
 
     }
 }

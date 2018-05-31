@@ -45,6 +45,7 @@
     <Compile Include="AttachmentVM.cs" />
     <Compile Include="LookUpVM.cs" />
     <Compile Include="NewsMetaVM.cs" />
+    <Compile Include="OrderVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelatedNewsVM.cs" />
     <Compile Include="EditorVM.cs" />

@@ -79,6 +79,9 @@
     <Compile Include="BN_GetAllUsers_DDL_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="BN_GetArticleForReOrderByID_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="BN_GetAttachments_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
@@ -86,6 +89,9 @@
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="BN_GetNewsMeta_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="BN_GetNewsReOrder_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
     <Compile Include="BN_GetNewsTags_Result.cs">
@@ -124,9 +130,13 @@
     <Compile Include="News_Tags.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Order.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="OrderLevel.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Order.cs" />
     <Compile Include="Partials\News.cs" />
     <Compile Include="Partials\Attachment.cs" />
     <Compile Include="Partials\Editor.cs" />
