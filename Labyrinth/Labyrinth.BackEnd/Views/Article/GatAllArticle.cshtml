@@ -151,6 +151,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="5">
+
                                 <div id="ListPager" class="paging-div" style="clear:both;">
                                 </div>
                             </td>
@@ -168,6 +169,29 @@
     <script src="~/Scripts/jquery.simplePagination.js"></script>
     <script>
         $(document).ready(function () {
+            //toogle
+
+            $(".firstTh").mouseenter(function () {
+                $(this).find(".row-actions").show();
+            });
+            $(".firstTh").mouseleave(function () {
+                $(this).find(".row-actions").hide();
+            });
+            $(".quickedit").click(function () {
+                $(this).parent().next().show();
+                $(this).parent().hide();
+            });
+            $(".cancelEditForm").click(function () {
+                $(this).hide();
+            });
+            $(".checkAll").change(function () {
+                $("input:checkbox").prop('checked', $(this).prop("checked"));
+            });
+
+
+            //toogle
+
+
 
             var ArticleCount = $('#ListCount').val();
             $('#ListPager').pagination({
