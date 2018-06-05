@@ -85,7 +85,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model.Take(5))
+                        @foreach (var item in Model)
                         {
                             <tr>
                                 <td>
@@ -151,7 +151,6 @@
                     <tfoot>
                         <tr>
                             <td colspan="5">
-
                                 <div id="ListPager" class="paging-div" style="clear:both;">
                                 </div>
                             </td>
@@ -191,12 +190,10 @@
 
             //toogle
 
-
-
             var ArticleCount = $('#ListCount').val();
             $('#ListPager').pagination({
                 items: ArticleCount,
-                itemsOnPage: 5,
+                itemsOnPage: 10,
                 prevText: null,
                 //nextText: null,
                 //cssStyle: 'light-theme',
@@ -226,7 +223,7 @@
 
                 $.ajax({
                     type: "GET",
-                    url: '/Article/FetchArticles?Take=5' + '&PageID=' + PageID + '&Filter=' + Filter + '&NewsID=' + NewsID + '&SecID=' + SecID + '&TypeID=' + TypeID + '&IsApproved=' + IsApproved + '&IsDeleted=' + IsDeleted,
+                    url: '/Article/FetchArticles?Take=10' + '&PageID=' + PageID + '&Filter=' + Filter + '&NewsID=' + NewsID + '&SecID=' + SecID + '&TypeID=' + TypeID + '&IsApproved=' + IsApproved + '&IsDeleted=' + IsDeleted,
                     contentType: "html",
                     //data: SearchArticles,
                     cache: false,
@@ -237,7 +234,7 @@
                         var ArticleCount = $('#ListCount').val();
                         $('#ListPager').pagination({
                             items: ArticleCount,
-                            itemsOnPage: 5,
+                            itemsOnPage: 10,
                             cssStyle: 'light-theme',
                             onPageClick: function (pageNumber, event) {
                                 LoadMore(pageNumber - 1);

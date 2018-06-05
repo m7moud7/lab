@@ -14,6 +14,15 @@ namespace Labyrinth.Data
     
     public partial class Attachment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Attachment()
+        {
+            this.Album_Attachment = new HashSet<Album_Attachment>();
+            this.HeadLines = new HashSet<HeadLine>();
+            this.News_Attachment = new HashSet<News_Attachment>();
+            this.NewsVersion_Attachment = new HashSet<NewsVersion_Attachment>();
+        }
+    
         public long ID { get; set; }
         public Nullable<short> Type { get; set; }
         public string AltImage { get; set; }
@@ -27,5 +36,14 @@ namespace Labyrinth.Data
         public System.DateTime CDate { get; set; }
         public string PicsData { get; set; }
         public bool IsDeleted { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Album_Attachment> Album_Attachment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<HeadLine> HeadLines { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<News_Attachment> News_Attachment { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NewsVersion_Attachment> NewsVersion_Attachment { get; set; }
     }
 }

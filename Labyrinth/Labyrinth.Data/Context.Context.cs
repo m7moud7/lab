@@ -27,18 +27,86 @@ namespace Labyrinth.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<UsersAdmin> UsersAdmins { get; set; }
-        public virtual DbSet<Section> Sections { get; set; }
-        public virtual DbSet<OrderLevel> OrderLevels { get; set; }
-        public virtual DbSet<Tag> Tags { get; set; }
-        public virtual DbSet<News_Tags> News_Tags { get; set; }
+        public virtual DbSet<Album> Albums { get; set; }
+        public virtual DbSet<Album_Attachment> Album_Attachment { get; set; }
+        public virtual DbSet<Attachment> Attachments { get; set; }
+        public virtual DbSet<Block> Blocks { get; set; }
+        public virtual DbSet<BlockOrder> BlockOrders { get; set; }
+        public virtual DbSet<Channel> Channels { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Conj_News_Groups> Conj_News_Groups { get; set; }
+        public virtual DbSet<Conj_PluginPage_Plugin> Conj_PluginPage_Plugin { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
+        public virtual DbSet<Currency_Daily> Currency_Daily { get; set; }
+        public virtual DbSet<Currency_Unit> Currency_Unit { get; set; }
+        public virtual DbSet<Daily_Karats> Daily_Karats { get; set; }
         public virtual DbSet<Editor> Editors { get; set; }
         public virtual DbSet<GeneralSetting> GeneralSettings { get; set; }
-        public virtual DbSet<Attachment> Attachments { get; set; }
+        public virtual DbSet<GeneralSettingsPage> GeneralSettingsPages { get; set; }
+        public virtual DbSet<Gold> Golds { get; set; }
+        public virtual DbSet<GroupLink> GroupLinks { get; set; }
+        public virtual DbSet<HeadLine> HeadLines { get; set; }
+        public virtual DbSet<InstantArticle> InstantArticles { get; set; }
+        public virtual DbSet<Issue> Issues { get; set; }
+        public virtual DbSet<Karat> Karats { get; set; }
+        public virtual DbSet<Keyword> Keywords { get; set; }
+        public virtual DbSet<mobilesection> mobilesections { get; set; }
+        public virtual DbSet<MobileSectionsMap> MobileSectionsMaps { get; set; }
         public virtual DbSet<News> News { get; set; }
-        public virtual DbSet<NewsPublish> NewsPublishes { get; set; }
+        public virtual DbSet<News_Albums> News_Albums { get; set; }
+        public virtual DbSet<News_Attachment> News_Attachment { get; set; }
+        public virtual DbSet<News_Currency> News_Currency { get; set; }
+        public virtual DbSet<News_Editor> News_Editor { get; set; }
+        public virtual DbSet<News_Golds> News_Golds { get; set; }
+        public virtual DbSet<News_Keywords> News_Keywords { get; set; }
+        public virtual DbSet<News_Poll> News_Poll { get; set; }
+        public virtual DbSet<News_Reaction> News_Reaction { get; set; }
+        public virtual DbSet<News_RelatedLinks> News_RelatedLinks { get; set; }
+        public virtual DbSet<News_Tags> News_Tags { get; set; }
+        public virtual DbSet<News_WorkFlowAttachment> News_WorkFlowAttachment { get; set; }
         public virtual DbSet<NewsMeta> NewsMetas { get; set; }
+        public virtual DbSet<NewsMostCommented> NewsMostCommenteds { get; set; }
+        public virtual DbSet<NewsOfSpecificGroup> NewsOfSpecificGroups { get; set; }
+        public virtual DbSet<NewsPublish> NewsPublishes { get; set; }
+        public virtual DbSet<NewsSearch> NewsSearches { get; set; }
+        public virtual DbSet<NewsVersion> NewsVersions { get; set; }
+        public virtual DbSet<NewsVersion_Albums> NewsVersion_Albums { get; set; }
+        public virtual DbSet<NewsVersion_Attachment> NewsVersion_Attachment { get; set; }
+        public virtual DbSet<NewsVersion_Currency> NewsVersion_Currency { get; set; }
+        public virtual DbSet<NewsVersion_Golds> NewsVersion_Golds { get; set; }
+        public virtual DbSet<NewsVersion_Keywords> NewsVersion_Keywords { get; set; }
+        public virtual DbSet<NewsVersion_Poll> NewsVersion_Poll { get; set; }
+        public virtual DbSet<NewsVersion_RelatedLinks> NewsVersion_RelatedLinks { get; set; }
+        public virtual DbSet<NewsVersion_Tags> NewsVersion_Tags { get; set; }
+        public virtual DbSet<NewsVersion_WorkFlowAttachment> NewsVersion_WorkFlowAttachment { get; set; }
+        public virtual DbSet<NewsVersionMate> NewsVersionMates { get; set; }
+        public virtual DbSet<Notification> Notifications { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
+        public virtual DbSet<OrderAlbum> OrderAlbums { get; set; }
+        public virtual DbSet<OrderAttachment> OrderAttachments { get; set; }
+        public virtual DbSet<OrderLevel> OrderLevels { get; set; }
+        public virtual DbSet<OrderPoll> OrderPolls { get; set; }
+        public virtual DbSet<PlugIn> PlugIns { get; set; }
+        public virtual DbSet<PlugInItem> PlugInItems { get; set; }
+        public virtual DbSet<PlugInItemReorder> PlugInItemReorders { get; set; }
+        public virtual DbSet<PlugInItemType> PlugInItemTypes { get; set; }
+        public virtual DbSet<PluginPage> PluginPages { get; set; }
+        public virtual DbSet<PluginPosition> PluginPositions { get; set; }
+        public virtual DbSet<Poll> Polls { get; set; }
+        public virtual DbSet<PollAnswer> PollAnswers { get; set; }
+        public virtual DbSet<Section> Sections { get; set; }
+        public virtual DbSet<Serial> Serials { get; set; }
+        public virtual DbSet<Serial_Channel> Serial_Channel { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Ticker> Tickers { get; set; }
+        public virtual DbSet<TickersMOdule> TickersMOdules { get; set; }
+        public virtual DbSet<TimelineNew> TimelineNews { get; set; }
+        public virtual DbSet<UsersAdmin> UsersAdmins { get; set; }
+        public virtual DbSet<View> Views { get; set; }
+        public virtual DbSet<ViewsCounter> ViewsCounters { get; set; }
+        public virtual DbSet<ViewsDirection> ViewsDirections { get; set; }
+        public virtual DbSet<ViewsType> ViewsTypes { get; set; }
+        public virtual DbSet<WorkFlowAttachment> WorkFlowAttachments { get; set; }
     
         public virtual ObjectResult<BN_CheckUser_Result> BN_CheckUser(string username, string password)
         {
@@ -92,6 +160,11 @@ namespace Labyrinth.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllEditors_DDL_Result>("BN_GetAllEditors_DDL");
         }
     
+        public virtual ObjectResult<BN_GetAllEditors_ForReOrder_Result> BN_GetAllEditors_ForReOrder()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllEditors_ForReOrder_Result>("BN_GetAllEditors_ForReOrder");
+        }
+    
         public virtual ObjectResult<BN_GetAllSections_Result> BN_GetAllSections(Nullable<int> take, Nullable<int> pageID, string isDeleted, string title)
         {
             var takeParameter = take.HasValue ?
@@ -136,36 +209,26 @@ namespace Labyrinth.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllSections_ForReOrder_Result>("BN_GetAllSections_ForReOrder");
         }
     
-        public virtual ObjectResult<BN_GetNewsTags_Result> BN_GetNewsTags(Nullable<int> newsID)
+        public virtual ObjectResult<BN_GetAllUsers_DDL_Result> BN_GetAllUsers_DDL()
         {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllUsers_DDL_Result>("BN_GetAllUsers_DDL");
+        }
+    
+        public virtual ObjectResult<BN_GetArticleForReOrderByID_Result> BN_GetArticleForReOrderByID(Nullable<int> type, Nullable<int> secID, Nullable<int> newsID)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
+    
+            var secIDParameter = secID.HasValue ?
+                new ObjectParameter("SecID", secID) :
+                new ObjectParameter("SecID", typeof(int));
+    
             var newsIDParameter = newsID.HasValue ?
                 new ObjectParameter("NewsID", newsID) :
                 new ObjectParameter("NewsID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsTags_Result>("BN_GetNewsTags", newsIDParameter);
-        }
-    
-        public virtual ObjectResult<BN_GetAllEditors_ForReOrder_Result> BN_GetAllEditors_ForReOrder()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllEditors_ForReOrder_Result>("BN_GetAllEditors_ForReOrder");
-        }
-    
-        public virtual ObjectResult<BN_GetNewsMeta_Result> BN_GetNewsMeta(Nullable<int> newsID)
-        {
-            var newsIDParameter = newsID.HasValue ?
-                new ObjectParameter("NewsID", newsID) :
-                new ObjectParameter("NewsID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsMeta_Result>("BN_GetNewsMeta", newsIDParameter);
-        }
-    
-        public virtual ObjectResult<BN_GetNewsById_Result> BN_GetNewsById(Nullable<int> newsID)
-        {
-            var newsIDParameter = newsID.HasValue ?
-                new ObjectParameter("NewsID", newsID) :
-                new ObjectParameter("NewsID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsById_Result>("BN_GetNewsById", newsIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetArticleForReOrderByID_Result>("BN_GetArticleForReOrderByID", typeParameter, secIDParameter, newsIDParameter);
         }
     
         public virtual ObjectResult<BN_GetAttachments_Result> BN_GetAttachments(string filter, Nullable<int> pageID, Nullable<int> take)
@@ -185,33 +248,53 @@ namespace Labyrinth.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAttachments_Result>("BN_GetAttachments", filterParameter, pageIDParameter, takeParameter);
         }
     
-        public virtual ObjectResult<Nullable<int>> BN_GetAllNews_Count(string srchTerm, string newsID, string secID, string type, Nullable<bool> isApproved, Nullable<bool> isDeleted)
+        public virtual ObjectResult<BN_GetNewsByID_Result> BN_GetNewsByID(Nullable<int> newsID)
         {
-            var srchTermParameter = srchTerm != null ?
-                new ObjectParameter("SrchTerm", srchTerm) :
-                new ObjectParameter("SrchTerm", typeof(string));
-    
-            var newsIDParameter = newsID != null ?
+            var newsIDParameter = newsID.HasValue ?
                 new ObjectParameter("NewsID", newsID) :
-                new ObjectParameter("NewsID", typeof(string));
+                new ObjectParameter("NewsID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsByID_Result>("BN_GetNewsByID", newsIDParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetNewsMeta_Result> BN_GetNewsMeta(Nullable<int> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsMeta_Result>("BN_GetNewsMeta", newsIDParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetNewsReOrder_Result> BN_GetNewsReOrder(Nullable<int> type, string secID)
+        {
+            var typeParameter = type.HasValue ?
+                new ObjectParameter("Type", type) :
+                new ObjectParameter("Type", typeof(int));
     
             var secIDParameter = secID != null ?
                 new ObjectParameter("SecID", secID) :
                 new ObjectParameter("SecID", typeof(string));
     
-            var typeParameter = type != null ?
-                new ObjectParameter("Type", type) :
-                new ObjectParameter("Type", typeof(string));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsReOrder_Result>("BN_GetNewsReOrder", typeParameter, secIDParameter);
+        }
     
-            var isApprovedParameter = isApproved.HasValue ?
-                new ObjectParameter("IsApproved", isApproved) :
-                new ObjectParameter("IsApproved", typeof(bool));
+        public virtual ObjectResult<BN_GetNewsTags_Result> BN_GetNewsTags(Nullable<int> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(int));
     
-            var isDeletedParameter = isDeleted.HasValue ?
-                new ObjectParameter("IsDeleted", isDeleted) :
-                new ObjectParameter("IsDeleted", typeof(bool));
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsTags_Result>("BN_GetNewsTags", newsIDParameter);
+        }
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("BN_GetAllNews_Count", srchTermParameter, newsIDParameter, secIDParameter, typeParameter, isApprovedParameter, isDeletedParameter);
+        public virtual ObjectResult<BN_News_Editor_Result> BN_News_Editor(Nullable<int> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_News_Editor_Result>("BN_News_Editor", newsIDParameter);
         }
     
         public virtual ObjectResult<BN_GetAllNews_Result> BN_GetAllNews(string srchTerm, string newsID, string secID, string type, Nullable<bool> isApproved, Nullable<bool> isDeleted, Nullable<int> take, Nullable<int> pageID)
@@ -251,39 +334,33 @@ namespace Labyrinth.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllNews_Result>("BN_GetAllNews", srchTermParameter, newsIDParameter, secIDParameter, typeParameter, isApprovedParameter, isDeletedParameter, takeParameter, pageIDParameter);
         }
     
-        public virtual ObjectResult<BN_GetAllUsers_DDL_Result> BN_GetAllUsers_DDL()
+        public virtual ObjectResult<Nullable<int>> BN_GetAllNews_Count(string srchTerm, string newsID, string secID, string type, Nullable<bool> isApproved, Nullable<bool> isDeleted)
         {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllUsers_DDL_Result>("BN_GetAllUsers_DDL");
-        }
+            var srchTermParameter = srchTerm != null ?
+                new ObjectParameter("SrchTerm", srchTerm) :
+                new ObjectParameter("SrchTerm", typeof(string));
     
-        public virtual ObjectResult<BN_GetNewsReOrder_Result> BN_GetNewsReOrder(Nullable<int> type, string secID)
-        {
-            var typeParameter = type.HasValue ?
-                new ObjectParameter("Type", type) :
-                new ObjectParameter("Type", typeof(int));
+            var newsIDParameter = newsID != null ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(string));
     
             var secIDParameter = secID != null ?
                 new ObjectParameter("SecID", secID) :
                 new ObjectParameter("SecID", typeof(string));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsReOrder_Result>("BN_GetNewsReOrder", typeParameter, secIDParameter);
-        }
-    
-        public virtual ObjectResult<BN_GetArticleForReOrderByID_Result> BN_GetArticleForReOrderByID(Nullable<int> type, Nullable<int> secID, Nullable<int> newsID)
-        {
-            var typeParameter = type.HasValue ?
+            var typeParameter = type != null ?
                 new ObjectParameter("Type", type) :
-                new ObjectParameter("Type", typeof(int));
+                new ObjectParameter("Type", typeof(string));
     
-            var secIDParameter = secID.HasValue ?
-                new ObjectParameter("SecID", secID) :
-                new ObjectParameter("SecID", typeof(int));
+            var isApprovedParameter = isApproved.HasValue ?
+                new ObjectParameter("IsApproved", isApproved) :
+                new ObjectParameter("IsApproved", typeof(bool));
     
-            var newsIDParameter = newsID.HasValue ?
-                new ObjectParameter("NewsID", newsID) :
-                new ObjectParameter("NewsID", typeof(int));
+            var isDeletedParameter = isDeleted.HasValue ?
+                new ObjectParameter("IsDeleted", isDeleted) :
+                new ObjectParameter("IsDeleted", typeof(bool));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetArticleForReOrderByID_Result>("BN_GetArticleForReOrderByID", typeParameter, secIDParameter, newsIDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("BN_GetAllNews_Count", srchTermParameter, newsIDParameter, secIDParameter, typeParameter, isApprovedParameter, isDeletedParameter);
         }
     }
 }

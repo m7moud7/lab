@@ -18,8 +18,6 @@ namespace Labyrinth.Data
         public string Title { get; set; }
         public int SecID { get; set; }
         public string SecTitle { get; set; }
-        public Nullable<int> EditorID { get; set; }
-        public string EditorName { get; set; }
         public string Notes { get; set; }
         public Nullable<int> CurrentUser { get; set; }
         public Nullable<int> CurrentGroup { get; set; }

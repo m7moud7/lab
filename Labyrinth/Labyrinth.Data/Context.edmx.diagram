@@ -4,19 +4,121 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b392a5f5ba824dd29592aac04667d6d0" Name="Diagram1">
-        <EntityTypeShape EntityType="ContextModel.UsersAdmin" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="ContextModel.Section" Width="1.5" PointX="3.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ContextModel.OrderLevel" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="ContextModel.Tag" Width="1.5" PointX="5.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ContextModel.News_Tags" Width="1.5" PointX="5.375" PointY="3.75" />
-        <EntityTypeShape EntityType="ContextModel.Editor" Width="1.5" PointX="3.375" PointY="6.75" />
-        <EntityTypeShape EntityType="ContextModel.GeneralSetting" Width="1.5" PointX="5.375" PointY="6.75" />
-        <EntityTypeShape EntityType="ContextModel.Attachment" Width="1.5" PointX="7.375" PointY="0.75" />
-        <EntityTypeShape EntityType="ContextModel.News" Width="1.5" PointX="0.75" PointY="7.75" />
-        <EntityTypeShape EntityType="ContextModel.NewsPublish" Width="1.5" PointX="7.375" PointY="5.75" />
-        <EntityTypeShape EntityType="ContextModel.NewsMeta" Width="1.5" PointX="7.375" PointY="8.75" />
-        <EntityTypeShape EntityType="ContextModel.Order" Width="1.5" PointX="9.375" PointY="0.75" />
+      <Diagram DiagramId="34f0ea781ddc4a498902049ed60738c3" Name="Diagram1" ZoomLevel="89">
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Album" Width="1.5" PointX="0.75" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Album_Attachment" Width="1.5" PointX="3" PointY="46" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Attachment" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Block" Width="1.5" PointX="13.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.BlockOrder" Width="1.5" PointX="8.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Channel" Width="1.5" PointX="8.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Comment" Width="1.5" PointX="10.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Conj_News_Groups" Width="1.5" PointX="13" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Conj_PluginPage_Plugin" Width="1.5" PointX="12.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Currency" Width="1.5" PointX="14.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Currency_Daily" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Currency_Unit" Width="1.5" PointX="15.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Daily_Karats" Width="1.5" PointX="6" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Editor" Width="1.5" PointX="15.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.GeneralSetting" Width="1.5" PointX="16.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.GeneralSettingsPage" Width="1.5" PointX="16.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Gold" Width="1.5" PointX="0.75" PointY="20.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.GroupLink" Width="1.5" PointX="10.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.HeadLine" Width="1.5" PointX="3" PointY="48.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.InstantArticle" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Issue" Width="1.5" PointX="17.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Karat" Width="1.5" PointX="3.75" PointY="37.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Keyword" Width="1.5" PointX="17.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.mobilesection" Width="1.5" PointX="12.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.MobileSectionsMap" Width="1.5" PointX="8.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News" Width="1.5" PointX="3.75" PointY="30.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Albums" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Attachment" Width="1.5" PointX="3" PointY="53.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Currency" Width="1.5" PointX="18.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Editor" Width="1.5" PointX="18.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Golds" Width="1.5" PointX="6" PointY="17" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Keywords" Width="1.5" PointX="14.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Poll" Width="1.5" PointX="6" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Reaction" Width="1.5" PointX="18.75" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_RelatedLinks" Width="1.5" PointX="16.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_Tags" Width="1.5" PointX="18.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.News_WorkFlowAttachment" Width="1.5" PointX="6" PointY="29.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsMeta" Width="1.5" PointX="19.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsMostCommented" Width="1.5" PointX="19.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsOfSpecificGroup" Width="1.5" PointX="13" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsPublish" Width="1.5" PointX="19.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsSearch" Width="1.5" PointX="20.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_Albums" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_Attachment" Width="1.5" PointX="3" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_Currency" Width="1.5" PointX="10.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_Golds" Width="1.5" PointX="3" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_Keywords" Width="1.5" PointX="20.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_Poll" Width="1.5" PointX="6" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_RelatedLinks" Width="1.5" PointX="20.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_Tags" Width="1.5" PointX="6" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersion_WorkFlowAttachment" Width="1.5" PointX="6" PointY="13" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.NewsVersionMate" Width="1.5" PointX="3" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Notification" Width="1.5" PointX="20.75" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Order" Width="1.5" PointX="21.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.OrderAlbum" Width="1.5" PointX="3" PointY="40" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.OrderAttachment" Width="1.5" PointX="3" PointY="42.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.OrderLevel" Width="1.5" PointX="21.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.OrderPoll" Width="1.5" PointX="21.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.PlugIn" Width="1.5" PointX="10.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.PlugInItem" Width="1.5" PointX="13" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.PlugInItemReorder" Width="1.5" PointX="12.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.PlugInItemType" Width="1.5" PointX="14.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.PluginPage" Width="1.5" PointX="16.75" PointY="21.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.PluginPosition" Width="1.5" PointX="22.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Poll" Width="1.5" PointX="3.75" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.PollAnswer" Width="1.5" PointX="6" PointY="34.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Section" Width="1.5" PointX="22.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Serial" Width="1.5" PointX="8.75" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Serial_Channel" Width="1.5" PointX="11" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Tag" Width="1.5" PointX="3.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Ticker" Width="1.5" PointX="22.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.TickersMOdule" Width="1.5" PointX="18.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.TimelineNew" Width="1.5" PointX="22.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.UsersAdmin" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.View" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.ViewsCounter" Width="1.5" PointX="6" PointY="32" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.ViewsDirection" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.ViewsType" Width="1.5" PointX="5.75" PointY="26.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.WorkFlowAttachment" Width="1.5" PointX="3.75" PointY="21.25" IsExpanded="true" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_News_Albums_Album" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Albums_Album" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_OrderAlbums_Album" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_OrderAttachment_Album" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Album_Attachment_Attachment" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_HeadLine_Attachment" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_News_Attachment_Attachment" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Attachment_Attachment" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Serial_Channel_Channel" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Conj_News_Groups_GroupLinks" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Daily_Karats_Daily_Karats" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Daily_Karats_Gold" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_News_Golds_Gold" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Golds_Gold" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsOfSpecificGroup_GroupLinks" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_News_Golds_News" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_ViewsCounter_News" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Poll_News_Poll" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_News_WorkFlowAttachment_WorkFlowAttachment" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Albums_NewsVersion" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Attachment_NewsVersion" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Golds_NewsVersion" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Mate_NewsVersion" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Poll_NewsVersion" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Tags_NewsVersion" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_WorkFlowAttachment_NewsVersion" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Poll_NewsVersion_Poll" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_Tags_Tags" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_NewsVersion_WorkFlowAttachment_Attachment" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_PlugInItem_PlugIn" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_PollAnswers_Poll" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Serial_Channel_Serial_Channel" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Views_ViewsDirections" ManuallyRouted="false" />
+        <AssociationConnector Association="GenyBuzzNewModel.FK_Views_ViewsTypes" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

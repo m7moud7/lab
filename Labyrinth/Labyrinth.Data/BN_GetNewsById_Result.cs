@@ -11,7 +11,7 @@ namespace Labyrinth.Data
 {
     using System;
     
-    public partial class BN_GetNewsById_Result
+    public partial class BN_GetNewsByID_Result
     {
         public int ID { get; set; }
         public int SecID { get; set; }
@@ -26,7 +26,6 @@ namespace Labyrinth.Data
         public string CoverCaption { get; set; }
         public string Notes { get; set; }
         public Nullable<int> Type { get; set; }
-        public Nullable<int> EditorID { get; set; }
         public Nullable<int> Status { get; set; }
         public bool IsApproved { get; set; }
         public bool IsDeleted { get; set; }

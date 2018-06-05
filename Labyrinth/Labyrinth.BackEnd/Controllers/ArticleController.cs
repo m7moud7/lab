@@ -44,13 +44,25 @@ namespace Labyrinth.BackEnd.Controllers
         {
             ViewBag.SecIdList = CurrentSections();
 
-            ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
+            if (_Article != null && _Article.Editors != null)
             {
-                Text = item.Name,
-                Value = item.ID.ToString(),
-                Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
-            }).ToList();
-
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
 
             return View(new ArticleVM());
         }
@@ -74,18 +86,45 @@ namespace Labyrinth.BackEnd.Controllers
                 if (ViewModel.CurrentGroupID != null && (ViewModel.CurrentUserID > 0))
                     ViewModel.CurrentGroupID = null;
 
+                if (ViewModel.SelectedEditors != null)
+                {
+                    ViewModel.Editors = new List<EditorVM>();
+                    foreach (var item in ViewModel.SelectedEditors)
+                    {
+                        var current = new EditorVM();
+                        current.ID = int.Parse(item);
+                        ViewModel.Editors.Add(current);
+                    }
+                }
+
                 var result = _ArticleService.Save(ViewModel);
                 if (result > 0)
                     return RedirectToAction("Edit", "Article", new { ID = result });
             }
 
             ViewBag.SecIdList = CurrentSections();
-            ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
+
+            if (_Article != null && _Article.Editors != null)
             {
-                Text = item.Name,
-                Value = item.ID.ToString(),
-                Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
-            }).ToList();
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
+
+
             return View();
         }
 
@@ -93,22 +132,62 @@ namespace Labyrinth.BackEnd.Controllers
         [SessionExpireFilter]
         public ActionResult Edit(int ID)
         {
-            _Article = _ArticleService.GetNewsByID(ID);
-            if (_Article.ID > 0)
+            var Model = _ArticleService.GetNewsByID(ID);
+
+            if (Session["ArticleFromEdit_" + uservm.ID] != null)
+                _Article = (ArticleVM)Session["ArticleFromEdit" + uservm.ID];
+
+            if (Model.ID > 0)
             {
                 ViewBag.SecIdList = CurrentSections();
-                ViewBag.EditorIdList = _EditorService.GetAllEditors_DDL().ToList().Select(item => new SelectListItem
+
+                //////Editors
+                if (_Article != null && _Article.Editors != null)
                 {
-                    Text = item.Name,
-                    Value = item.ID.ToString(),
-                    Selected = (_Article != null && _Article.EditorID > 0 && _Article.EditorID == item.ID) ? true : false
-                }).ToList();
-                return View(_Article);
+                    var editors = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                    var NewEditors = new List<EditorVM>();
+                    foreach (var item in _Article.Editors)
+                    {
+                        var Current = _EditorService.GetEditorById(item.ID);
+                        editors.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                        NewEditors.Add(Current);
+                    }
+                    _Article.Editors = NewEditors;
+                    _Article.SelectedEditors = _Article.EditorList.Split(',');
+                    ViewBag.EditorsList = editors;
+                }
+                else
+                {
+                    Model.Editors = _ArticleService.GetNewsEditor(ID).ToList();
+
+                    var ListEditors = _EditorService.GetAllEditors_DDL().ToList();
+
+                    var editors = new MultiSelectList(ListEditors, "ID", "Name", Model.Editors.Select(a => a.ID).AsEnumerable());
+                    var NewEditors = new List<EditorVM>();
+                    foreach (var item in Model.Editors)
+                    {
+                        var Current = _EditorService.GetEditorById(item.ID);
+                        editors.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                        NewEditors.Add(Current);
+                        Model.EditorList += item.ID.ToString() + ",";
+                    }
+                    Model.Editors = NewEditors;
+
+                    if (Model.EditorList != null)
+                        Model.SelectedEditors = Model.EditorList.Split(',');
+
+                    ViewBag.EditorsList = editors;
+                }
+
+                return View(Model);
             }
             else
             {
                 return RedirectToAction("Add", "Article");
             }
+
+            //return View(Model);
+
         }
 
         [HttpPost]
@@ -149,7 +228,7 @@ namespace Labyrinth.BackEnd.Controllers
             ViewBag.CountUnPublishArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, false);
             ViewBag.CountDeletedArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, true);
 
-            var model = _ArticleService.GetAllNews(5, 0, "", 0, 0, 0, true, false);
+            var model = _ArticleService.GetAllNews(10, 0, "", 0, 0, 0, true, false);
 
             return View(model);
         }

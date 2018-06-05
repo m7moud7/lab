@@ -65,6 +65,38 @@ namespace Labyrinth.Services
                     _DB.SaveChanges();
                 }
 
+                //Save Editors
+                if (ViewModel.Editors != null)
+                {
+                    var oldEditors = _DB.News_Editor.Where(a => a.NewsID == ViewModel.ID);
+
+                    //if (oldEditors.Any())
+                    //{
+                    //    foreach (var item in oldEditors)
+                    //    {
+                    //        var newsversion_poll = new NewsVersion_Poll();
+                    //        newsversion_poll.NewsId = oldModel.Id;
+                    //        newsversion_poll.PollId = item.PollId;
+                    //        _DB.NewsVersion_Poll.Add(newsversion_poll);
+                    //    }
+                    _DB.News_Editor.RemoveRange(oldEditors);
+                    //}
+                    foreach (var item in ViewModel.Editors)
+                    {
+                        var news_editor = new News_Editor();
+                        news_editor.NewsID = model.ID;
+                        news_editor.EditorID = item.ID;
+                        _DB.News_Editor.Add(news_editor);
+                    }
+                }
+                else
+                {
+                    var oldEditorone = _DB.News_Editor.Where(a => a.NewsID == model.ID).FirstOrDefault();
+                    if (oldEditorone != null)
+                        _DB.News_Editor.Remove(oldEditorone);
+                }
+                _DB.SaveChanges();
+
                 //Add Schdeuled Publish
                 if (!string.IsNullOrEmpty(ViewModel.SchdeuledPublish) && ViewModel.IsApproved == false)
                 {
@@ -108,7 +140,7 @@ namespace Labyrinth.Services
         {
             try
             {
-                var model = (from NS in _DB.BN_GetNewsById(ID)
+                var model = (from NS in _DB.BN_GetNewsByID(ID)
                              select new ArticleVM
                              {
                                  ID = NS.ID,
@@ -125,7 +157,7 @@ namespace Labyrinth.Services
                                  ImageCaptionCover = NS.CoverCaption,
                                  Notes = NS.Notes,
                                  Type = NS.Type.Value,
-                                 EditorID = NS.EditorID.Value,
+                                 //EditorID = NS.EditorID.Value,
                                  Status = NS.Status,
                                  IsApproved = NS.IsApproved,
                                  IsDeleted = NS.IsDeleted,
@@ -158,7 +190,7 @@ namespace Labyrinth.Services
             try
             {
                 var model = (from NS in _DB.BN_GetAllNews(Filter, NewsID.ToString(), SecID.ToString(), TypeID.ToString(), IsApproved, IsDeleted, Take, PageID)
-                             select new ArticleVM
+                             select new ArticleVM()
                              {
                                  ID = NS.ID,
                                  Type = NS.Type.Value,
@@ -167,8 +199,8 @@ namespace Labyrinth.Services
                                  SecID = NS.SecID,
                                  SecTitle = NS.SecTitle,
 
-                                 EditorID = NS.EditorID.Value,
-                                 EditorName = NS.EditorName,
+                                 //EditorID = NS.EditorID.Value,
+                                 //EditorName = NS.EditorName,
 
                                  Notes = NS.Notes,
 
@@ -449,6 +481,27 @@ namespace Labyrinth.Services
 
             }
         }
+
+        ///News Procedures 
+
+        public List<EditorVM> GetNewsEditor(int ID)
+        {
+            try
+            {
+                return (from NE in _DB.BN_News_Editor(ID)
+                        select new EditorVM()
+                        {
+                            ID = NE.ID,
+                            Name = NE.Name,
+                            SecID = NE.SecID,
+                        }).ToList();
+            }
+            catch
+            {
+                return new List<EditorVM>();
+            }
+        }
+
 
     }
 }

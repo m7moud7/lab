@@ -27,7 +27,7 @@ namespace Labyrinth.Data
                 Cover = ViewModel.CoverID != null ? ViewModel.CoverID : 0,
                 CoverCaption = ViewModel.ImageCaptionCover,
                 Type = ViewModel.Type,
-                EditorID = ViewModel.EditorID != null ? ViewModel.EditorID : 0,
+                //EditorID = ViewModel.EditorID != null ? ViewModel.EditorID : 0,
                 Status = ViewModel.Status != null ? ViewModel.Status : 0,
                 IsApproved = ViewModel.IsApproved,
                 IsDeleted = ViewModel.IsDeleted,

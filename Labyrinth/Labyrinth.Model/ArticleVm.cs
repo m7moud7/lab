@@ -75,6 +75,12 @@ namespace Labyrinth.Model
 
         public string EditorName { get; set; }
 
+        public List<EditorVM> Editors { get; set; }
+
+        public string[] SelectedEditors { get; set; }
+
+        public string EditorList { get; set; }
+
         [Display(Name = "تمرير اللى")]
         public int? Status { get; set; }
 
@@ -125,6 +131,8 @@ namespace Labyrinth.Model
         public List<NewsMetaVM> NewsMeta { get; set; }
 
 
+
+
         //public List<AlbumVm> Albums { get; set; }
         //public string AlbumList { get; set; }
         //public List<Services.GoldVM> Golds { get; set; }
@@ -145,7 +153,7 @@ namespace Labyrinth.Model
         //public AttachmentVM ImageDetails { get; set; }
         //public AttachmentVM CoverDetails { get; set; }
 
-    
+
         //public string AttachmentPath { get; set; }
         //public bool FromAddEdit { get; set; }//True From Add Article, False From Edit Article
         //public string Path { get; set; }

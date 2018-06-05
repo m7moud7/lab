@@ -20,6 +20,9 @@ namespace Labyrinth.Model
 
         public Int64? AttachmentId { get; set; }
         public string AttachmentPath { get; set; }
+
+        public int SecID { get; set; }
+
     }
 
     public class EditorOrderVM

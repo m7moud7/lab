@@ -14,6 +14,13 @@ namespace Labyrinth.Data
     
     public partial class News
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public News()
+        {
+            this.News_Golds = new HashSet<News_Golds>();
+            this.ViewsCounters = new HashSet<ViewsCounter>();
+        }
+    
         public int ID { get; set; }
         public int SecID { get; set; }
         public string WrittenBy { get; set; }
@@ -27,7 +34,6 @@ namespace Labyrinth.Data
         public string CoverCaption { get; set; }
         public string Notes { get; set; }
         public Nullable<int> Type { get; set; }
-        public Nullable<int> EditorID { get; set; }
         public Nullable<int> Status { get; set; }
         public bool IsApproved { get; set; }
         public bool IsDeleted { get; set; }
@@ -38,5 +44,10 @@ namespace Labyrinth.Data
         public Nullable<int> CurrentUser { get; set; }
         public Nullable<int> ViewsCount { get; set; }
         public string RelatedNews { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<News_Golds> News_Golds { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ViewsCounter> ViewsCounters { get; set; }
     }
 }
