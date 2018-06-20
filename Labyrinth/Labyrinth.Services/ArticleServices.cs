@@ -85,6 +85,7 @@ namespace Labyrinth.Services
                     {
                         var news_editor = new News_Editor();
                         news_editor.NewsID = model.ID;
+                        news_editor.SecID = model.SecID;
                         news_editor.EditorID = item.ID;
                         _DB.News_Editor.Add(news_editor);
                     }
