@@ -124,7 +124,6 @@ namespace Labyrinth.BackEnd.Controllers
                 ViewBag.EditorsList = articles;
             }
 
-
             return View();
         }
 
@@ -208,6 +207,18 @@ namespace Labyrinth.BackEnd.Controllers
 
                 if (ViewModel.CurrentGroupID != null && (ViewModel.CurrentUserID > 0))
                     ViewModel.CurrentGroupID = null;
+
+                if (ViewModel.SelectedEditors != null)
+                {
+                    ViewModel.Editors = new List<EditorVM>();
+                    foreach (var item in ViewModel.SelectedEditors)
+                    {
+                        var current = new EditorVM();
+                        current.ID = int.Parse(item);
+                        ViewModel.Editors.Add(current);
+                    }
+                }
+
 
                 var result = _ArticleService.Save(ViewModel);
                 if (result > 0)

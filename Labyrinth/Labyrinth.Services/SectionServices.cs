@@ -182,8 +182,6 @@ namespace Labyrinth.Services
             }
         }
 
-
-
         /// Return Order Levels
         public List<LookUpVM> GeAllOrderLevels()
         {
@@ -201,7 +199,6 @@ namespace Labyrinth.Services
                 return new List<LookUpVM>();
             }
         }
-
 
     }
 }
