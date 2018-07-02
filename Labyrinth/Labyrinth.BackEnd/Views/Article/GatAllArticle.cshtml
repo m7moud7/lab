@@ -23,9 +23,9 @@
         <div class="col-md-12">
             <div>
                 <ul class="subsubsub">
-                    <li class="allsubsubsub"><a class="current">الاخبار المنشوره <span class="count">(@ViewBag.CountPublishArticle)</span></a></li>
-                    <li class="allsubsubsub"><a class="current">الاخبار الغير منشوره<span class="count">(@ViewBag.CountUnPublishArticle)</span></a></li>
-                    <li class="allsubsubsub"><a class="current">الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a></li>
+                    <li class="allsubsubsub" id="PublishArticle" name="PublishArticle"><a class="current">الاخبار المنشوره <span class="count">(@ViewBag.CountPublishArticle)</span></a></li>
+                    <li class="allsubsubsub" id="UnPublishArticle" name="UnPublishArticle"><a>الاخبار الغير منشوره<span class="count">(@ViewBag.CountUnPublishArticle)</span></a></li>
+                    <li class="allsubsubsub" id="DeletedArticle" name="DeletedArticle"><a>الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a></li>
                 </ul>
 
                 <input type="hidden" id="IsApproved" name="IsApproved" value="true" />
@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="quickEditForm">
                                         <div>
-                                            <input type="text" class="" value="" name=""/>
+                                            <input type="text" class="" value="" name="" />
                                         </div>
                                         <button class="btn ls-blue-btn btn-round doneEditForm">حفظ</button>
                                         <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
@@ -195,6 +195,41 @@
                 $("input:checkbox").prop('checked', $(this).prop("checked"));
             });
 
+            $("#btnSearch").click(function () {
+                LoadMore(0);
+            });
+
+            $("#PublishArticle").click(function () {
+                $('#IsApproved').val("true");
+                $('#IsDeleted').val("false");
+
+                $('#txtfilter').val('');
+                $('#ddlSecID').val('0');
+                $('#txtNewsID').val('');
+
+                LoadMore(0);
+            });
+
+            $("#UnPublishArticle").click(function () {
+                $('#IsApproved').val("false");
+                $('#IsDeleted').val("false");
+
+                $('#txtfilter').val('');
+                $('#ddlSecID').val('0');
+                $('#txtNewsID').val('');
+                LoadMore(0);
+            });
+
+            $("#DeletedArticle").click(function () {
+                $('#IsApproved').val("false");
+                $('#IsDeleted').val("true");
+
+                $('#txtfilter').val('');
+                $('#ddlSecID').val('0');
+                $('#txtNewsID').val('');
+                LoadMore(0);
+            });
+
             //toogle
 
             var ArticleCount = $('#ListCount').val();
@@ -253,9 +288,7 @@
             }
 
 
-            $("#btnSearch").click(function () {
-                LoadMore(0);
-            });
+
 
         });
     </script>

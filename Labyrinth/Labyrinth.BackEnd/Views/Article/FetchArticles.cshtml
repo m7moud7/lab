@@ -1,9 +1,11 @@
 ﻿@model List<Labyrinth.Model.ArticleVM>
 @{
+    /**/
+
     ViewBag.Title = "FetchArticles";
 }
 
-@Html.Hidden("ListCount", (object)ViewBag.CountPublishArticle)
+@Html.Hidden("ListCount", (object)ViewBag.CountArticle)
 <table class="table table-bordered table-striped table-responsive">
     <thead>
         <tr>

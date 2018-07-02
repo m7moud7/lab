@@ -247,14 +247,8 @@ namespace Labyrinth.BackEnd.Controllers
         [SessionExpireFilter]
         public ActionResult FetchArticles(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
         {
-            ViewBag.SecIdList = CurrentSections();
-
-            ViewBag.CountPublishArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, true, false);
-            ViewBag.CountUnPublishArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, false, false);
-            ViewBag.CountDeletedArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, false, true);
-
+            ViewBag.CountArticle = _ArticleService.GetAllNewsCount(Filter, NewsID, SecID, TypeID, IsApproved, IsDeleted);
             var model = _ArticleService.GetAllNews(Take, PageID, Filter, NewsID, SecID, TypeID, IsApproved, IsDeleted);
-
             return PartialView(model);
         }
 
