@@ -64,7 +64,7 @@ namespace Labyrinth.BackEnd.Controllers
                         ViewModel.FolderName = "\\Images\\" + DateTimePath.Year + "\\" + DateTimePath.Month + "\\";
                         NewId = _Attachment.Save(ViewModel);
 
-                        MSG.Path = ViewModel.FolderName + "Thumb" + "\\" + ViewModel.Path;
+                        MSG.Path = ViewModel.FolderName + "large-1" + "\\" + ViewModel.Path;
                         MSG.NewId = NewId;
 
                     }

@@ -40,24 +40,49 @@
                 @Html.Hidden("imagex_" + count)
 
                 string[] Size = new string[2];
+                string[] Size1 = new string[2];
+                string[] Size2 = new string[2];
+                string[] Size3 = new string[2];
+                string[] Size4 = new string[2];
                 if (Model.Any())
                 {
                     Size = item.Val2.Split(',');
+                    if (item.Val3 != null)
+                    {
+                        Size1 = item.Val3.Split(',');
+                    }
+                    if (item.Val4 != null)
+                    {
+                        Size2 = item.Val4.Split(',');
+                    }
+                    if (item.Val5 != null)
+                    {
+                        Size3 = item.Val5.Split(',');
+                    }
+                    if (item.Val6 != null)
+                    {
+                        Size3 = item.Val6.Split(',');
+                    }
+                    <br /><br /><br /><br />
+                    <div id="divShow_@(count)" class="upload-msg1">
+                        @Html.Hidden("SetKey_" + count, item.SetKey)
+                        @Html.Hidden("Val1_" + count, item.Val1)
+                        @Html.Hidden("CurrentWidth" + count, Size[0])
+                        @Html.Hidden("CurrentHeight" + count, Size[1])
+
+                        @Html.Hidden("CurrentHeight" + count, Size[1])
+                        @Html.Hidden("CurrentHeight" + count, Size[1])
+                        @Html.Hidden("CurrentHeight" + count, Size[1])
+                        @Html.Hidden("CurrentHeight" + count, Size[1])
+
+
+                        Upload a file to start cropping
+                    </div>
+
+                    <div id="divCrop_@(count)" class="upload-demo-wrap">
+                        <div id="upload-demo_@(count)"></div>
+                    </div>
                 }
-
-                <br /><br /><br /><br />
-                <div id="divShow_@(count)" class="upload-msg1">
-                    @Html.Hidden("SetKey_" + count, item.SetKey)
-                    @Html.Hidden("Val1_" + count, item.Val1)
-                    @Html.Hidden("CurrentWidth" + count, Size[0])
-                    @Html.Hidden("CurrentHeight" + count, Size[1])
-                    Upload a file to start cropping
-                </div>
-
-                <div id="divCrop_@(count)" class="upload-demo-wrap">
-                    <div id="upload-demo_@(count)"></div>
-                </div>
-
                 count++;
             }
 
