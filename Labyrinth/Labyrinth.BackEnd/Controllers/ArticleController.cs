@@ -38,7 +38,6 @@ namespace Labyrinth.BackEnd.Controllers
             return sections;
         }
 
-
         [SessionExpireFilter]
         public ActionResult Add()
         {
@@ -127,6 +126,94 @@ namespace Labyrinth.BackEnd.Controllers
             return View();
         }
 
+
+        [SessionExpireFilter]
+        public ActionResult AddArticle()
+        {
+            ViewBag.SecIdList = CurrentSections();
+
+            if (_Article != null && _Article.Editors != null)
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
+
+            return View(new ArticleVM());
+        }
+
+        [HttpPost]
+        [SessionExpireFilter]
+        public ActionResult AddArticle(ArticleVM ViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewModel.CUser = uservm.ID;
+                ViewModel.CDate = DateTime.Now;
+                ViewModel.Story = WebUtility.HtmlDecode(ViewModel.Story).ToString();
+
+                if (ViewModel.CurrentGroupID == null && ViewModel.CurrentUserID == null)
+                    ViewModel.CurrentUserID = uservm.ID;
+
+                if (ViewModel.CurrentGroupID != null && ViewModel.CurrentUserID == 0)
+                    ViewModel.CurrentUserID = null;
+
+                if (ViewModel.CurrentGroupID != null && (ViewModel.CurrentUserID > 0))
+                    ViewModel.CurrentGroupID = null;
+
+                if (ViewModel.SelectedEditors != null)
+                {
+                    ViewModel.Editors = new List<EditorVM>();
+                    foreach (var item in ViewModel.SelectedEditors)
+                    {
+                        var current = new EditorVM();
+                        current.ID = int.Parse(item);
+                        ViewModel.Editors.Add(current);
+                    }
+                }
+
+                var result = _ArticleService.Save(ViewModel);
+                if (result > 0)
+                    return RedirectToAction("Edit", "Article", new { ID = result });
+            }
+
+            ViewBag.SecIdList = CurrentSections();
+
+            if (_Article != null && _Article.Editors != null)
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
+
+            return View();
+        }
 
         [SessionExpireFilter]
         public ActionResult Edit(int ID)
@@ -228,7 +315,6 @@ namespace Labyrinth.BackEnd.Controllers
             return RedirectToAction("Edit", new { ID = ViewModel.ID });
         }
 
-
         [SessionExpireFilter]
         public ActionResult GatAllArticle()
         {
@@ -239,7 +325,7 @@ namespace Labyrinth.BackEnd.Controllers
             ViewBag.CountUnPublishArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, false);
             ViewBag.CountDeletedArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, false, true);
 
-            var model = _ArticleService.GetAllNews(10, 0, "", 0, 0, 0, true, false);
+            var model = _ArticleService.GetAllNews(20, 0, "", 0, 0, 0, true, false);
 
             return View(model);
         }
@@ -251,6 +337,20 @@ namespace Labyrinth.BackEnd.Controllers
             var model = _ArticleService.GetAllNews(Take, PageID, Filter, NewsID, SecID, TypeID, IsApproved, IsDeleted);
             return PartialView(model);
         }
+
+        [SessionExpireFilter]
+        public ActionResult RelatedNews(int Take)
+        {
+            ViewBag.SecIdList = CurrentSections();
+            ViewBag.SecIdList.Insert(0, new SelectListItem { Text = "الكل", Value = "0" });
+
+            ViewBag.CountPublishArticle = _ArticleService.GetAllNewsCount("", 0, 0, 0, true, false);
+
+            var model = _ArticleService.GetAllNews(20, 0, "", 0, 0, 0, true, false);
+
+            return View(model);
+        }
+
 
         /// <summary>
         /// Reorder
@@ -296,8 +396,6 @@ namespace Labyrinth.BackEnd.Controllers
             string result = _ArticleService.SaveArticlesReorder(ViewModel.ArticleOrder, SecID, Type);
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
-
 
     }
 }

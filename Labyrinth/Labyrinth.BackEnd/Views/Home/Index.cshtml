@@ -1,3 +1,11 @@
 ﻿@{
     ViewBag.Title = "الرئيسيه";
 }
+<div id="main-content" name="main-content">
+    <div class="container-fluid">
+        <a href="@Url.Action("AddArticle", "Article"@*,  new {area = "News",IsNew="1" }*@)">اضافة خبر</a>
+
+        <a href="@Url.Action("Add", "Article"@*,  new {area = "News",IsNew="1" }*@)">Add General</a>
+        <br />
+    </div>
+</div>

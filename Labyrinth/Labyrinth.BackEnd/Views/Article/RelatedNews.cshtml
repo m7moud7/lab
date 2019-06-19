@@ -1,0 +1,251 @@
+﻿@model List<Labyrinth.Model.ArticleVM>
+@{
+    ViewBag.Title = "GatAllArticle";
+    Layout = null;
+}
+@section Head{
+    <link href="~/Content/simplePagination.css" rel="stylesheet" />
+}
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="col-md-12">
+            <div>
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">بحث مفصل</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="ls_form">
+                            <div class="col-md-2 ls-group-input">
+                                <select class="form-control" id="ddlType" name="ddlType">
+                                    <option value="0">النوع</option>
+                                    <option value="1">خبر</option>
+                                    <option value="2">مقال</option>
+                                </select>
+                            </div>
+
+                            <div class="col-md-2 ls-group-input">
+                                @*@Html.DropDownList("SecId", new List<SelectListItem>()@ViewBag.SecIdList})*@
+                                @Html.DropDownList("ddlSecID", new SelectList(ViewBag.SecIdList, "Value", "Text"), new { @class = "form-control" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <input type="text" class="form-control rounded" name="txtfilter" id="txtfilter" placeholder="اسم الخبر">
+                            </div>
+
+                            <div class="col-md-2">
+                                <input type="text" class="form-control rounded" name="txtNewsID" id="txtNewsID" placeholder="رقم الخبر">
+                            </div>
+
+                            <div class="col-md-2">
+                                <button name="btnSearch" id="btnSearch" class="btn btn-default btn-round" type="button">بحث</button>
+                            </div>
+
+                            <div class="col-md-12">
+                                <button style="display:none" name="SelectRelatedNews" id="SelectRelatedNews" class="btn btn-default btn-round" type="button" data-dissmiss="modal">إختيار</button>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+            <!--Table Wrapper Start-->
+            <div id="DivGetAllNews" name="DivGetAllNews" class="table-responsive ls-table">
+                @Html.Hidden("ListCount", (object)ViewBag.CountPublishArticle)
+                <table class="table table-bordered table-striped table-responsive">
+                    <thead>
+                        <tr>
+                            <th>
+                                <input class="checkAll" type="checkbox" id="checkRed2" value="option2" />
+                            </th>
+                            <th>العنوان</th>
+                            <th>النوع / القسم</th>
+                            <th>التاريخ</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <input class="icheck-blue" type="checkbox" name="check_Red" id="checkRed_@item.ID" value="@item.ID" data-id="@item.ID" data-title="@item.Title" />
+                                </td>
+                                <td class="firstTh">
+                                    @item.Title
+                                    <div class="row-actions">
+                                        <a class="edit" href="/Article/Edit/@item.ID">تعديل</a>
+                                        <span class="quickedit">تعديل سريع</span>
+                                        <span class="edit">حذف</span>
+                                        <span class="edit">عرض</span>
+                                    </div>
+                                    <div class="quickEditForm">
+                                        <div>
+                                            <input type="text" class="" value="" name="" />
+                                        </div>
+                                        <button class="btn ls-blue-btn btn-round doneEditForm">حفظ</button>
+                                        <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
+                                    </div>
+                                </td>
+                                <td>
+                                    @if (item.Type == 1)
+                                    {
+                                        @Html.Raw("خبر ( <span class='label label-warning'>" + item.SecTitle + "</span> )");
+                                    }
+                                    else if (item.Type == 2)
+                                    {
+                                        @Html.Raw("مقال ( <span class='label label-warning'>" + item.EditorName + "</span> )");
+                                    }
+                                </td>
+                                <td style="width: 85px;">
+                                    @item.CurrentUserName
+                                    <br />
+                                    @if (item.SchdeuledPublish != "")
+                                    {
+                                        <span style="color: red;font-size: 12px;line-height: 25px;font-weight: 600;">[نشر مؤرخ] <br />  @item.SchdeuledPublish</span>
+                                    }
+                                    else
+                                    {
+                                        @item.CDate
+                                    }
+                                </td>
+
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5">
+                                <div id="ListPager" class="paging-div" style="clear:both;">
+                                </div>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            <!--Table Wrapper Finish-->
+        </div>
+        <!-- Main Content Element  End-->
+    </div>
+</div>
+
+
+<script src="~/Scripts/jquery.simplePagination.js"></script>
+<script>
+    $(document).ready(function () {
+        //toogle
+
+        $("#DivGetAllNews").on("change", ".checkAll", function () {
+            $("input:checkbox").prop('checked', $(this).prop("checked"));
+
+            $("#SelectRelatedNews").toggle('dispaly:none');
+
+            if ($('.icheck-blue:checked').length == 20 && $(".checkAll").is(":checked") == true && $("#SelectRelatedNews").css('display') == "none") {
+                $("#SelectRelatedNews").toggle('dispaly:none');
+            }
+        });
+
+        $("#DivGetAllNews").on("change", ".icheck-blue", function () {
+            if ($('.icheck-blue:checked').length == 20)
+                $(".checkAll").prop('checked', true);
+            else {
+                //if ($('.icheck-blue:checked').length == 20 && $(".checkAll").is(":checked") == true && $("#SelectRelatedNews").css('display') == "none") {
+                //    $("#SelectRelatedNews").toggle('dispaly:none');
+                //}
+                $(".checkAll").prop('checked', false);
+            }
+
+            $("#SelectRelatedNews").toggle('dispaly:none');
+
+        });
+
+
+        $("#btnSearch").click(function () {
+            LoadMore(0);
+        });
+
+        //toogle
+
+        var ArticleCount = $('#ListCount').val();
+        $('#ListPager').pagination({
+            items: ArticleCount,
+            itemsOnPage: 20,
+            prevText: null,
+            //nextText: null,
+            //cssStyle: 'light-theme',
+            onPageClick: function (pageNumber, event) {
+                LoadMore(pageNumber - 1);
+                //$("body").animate({ scrollTop: 0 }, 500);
+            }
+        });
+
+        function LoadMore(PageID) {
+            var Filter = $('#txtfilter').val();
+            var TypeID = $('#ddlType').val();
+            var SecID = $('#ddlSecID').val();
+            var NewsID = $('#txtNewsID').val();
+
+            if (!NewsID)
+                NewsID = 0;
+
+            if (!SecID)
+                SecID = 0;
+
+            //Filter = "";
+            //SecID = 0;
+
+            $.ajax({
+                type: "GET",
+                url: '/Article/FetchArticles?Take=10' + '&PageID=' + PageID + '&Filter=' + Filter + '&NewsID=' + NewsID + '&SecID=' + SecID + '&TypeID=' + TypeID + '&IsApproved=1&IsDeleted=0',
+                contentType: "html",
+                //data: SearchArticles,
+                cache: false,
+                async: false,
+                success: function (msg) {
+                    $('#DivGetAllNews').html('');
+                    $('#DivGetAllNews').html(msg);
+                    var ArticleCount = $('#ListCount').val();
+                    $('#ListPager').pagination({
+                        items: ArticleCount,
+                        itemsOnPage: 10,
+                        cssStyle: 'light-theme',
+                        onPageClick: function (pageNumber, event) {
+                            LoadMore(pageNumber - 1);
+                        }
+                    });
+                    $('#ListPager').pagination('drawPage', PageID + 1);
+                }
+            });
+        }
+
+    });
+</script>
+@*@Scripts.Render("~/Scripts/Addons_Library/selectize.min1.js")*@
+
+<script>
+
+
+    //$('#RelatedNews').selectize({
+    //    persist: false,
+    //    createOnBlur: true,
+    //    create: true,
+    //    remove_button: true
+    //});
+   
+    $('#SelectRelatedNews').click(function () {
+        var SelectedValues = $('input[name="check_Red"]:checked').map(function () {
+            var selectize_tags = $("#RelatedNews")[0].selectize
+            selectize_tags.addOption({
+                text: $(this).attr('data-title'),
+                value: $(this).val().toString()
+            });
+            selectize_tags.addItem($(this).val().toString());
+            selectize_tags.refreshItems();
+            return $(this).val().toString();
+        }).get().join(",");
+
+        var RelatedNewsStr = $('#RelatedNewsStr');
+        RelatedNewsStr.val(SelectedValues);
+        $('#RelatedArticle').modal('toggle');
+    });
+
+</script>
