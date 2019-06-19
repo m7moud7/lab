@@ -10,6 +10,7 @@
 .note-editable {
     border: 1px solid #e3dfd8;
     margin-top: 15px;
+    min-height:400px!important;
 }
 
 .TextEditorBlockBorder .EditWidth {
