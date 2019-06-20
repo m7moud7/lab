@@ -359,6 +359,7 @@
     <Content Include="assets\css\plugins\weatherFeed.css" />
     <Content Include="assets\css\responsive.css" />
     <Content Include="assets\css\rtl-css\bootstrap-rtl.css" />
+    <Content Include="assets\css\rtl-css\Edits.css" />
     <Content Include="assets\css\rtl-css\plugins\accordion-rtl.css" />
     <Content Include="assets\css\rtl-css\plugins\amaranjs\jquery.amaran-rtl.css" />
     <Content Include="assets\css\rtl-css\plugins\amaranjs\theme\all-themes-rtl.css" />
@@ -420,6 +421,7 @@
     <Content Include="assets\css\rtl-css\responsive-rtl.css" />
     <Content Include="assets\css\rtl-css\style-rtl.css" />
     <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\_Main.css" />
     <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="assets\fonts\Slide-icons.dev.svg" />
     <Content Include="assets\fonts\Slide-icons.svg" />

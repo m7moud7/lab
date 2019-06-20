@@ -23,9 +23,16 @@
         <div class="col-md-12">
             <div>
                 <ul class="subsubsub">
-                    <li class="allsubsubsub" id="PublishArticle" name="PublishArticle"><a class="current">الاخبار المنشوره <span class="count">(@ViewBag.CountPublishArticle)</span></a></li>
-                    <li class="allsubsubsub" id="UnPublishArticle" name="UnPublishArticle"><a>الاخبار الغير منشوره<span class="count">(@ViewBag.CountUnPublishArticle)</span></a></li>
-                    <li class="allsubsubsub" id="DeletedArticle" name="DeletedArticle"><a>الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a></li>
+                    <li class="allsubsubsub" id="PublishArticle" name="PublishArticle">
+                        <a class="current">الاخبار المنشوره <span class="count">(@ViewBag.CountPublishArticle)</span></a>
+                    </li>
+                    <li class="allsubsubsub" id="UnPublishArticle" name="UnPublishArticle">
+                        <a>الاخبار الغير منشوره<span class="count">(@ViewBag.CountUnPublishArticle)</span></a>
+                    </li>
+                    <li class="allsubsubsub" id="DeletedArticle" name="DeletedArticle">
+                        <a>الاخبار المحزوفه<span class="count">(@ViewBag.CountDeletedArticle)</span></a>
+                    </li>
+                    <div class="clearfix"></div>
                 </ul>
 
                 <input type="hidden" id="IsApproved" name="IsApproved" value="true" />
@@ -174,22 +181,22 @@
         $(document).ready(function () {
             //toogle
 
-            $("#DivGetAllNews").on("mouseenter", ".firstTh", function () {
-                $(this).find(".row-actions").show();
-            });
+            //$("#DivGetAllNews").on("mouseenter", ".firstTh", function () {
+            //    $(this).find(".row-actions").show();
+            //});
 
-            $("#DivGetAllNews").on("mouseleave", ".firstTh", function () {
-                $(this).find(".row-actions").hide();
-            });
+            //$("#DivGetAllNews").on("mouseleave", ".firstTh", function () {
+            //    $(this).find(".row-actions").hide();
+            //});
 
-            $("#DivGetAllNews").on("click", ".quickedit", function () {
-                $(this).parent().next().show();
-                $(this).parent().hide();
-            });
+            //$("#DivGetAllNews").on("click", ".quickedit", function () {
+            //    $(this).parent().next().show();
+            //    $(this).parent().hide();
+            //});
 
-            $("#DivGetAllNews").on("click", ".cancelEditForm", function () {
-                $(this).parent(".quickEditForm").hide();
-            });
+            //$("#DivGetAllNews").on("click", ".cancelEditForm", function () {
+            //    $(this).parent(".quickEditForm").hide();
+            //});
 
             $("#DivGetAllNews").on("change", ".checkAll", function () {
                 $("input:checkbox").prop('checked', $(this).prop("checked"));

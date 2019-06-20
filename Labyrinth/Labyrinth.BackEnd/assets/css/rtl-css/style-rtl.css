@@ -1201,7 +1201,8 @@ ul.mainNav.active ul ul ul {
 }
 
 .breadcrumb li {
-  font-size: 12px;
+    font-family: "newfont";
+    font-size: 13px;
 }
 
 .breadcrumb li a {

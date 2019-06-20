@@ -1,0 +1,10 @@
+/*LastEdit*/
+.subsubsub{padding:0}
+.allsubsubsub {float: right;list-style: none;margin-left: 10px;}
+.allsubsubsub a{color: #000;font-family: 'Tajawal';font-size: 15px;font-weight: normal;text-decoration:none;}
+.allsubsubsub a .count{color: #f00;margin-right:5px;}
+.row-actions,.quickEditForm{display:none;}
+#DivGetAllNews tr td {    font-family: 'Tajawal';font-size: 13px;}
+#DivGetAllNews tr td:last-child span{margin:auto;display:block;    max-width: 50px;border-radius: 5px;height: 15px;line-height: 11px;}
+#ListPager{width: 335px;margin:auto;}
+.ls_form{    font-family: "newfont";font-size: 18px;}
