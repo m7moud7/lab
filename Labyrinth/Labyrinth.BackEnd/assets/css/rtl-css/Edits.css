@@ -8,3 +8,4 @@
 #DivGetAllNews tr td:last-child span{margin:auto;display:block;    max-width: 50px;border-radius: 5px;height: 15px;line-height: 11px;}
 #ListPager{width: 335px;margin:auto;}
 .ls_form{    font-family: "newfont";font-size: 18px;}
+.pie-widgetP a{    line-height: 13px;font-family: "newfont";font-size: 18px;}
