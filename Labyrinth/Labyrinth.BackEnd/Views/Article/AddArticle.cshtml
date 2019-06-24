@@ -23,7 +23,7 @@
         </div>
         <!-- Main Content Element  Start-->
         <div class="row">
-            @using (Html.BeginForm("AddNews", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddArticle" }))
+            @using (Html.BeginForm("Add", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddArticle" }))
             {
                 <div class="col-md-9">
                     <div>
@@ -176,10 +176,9 @@
                                     <label class="col-md-12 control-label noRight HeadLabel">الاخبار المتعلقه</label>
                                     <div class="control-group col-md-12 noLeft">
                                         @*<select id="RelatedNews" class="demo-default input-tags selectize-input"></select>*@
-                                        @Html.EditorFor(model => model.RelatedNews, new { htmlAttributes = new { @class = "input-tags noLeft" } })
+                                        @Html.EditorFor(model => model.RelatedNews, new { htmlAttributes = new { @class = "noLeft" } })
                                         @Html.Hidden("RelatedNewsStr")
                                         @Html.HiddenFor(model => model.objectSelectedRelatedNews)
-
                                     </div>
                                     <div class="col-lg-6 noLeft noPadding">
                                         <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#RelatedArticle">اضافة الاخبار المتعلقه</button>
@@ -346,13 +345,6 @@
             $('#AttachmentID').val($(this).attr("data-id"));
         });
 
-        $('#Tags').selectize({
-            persist: false,
-            createOnBlur: true,
-            create: true,
-            remove_button: true
-        });
-        
         $('#Editors').selectize({
             create: false,
             plugins: ['remove_button'],

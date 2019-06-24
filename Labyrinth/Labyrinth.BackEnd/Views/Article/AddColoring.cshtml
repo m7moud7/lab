@@ -1,6 +1,6 @@
 ﻿@model Labyrinth.Model.ArticleVM
 @{
-    ViewBag.Title = "تعديل : ";
+    ViewBag.Title = "AddArticle";
 }
 
 @section Head{
@@ -23,22 +23,20 @@
         </div>
         <!-- Main Content Element  Start-->
         <div class="row">
-            @using (Html.BeginForm("Edit", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "EditArticle" }))
+            @using (Html.BeginForm("Add", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddArticle" }))
             {
-                @Html.HiddenFor(a => a.ID)
-                @Html.HiddenFor(a => a.CDate)
-
                 <div class="col-md-9">
                     <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">الاساسيات</h3>
+                                <h3 class="panel-title">اضافة لعبة</h3>
                                 <ul class="panel-control">
                                     <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
                                 </ul>
                             </div>
                             <div class="panel-body">
-                                @Html.HiddenFor(a => a.Type)
+                                @Html.Hidden("Type", "3")
+                                @Html.Hidden("Story", "AddColoring")
 
                                 <div class="form-group marginBlock">
                                     <label class="col-lg-2 control-label noRight HeadLabel">العنوان الفرعى</label>
@@ -74,49 +72,15 @@
                                     </div>
                                 </div>
 
-                                @if (Model.Type == 1)
-                                {
-                                    <div class="form-group marginBlock TextEditorBlock">
-                                        <label class="col-lg-12 control-label HeadLabel">الخبر</label>
-                                        <div class="col-lg-12 TextEditorBlockBorder">
-                                            <div class="panel panel-default EditWidth">
-                                                <div class="panel-body no-padding">
-                                                    <div class="summernote " id="StoryCode" name="StoryCode">
-                                                        @Html.Raw(Model.Story)
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="form-group marginBlock">
+                                    <label class="col-md-2 control-label noRight HeadLabel">الصورة الملونه</label>
+                                    <div class="col-md-10 borderForFields">
+                                        <input id="Coverfile" name="Coverfile" type="file" />
+                                        <br />
+                                        <div id="Cover-holder"> </div>
+                                        @Html.ValidationMessageFor(model => model.Cover, "", new { @class = "text-danger" })
                                     </div>
-                                }
-                                else if (Model.Type == 2)
-                                {
-                                    <div class="form-group marginBlock">
-                                        <label class="col-lg-2 control-label noRight HeadLabel">لينك العبة</label>
-                                        <div class="col-lg-10 noLeft">
-                                            @Html.TextAreaFor(model => model.Embed, new { @class = "col-md-12", @rows = "7" })
-                                            @Html.ValidationMessageFor(model => model.Embed, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                }
-                                else if (Model.Type == 3)
-                                {
-                                    <div class="form-group marginBlock">
-                                        <label class="col-md-2 control-label noRight HeadLabel">الصورة الملونه</label>
-                                        <div class="col-md-10 borderForFields">
-                                            <input id="Coverfile" name="Coverfile" type="file" />
-                                            <br />
-                                            <div id="Cover-holder">
-                                                @if (Model.CoverImage != null)
-                                                {
-                                                    <input id="Cover" name="Cover" type="hidden" value="@Model.CoverImage">
-                                                    <img src="@Model.CoverPath" id="ViewCover" name="ViewCover" style="width: 100%;" />
-                                                }
-                                            </div>
-                                            @Html.ValidationMessageFor(model => model.Cover, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,7 +112,6 @@
                                         <input ng-model="writtenbydata" type="text" id="countwrittenby" name="countwrittenby" class="count-num" size="20" disabled>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     </div>
@@ -172,8 +135,8 @@
                                     </div>
 
                                     <div class="col-lg-12 noLeft noPadding img-Block">
-                                        <img src="@Model.ImagePath" id="featuredimage" name="featuredimage" class="img-responsive" />
-                                        <input type="hidden" id="AttachmentID" name="AttachmentID" value="@Model.AttachmentID" />
+                                        <img src="" id="featuredimage" name="featuredimage" class="img-responsive" />
+                                        <input type="hidden" id="AttachmentID" name="AttachmentID" value="0" />
                                         <div class="EditBar">
                                             <i class="fa fa-edit"></i>
                                             <i class="fa fa-eye"></i>
@@ -197,24 +160,25 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">
                                 <h3 class="panel-title">اجراءات تكميليه</h3>
+                                <ul class="panel-control">
+                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                                </ul>
                             </div>
                             <div class="panel-body">
 
                                 <div class="form-group marginBlock">
                                     <label class="col-md-12 control-label noRight HeadLabel">تاجز</label>
                                     <div class="col-md-12 noLeft">
-                                        @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "input-tags col-lg-12 noLeft" } })
+                                        @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "input-tags noLeft" } })
                                         @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-
                                 <div class="form-group marginBlock">
                                     <label class="col-md-12 control-label noRight HeadLabel">الاخبار المتعلقه</label>
                                     <div class="control-group col-md-12 noLeft">
-                                        @*<select id="RelatedNews" class="demo-default input-tags selectize-input"></select> ViewBag.RelatedNewsList*@
-                                        @Html.ListBoxFor(m => m.SelectedRelatedNews, new MultiSelectList(ViewBag.RelatedNewsList != null ? ViewBag.RelatedNewsList : new List<SelectListItem>(), "Value", "Text"), new { @id = "RelatedNews", @class = "input-tags" })
-                                        @*@Html.ListBoxFor(model => model.SelectedRelatedNews, new MultiSelectList(ViewBag.RelatedNewsList != null ? ViewBag.RelatedNewsList : new List<SelectListItem>(), "Value", "Text"), new { @id = "RelatedNews" }, new { htmlAttributes = new { @class = "input-tags noLeft" } })*@
-                                        @Html.Hidden("RelatedNewsStr", Model.RelatedNews)
+                                        @*<select id="RelatedNews" class="demo-default input-tags selectize-input"></select>*@
+                                        @Html.EditorFor(model => model.RelatedNews, new { htmlAttributes = new { @class = "noLeft" } })
+                                        @Html.Hidden("RelatedNewsStr")
                                         @Html.HiddenFor(model => model.objectSelectedRelatedNews)
                                     </div>
                                     <div class="col-lg-6 noLeft noPadding">
@@ -224,12 +188,11 @@
 
                                 <div class="form-group marginBlock">
                                     <label class="col-md-12 control-label noRight HeadLabel">ملاحظات</label>
-                                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control col-md-12 noLeft", @rows = "7", @style = "max-width: 90% !important; margin:auto; float:none" })
+                                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control noLeft", @rows = "7", @style = "max-width: 90% !important; margin:auto; float:none" })
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -286,8 +249,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
             }
             <div class="clearfix"></div>
@@ -296,6 +257,9 @@
     </div>
 </div>
 @section scripts{
+
+    @*@Scripts.Render("~/Scripts/Addons_Library/selectize.min1.js")*@
+
     <!-- Modal -->
     <div id="AddImage" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -357,53 +321,7 @@
     @Scripts.Render("~/Scripts/Addons_Library/jquery.datetimepicker.full.min.js")
 
     <script>
-
         jQuery('#SchdeuledPublish').datetimepicker();
-
-        //if ($('#Type').length > 0) {
-        //    if ($('#Type').val() == 1) {
-        //        $('#SecID').prop("disabled", false);
-        //        $('#EditorID').prop("disabled", true);
-        //        $('#divEditorID').hide();
-        //    }
-        //    else if ($('#Type').val() == 2) {
-        //        $('#SecID').prop("disabled", true);
-        //        $('#EditorID').prop("disabled", false);
-        //        $('#divEditorID').show();
-        //    }
-        //}
-
-        //$('#main-content').on('change', '#Type', function () {
-        //    var val = $(this).val();
-        //    if (val == 1) {
-        //        $('#EditorID').prop("disabled", true);
-        //        $('#SecID').prop("disabled", false);
-        //        $('#divEditorID').hide();
-        //    }
-        //    else if ($('#Type').val() == 2) {
-        //        $('#EditorID').prop("disabled", false);
-        //        $('#SecID').prop("disabled", true);
-        //        $('#divEditorID').show();
-        //    }
-        //});
-
-        $('#EditArticle').submit(function (e) {
-            var Story = htmlEscape($('#StoryCode').summernote().code());
-            $('<input />').attr('type', 'hidden')
-                .attr('name', "Story")
-                .attr('id', "Story")
-                .attr('value', Story)
-                .appendTo('form');
-        });
-
-        function htmlEscape(str) {
-            return String(str)
-                .replace(/&/g, '&amp;')
-                .replace(/"/g, '&quot;')
-                .replace(/'/g, '&#39;')
-                .replace(/</g, '&lt;')
-                .replace(/>/g, '&gt;');
-        }
 
         $('#ChooseImage').on('click', '#btnChooseimage', function () {
             $('#featuredimage').attr('src', $('#ImgChooseimage_' + $(this).attr("data-id")).attr('src'));
@@ -415,8 +333,7 @@
             plugins: ['remove_button'],
         });
 
-
-        $('#EditArticle').delegate('#Coverfile', 'change', function () {
+        $('#AddArticle').delegate('#Coverfile', 'change', function () {
             if (typeof (FileReader) != "undefined") {
                 var image_holder = $("#Cover-holder");
                 image_holder.empty();

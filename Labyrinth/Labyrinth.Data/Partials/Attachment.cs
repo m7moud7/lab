@@ -14,7 +14,7 @@ namespace Labyrinth.Data
             return new Attachment()
             {
                 ID = ViewModel.ID,
-                Type = ViewModel.Type,
+                Type = ViewModel.Type.Value,
                 AltImage = ViewModel.ALtImage,
                 Caption = ViewModel.Caption,
                 Path = ViewModel.Path,

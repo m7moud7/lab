@@ -3,9 +3,23 @@
 }
 <div id="main-content" name="main-content">
     <div class="container-fluid">
+
+        <a href="@Url.Action("AddColoring", "Article"@*,  new {area = "News",IsNew="1" }*@)">Add Coloring</a>
+        <br />
+        <br />
+
         <a href="@Url.Action("AddArticle", "Article"@*,  new {area = "News",IsNew="1" }*@)">اضافة خبر</a>
+        <br />
+        <br />
+
+        <a href="@Url.Action("AddGame", "Article"@*,  new {area = "News",IsNew="1" }*@)">اضافة لعبة</a>
+        <br />
+        <br />
 
         <a href="@Url.Action("Add", "Article"@*,  new {area = "News",IsNew="1" }*@)">Add General</a>
         <br />
+        <br />
+
+
     </div>
 </div>

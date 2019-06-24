@@ -34,7 +34,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="smallint" />
+          <Property Name="Type" Type="smallint" Nullable="false" />
           <Property Name="AltImage" Type="nvarchar" MaxLength="1000" />
           <Property Name="Caption" Type="nvarchar" MaxLength="1000" />
           <Property Name="Path" Type="nvarchar(max)" />
@@ -46,6 +46,8 @@
           <Property Name="CDate" Type="datetime" Nullable="false" />
           <Property Name="PicsData" Type="nvarchar(max)" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="OldAttachmentID" Type="int" />
+          <Property Name="GUID" Type="nvarchar" MaxLength="500" />
         </EntityType>
         <EntityType Name="Block">
           <Key>
@@ -314,6 +316,8 @@
           <Property Name="CurrentUser" Type="int" />
           <Property Name="ViewsCount" Type="int" />
           <Property Name="RelatedNews" Type="nvarchar" MaxLength="500" />
+          <Property Name="OldID" Type="int" />
+          <Property Name="GUID" Type="nvarchar" MaxLength="1000" />
         </EntityType>
         <EntityType Name="News_Albums">
           <Key>
@@ -756,6 +760,7 @@
           <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="300" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="300" />
+          <Property Name="OldID" Type="int" />
         </EntityType>
         <EntityType Name="Ticker">
           <Key>
@@ -1105,18 +1110,6 @@
             </Principal>
             <Dependent Role="NewsVersion_Tags">
               <PropertyRef Name="NewsId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_NewsVersion_Tags_Tags">
-          <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
-          <End Role="NewsVersion_Tags" Type="Self.NewsVersion_Tags" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tags">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="NewsVersion_Tags">
-              <PropertyRef Name="TagId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1504,10 +1497,6 @@
             <End Role="NewsVersion" EntitySet="NewsVersion" />
             <End Role="NewsVersion_Tags" EntitySet="NewsVersion_Tags" />
           </AssociationSet>
-          <AssociationSet Name="FK_NewsVersion_Tags_Tags" Association="Self.FK_NewsVersion_Tags_Tags">
-            <End Role="Tags" EntitySet="Tags" />
-            <End Role="NewsVersion_Tags" EntitySet="NewsVersion_Tags" />
-          </AssociationSet>
           <AssociationSet Name="FK_NewsVersion_WorkFlowAttachment_Attachment" Association="Self.FK_NewsVersion_WorkFlowAttachment_Attachment">
             <End Role="WorkFlowAttachment" EntitySet="WorkFlowAttachment" />
             <End Role="NewsVersion_WorkFlowAttachment" EntitySet="NewsVersion_WorkFlowAttachment" />
@@ -1595,7 +1584,7 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="Int16" />
+          <Property Name="Type" Type="Int16" Nullable="false" />
           <Property Name="AltImage" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Caption" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -1611,6 +1600,8 @@
           <NavigationProperty Name="HeadLines" Relationship="Self.FK_HeadLine_Attachment" FromRole="Attachment" ToRole="HeadLine" />
           <NavigationProperty Name="News_Attachment" Relationship="Self.FK_News_Attachment_Attachment" FromRole="Attachment" ToRole="News_Attachment" />
           <NavigationProperty Name="NewsVersion_Attachment" Relationship="Self.FK_NewsVersion_Attachment_Attachment" FromRole="Attachment" ToRole="NewsVersion_Attachment" />
+          <Property Name="OldAttachmentID" Type="Int32" />
+          <Property Name="GUID" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Block">
           <Key>
@@ -1892,6 +1883,8 @@
           <Property Name="RelatedNews" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="News_Golds" Relationship="Self.FK_News_Golds_News" FromRole="News" ToRole="News_Golds" />
           <NavigationProperty Name="ViewsCounters" Relationship="Self.FK_ViewsCounter_News" FromRole="News" ToRole="ViewsCounter" />
+          <Property Name="OldID" Type="Int32" />
+          <Property Name="GUID" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="News_Albums">
           <Key>
@@ -2373,6 +2366,7 @@
           <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="NewsVersion_Tags" Relationship="Self.FK_NewsVersion_Tags_Tags" FromRole="Tags" ToRole="NewsVersion_Tags" />
+          <Property Name="OldID" Type="Int32" />
         </EntityType>
         <EntityType Name="Ticker">
           <Key>
@@ -3146,9 +3140,6 @@
             <Parameter Name="PageID" Mode="In" Type="Int32" />
             <Parameter Name="Take" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="BN_GetNewsByID" ReturnType="Collection(GenyBuzzNewModel.BN_GetNewsByID_Result)">
-          <Parameter Name="NewsID" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="BN_GetNewsMeta" ReturnType="Collection(GenyBuzzNewModel.BN_GetNewsMeta_Result)">
           <Parameter Name="NewsID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -3179,6 +3170,9 @@
             <Parameter Name="Type" Mode="In" Type="String" />
             <Parameter Name="IsApproved" Mode="In" Type="Boolean" />
             <Parameter Name="IsDeleted" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetNewsByID" ReturnType="Collection(GenyBuzzNewModel.BN_GetNewsByID_Result)">
+            <Parameter Name="NewsID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BN_CheckUser_Result">
@@ -3246,35 +3240,6 @@
           <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
           <Property Type="String" Name="IsUsedToday" Nullable="false" MaxLength="5" />
         </ComplexType>
-        <ComplexType Name="BN_GetNewsByID_Result">
-          <Property Type="Int32" Name="ID" Nullable="false" />
-          <Property Type="Int32" Name="SecID" Nullable="false" />
-          <Property Type="String" Name="WrittenBy" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="Title" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="SubTitle" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="Brief" Nullable="true" />
-          <Property Type="String" Name="Story" Nullable="true" />
-          <Property Type="Int64" Name="AttachmentID" Nullable="true" />
-          <Property Type="String" Name="ImageCaption" Nullable="true" MaxLength="1000" />
-          <Property Type="Int64" Name="Cover" Nullable="true" />
-          <Property Type="String" Name="CoverCaption" Nullable="true" MaxLength="1000" />
-          <Property Type="String" Name="Notes" Nullable="true" />
-          <Property Type="Int32" Name="Type" Nullable="true" />
-          <Property Type="Int32" Name="Status" Nullable="true" />
-          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
-          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
-          <Property Type="Int32" Name="CUser" Nullable="true" />
-          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
-          <Property Type="String" Name="Embed" Nullable="true" />
-          <Property Type="Int32" Name="CurrentGroup" Nullable="true" />
-          <Property Type="Int32" Name="CurrentUser" Nullable="true" />
-          <Property Type="String" Name="RelatedNews" Nullable="true" MaxLength="500" />
-          <Property Type="String" Name="ImagePath" Nullable="true" />
-          <Property Type="Int32" Name="AlbumId" Nullable="true" />
-          <Property Type="Int32" Name="GoldId" Nullable="true" />
-          <Property Type="Int32" Name="CurrencyId" Nullable="true" />
-          <Property Type="DateTime" Name="NSP_CDate" Nullable="true" Precision="23" />
-        </ComplexType>
         <ComplexType Name="BN_GetNewsMeta_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Meta" Nullable="false" MaxLength="50" />
@@ -3311,6 +3276,36 @@
           <Property Type="DateTime" Name="SchdeuledPublish" Nullable="true" Precision="23" />
           <Property Type="Int32" Name="Status" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="BN_GetNewsByID_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="SecID" Nullable="false" />
+          <Property Type="String" Name="WrittenBy" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="SubTitle" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Brief" Nullable="true" />
+          <Property Type="String" Name="Story" Nullable="true" />
+          <Property Type="Int64" Name="AttachmentID" Nullable="true" />
+          <Property Type="String" Name="ImageCaption" Nullable="true" MaxLength="1000" />
+          <Property Type="Int64" Name="Cover" Nullable="true" />
+          <Property Type="String" Name="CoverCaption" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Notes" Nullable="true" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="Int32" Name="Status" Nullable="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
+          <Property Type="Int32" Name="CUser" Nullable="true" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="String" Name="Embed" Nullable="true" />
+          <Property Type="Int32" Name="CurrentGroup" Nullable="true" />
+          <Property Type="Int32" Name="CurrentUser" Nullable="true" />
+          <Property Type="String" Name="RelatedNews" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="ImagePath" Nullable="true" />
+          <Property Type="String" Name="ImageCover" Nullable="true" />
+          <Property Type="Int32" Name="AlbumId" Nullable="true" />
+          <Property Type="Int32" Name="GoldId" Nullable="true" />
+          <Property Type="Int32" Name="CurrencyId" Nullable="true" />
+          <Property Type="DateTime" Name="NSP_CDate" Nullable="true" Precision="23" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3346,6 +3341,8 @@
           <EntitySetMapping Name="Attachments">
             <EntityTypeMapping TypeName="GenyBuzzNewModel.Attachment">
               <MappingFragment StoreEntitySet="Attachment">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="OldAttachmentID" ColumnName="OldAttachmentID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="AltImage" ColumnName="AltImage" />
@@ -3626,6 +3623,8 @@
           <EntitySetMapping Name="News">
             <EntityTypeMapping TypeName="GenyBuzzNewModel.News">
               <MappingFragment StoreEntitySet="News">
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="OldID" ColumnName="OldID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SecID" ColumnName="SecID" />
                 <ScalarProperty Name="WrittenBy" ColumnName="WrittenBy" />
@@ -4133,6 +4132,7 @@
           <EntitySetMapping Name="Tags">
             <EntityTypeMapping TypeName="GenyBuzzNewModel.Tag">
               <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="OldID" ColumnName="OldID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
@@ -4344,39 +4344,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="BN_GetNewsByID" FunctionName="GenyBuzzNewModel.Store.BN_GetNewsByID">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="GenyBuzzNewModel.BN_GetNewsByID_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="SecID" ColumnName="SecID" />
-                <ScalarProperty Name="WrittenBy" ColumnName="WrittenBy" />
-                <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="SubTitle" ColumnName="SubTitle" />
-                <ScalarProperty Name="Brief" ColumnName="Brief" />
-                <ScalarProperty Name="Story" ColumnName="Story" />
-                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
-                <ScalarProperty Name="ImageCaption" ColumnName="ImageCaption" />
-                <ScalarProperty Name="Cover" ColumnName="Cover" />
-                <ScalarProperty Name="CoverCaption" ColumnName="CoverCaption" />
-                <ScalarProperty Name="Notes" ColumnName="Notes" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="CUser" ColumnName="CUser" />
-                <ScalarProperty Name="CDate" ColumnName="CDate" />
-                <ScalarProperty Name="Embed" ColumnName="Embed" />
-                <ScalarProperty Name="CurrentGroup" ColumnName="CurrentGroup" />
-                <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
-                <ScalarProperty Name="RelatedNews" ColumnName="RelatedNews" />
-                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
-                <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
-                <ScalarProperty Name="GoldId" ColumnName="GoldId" />
-                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
-                <ScalarProperty Name="NSP_CDate" ColumnName="NSP_CDate" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="BN_GetNewsMeta" FunctionName="GenyBuzzNewModel.Store.BN_GetNewsMeta">
             <ResultMapping>
               <ComplexTypeMapping TypeName="GenyBuzzNewModel.BN_GetNewsMeta_Result">
@@ -4434,6 +4401,40 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="BN_GetAllNews_Count" FunctionName="GenyBuzzNewModel.Store.BN_GetAllNews_Count" />
+          <FunctionImportMapping FunctionImportName="BN_GetNewsByID" FunctionName="GenyBuzzNewModel.Store.BN_GetNewsByID">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GenyBuzzNewModel.BN_GetNewsByID_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SecID" ColumnName="SecID" />
+                <ScalarProperty Name="WrittenBy" ColumnName="WrittenBy" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="SubTitle" ColumnName="SubTitle" />
+                <ScalarProperty Name="Brief" ColumnName="Brief" />
+                <ScalarProperty Name="Story" ColumnName="Story" />
+                <ScalarProperty Name="AttachmentID" ColumnName="AttachmentID" />
+                <ScalarProperty Name="ImageCaption" ColumnName="ImageCaption" />
+                <ScalarProperty Name="Cover" ColumnName="Cover" />
+                <ScalarProperty Name="CoverCaption" ColumnName="CoverCaption" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="Embed" ColumnName="Embed" />
+                <ScalarProperty Name="CurrentGroup" ColumnName="CurrentGroup" />
+                <ScalarProperty Name="CurrentUser" ColumnName="CurrentUser" />
+                <ScalarProperty Name="RelatedNews" ColumnName="RelatedNews" />
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="ImageCover" ColumnName="ImageCover" />
+                <ScalarProperty Name="AlbumId" ColumnName="AlbumId" />
+                <ScalarProperty Name="GoldId" ColumnName="GoldId" />
+                <ScalarProperty Name="CurrencyId" ColumnName="CurrencyId" />
+                <ScalarProperty Name="NSP_CDate" ColumnName="NSP_CDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

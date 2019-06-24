@@ -36,6 +36,7 @@ namespace Labyrinth.Data
         public Nullable<int> CurrentUser { get; set; }
         public string RelatedNews { get; set; }
         public string ImagePath { get; set; }
+        public string ImageCover { get; set; }
         public Nullable<int> AlbumId { get; set; }
         public Nullable<int> GoldId { get; set; }
         public Nullable<int> CurrencyId { get; set; }

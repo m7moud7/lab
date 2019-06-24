@@ -24,7 +24,7 @@ namespace Labyrinth.Data
         }
     
         public long ID { get; set; }
-        public Nullable<short> Type { get; set; }
+        public short Type { get; set; }
         public string AltImage { get; set; }
         public string Caption { get; set; }
         public string Path { get; set; }
@@ -36,6 +36,8 @@ namespace Labyrinth.Data
         public System.DateTime CDate { get; set; }
         public string PicsData { get; set; }
         public bool IsDeleted { get; set; }
+        public Nullable<int> OldAttachmentID { get; set; }
+        public string GUID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Album_Attachment> Album_Attachment { get; set; }

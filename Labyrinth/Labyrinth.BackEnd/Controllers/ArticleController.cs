@@ -8,6 +8,7 @@ using Labyrinth.Model;
 using Labyrinth.Abstracts;
 using Labyrinth.Services;
 using System.Net;
+using System.IO;
 
 namespace Labyrinth.BackEnd.Controllers
 {
@@ -15,13 +16,18 @@ namespace Labyrinth.BackEnd.Controllers
     {
         private readonly ISection _SectionService;
         private readonly IEditor _EditorService;
+        private readonly IAttachment _AttachmentService;
+
         private static IArticle _ArticleService;
         private static ArticleVM _Article;
+
+
 
         public ArticleController()
         {
             _SectionService = new SectionServices();
             _EditorService = new EditorServices();
+            _AttachmentService = new AttachmentServices();
             _ArticleService = new ArticleServices();
         }
 
@@ -68,7 +74,7 @@ namespace Labyrinth.BackEnd.Controllers
 
         [HttpPost]
         [SessionExpireFilter]
-        public ActionResult Add(ArticleVM ViewModel)
+        public ActionResult Add(ArticleVM ViewModel, FormCollection frm)
         {
             if (ModelState.IsValid)
             {
@@ -96,9 +102,29 @@ namespace Labyrinth.BackEnd.Controllers
                     }
                 }
 
-                //var RelatedNews = frm["RelatedNewsStr"];
-                //ViewModel.RelatedNews
-
+                var coverImg = this.HttpContext.Request.Files["Coverfile"];
+                if (coverImg != null && coverImg.ContentLength > 0 /*&& ViewModel.CoverImage == 0*/)
+                {
+                    DateTime date = new DateTime(); date = DateTime.Now;
+                    string FileNameWithoutExt = date.Month.ToString() + date.Year.ToString() +
+                       date.Day.ToString() + date.Hour.ToString() + date.Minute.ToString()
+                       + date.Second.ToString() + date.Millisecond.ToString();
+                    string coverName = Path.GetFileNameWithoutExtension(coverImg.FileName) + "-" + FileNameWithoutExt + ".jpg";
+                    ViewModel.Cover = new AttachmentVM();
+                    ViewModel.Cover.Type = 3;
+                    ViewModel.Cover.ALtImage = ViewModel.CoverCaption;
+                    ViewModel.Cover.Caption = ViewModel.CoverCaption;
+                    ViewModel.Cover.Path = coverName;
+                    ViewModel.Cover.FolderName = "\\Images\\Cover\\";
+                    ViewModel.Cover.IsPublish = true;
+                    ViewModel.Cover.CUser = uservm.ID;
+                    ViewModel.Cover.CDate = DateTime.Now;
+                    ViewModel.Cover.IsDeleted = false;
+                    ViewModel.CoverCaption = Path.GetFileNameWithoutExtension(this.HttpContext.Request.Files["Coverfile"].FileName);
+                    coverImg.SaveAs(Server.MapPath("/Images/Cover/") + coverName);
+                    ViewModel.Cover.ID = _AttachmentService.Save(ViewModel.Cover);
+                    ViewModel.CoverImage = ViewModel.Cover.ID;
+                }
 
                 var result = _ArticleService.Save(ViewModel);
                 if (result > 0)
@@ -132,7 +158,6 @@ namespace Labyrinth.BackEnd.Controllers
             return View(ViewModel);
         }
 
-
         [SessionExpireFilter]
         public ActionResult AddArticle()
         {
@@ -160,6 +185,63 @@ namespace Labyrinth.BackEnd.Controllers
 
             return View(new ArticleVM());
         }
+
+        [SessionExpireFilter]
+        public ActionResult AddGame()
+        {
+            ViewBag.SecIdList = CurrentSections();
+
+            if (_Article != null && _Article.Editors != null)
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
+
+            return View(new ArticleVM());
+        }
+
+        [SessionExpireFilter]
+        public ActionResult AddColoring()
+        {
+            ViewBag.SecIdList = CurrentSections();
+
+            if (_Article != null && _Article.Editors != null)
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
+
+            return View(new ArticleVM());
+        }
+
 
         [HttpPost]
         [SessionExpireFilter]
@@ -322,6 +404,32 @@ namespace Labyrinth.BackEnd.Controllers
 
                 if (ViewModel.SelectedRelatedNews != null)
                     ViewModel.RelatedNews = String.Join(",", ViewModel.SelectedRelatedNews);
+
+
+                var coverImg = this.HttpContext.Request.Files["Coverfile"];
+                if (coverImg != null && coverImg.ContentLength > 0 /*&& ViewModel.CoverImage == 0*/)
+                {
+                    DateTime date = new DateTime(); date = DateTime.Now;
+                    string FileNameWithoutExt = date.Month.ToString() + date.Year.ToString() +
+                       date.Day.ToString() + date.Hour.ToString() + date.Minute.ToString()
+                       + date.Second.ToString() + date.Millisecond.ToString();
+                    string coverName = Path.GetFileNameWithoutExtension(coverImg.FileName) + "-" + FileNameWithoutExt + ".jpg";
+                    ViewModel.Cover = new AttachmentVM();
+                    ViewModel.Cover.Type = 3;
+                    ViewModel.Cover.ALtImage = ViewModel.CoverCaption;
+                    ViewModel.Cover.Caption = ViewModel.CoverCaption;
+                    ViewModel.Cover.Path = coverName;
+                    ViewModel.Cover.FolderName = "\\Images\\Cover\\";
+                    ViewModel.Cover.IsPublish = true;
+                    ViewModel.Cover.CUser = uservm.ID;
+                    ViewModel.Cover.CDate = DateTime.Now;
+                    ViewModel.Cover.IsDeleted = false;
+                    ViewModel.CoverCaption = Path.GetFileNameWithoutExtension(this.HttpContext.Request.Files["Coverfile"].FileName);
+                    coverImg.SaveAs(Server.MapPath("/Images/Cover/") + coverName);
+                    ViewModel.Cover.ID = _AttachmentService.Save(ViewModel.Cover);
+                    ViewModel.CoverImage = ViewModel.Cover.ID;
+                }
+
 
                 var result = _ArticleService.Save(ViewModel);
                 if (result > 0)

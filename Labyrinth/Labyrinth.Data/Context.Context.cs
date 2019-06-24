@@ -248,15 +248,6 @@ namespace Labyrinth.Data
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAttachments_Result>("BN_GetAttachments", filterParameter, pageIDParameter, takeParameter);
         }
     
-        public virtual ObjectResult<BN_GetNewsByID_Result> BN_GetNewsByID(Nullable<int> newsID)
-        {
-            var newsIDParameter = newsID.HasValue ?
-                new ObjectParameter("NewsID", newsID) :
-                new ObjectParameter("NewsID", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsByID_Result>("BN_GetNewsByID", newsIDParameter);
-        }
-    
         public virtual ObjectResult<BN_GetNewsMeta_Result> BN_GetNewsMeta(Nullable<int> newsID)
         {
             var newsIDParameter = newsID.HasValue ?
@@ -361,6 +352,15 @@ namespace Labyrinth.Data
                 new ObjectParameter("IsDeleted", typeof(bool));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("BN_GetAllNews_Count", srchTermParameter, newsIDParameter, secIDParameter, typeParameter, isApprovedParameter, isDeletedParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetNewsByID_Result> BN_GetNewsByID(Nullable<int> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsByID_Result>("BN_GetNewsByID", newsIDParameter);
         }
     }
 }

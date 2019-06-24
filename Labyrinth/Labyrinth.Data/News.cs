@@ -44,6 +44,8 @@ namespace Labyrinth.Data
         public Nullable<int> CurrentUser { get; set; }
         public Nullable<int> ViewsCount { get; set; }
         public string RelatedNews { get; set; }
+        public Nullable<int> OldID { get; set; }
+        public string GUID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<News_Golds> News_Golds { get; set; }

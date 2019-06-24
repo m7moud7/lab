@@ -858,11 +858,14 @@
     <Content Include="Views\Article\GetArticleForReOrderByID.cshtml" />
     <Content Include="Views\Article\AddArticle.cshtml" />
     <Content Include="Views\Article\RelatedNews.cshtml" />
+    <Content Include="Views\Article\AddGame.cshtml" />
+    <Content Include="Views\Article\AddColoring.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="assets\css\rtl-css\plugins\humane_themes\" />
     <Folder Include="assets\css\rtl-css\plugins\icheck\skins\" />
+    <Folder Include="Images\Cover\" />
     <Folder Include="Images\Users\" />
     <Folder Include="Models\" />
     <Folder Include="Userimage\" />

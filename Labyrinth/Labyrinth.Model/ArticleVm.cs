@@ -117,10 +117,18 @@ namespace Labyrinth.Model
         public int? CurrentGroupID { get; set; }
         public string CurrentGroupName { get; set; }
 
-        public Int64? CoverID { get; set; }
 
-        //[Required(ErrorMessage = "من فضلك ادخل تعليق صورة الكافر")]
-        public string ImageCaptionCover { get; set; }
+        public Int64? CoverImage { get; set; }
+
+        [Display(Name = "صورة ال cover  ")]
+        public AttachmentVM Cover { get; set; }
+        [Display(Name = "تعليق صورة ال cover")]
+        [MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
+        public string CoverCaption { get; set; }
+        public AttachmentVM CoverDetails { get; set; }
+
+        public string CoverPath { get; set; }
+
 
 
 
@@ -132,8 +140,6 @@ namespace Labyrinth.Model
 
 
         public List<NewsMetaVM> NewsMeta { get; set; }
-
-
 
 
         //public List<AlbumVm> Albums { get; set; }
