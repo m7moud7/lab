@@ -1751,10 +1751,11 @@ div.status-box-content h5 i {
 }
 
 .pie-widget {
-  text-align: center;
-  margin: auto;
-  border: 1px solid #e0e0e0;
-  padding: 20px 0;
+    text-align: center;
+    margin: auto;
+    border: 1px solid #e0e0e0;
+    padding: 20px 0;
+    margin-bottom: 20px;
 }
 
 .pie-widget p {
@@ -1984,7 +1985,7 @@ div.status-box-content h5 i {
 .mail-navigation li {
   text-align: center;
   background: #e0e0e0;
-  width: 100px;
+  width: 33%;
   height: 60px;
   overflow: hidden;
   display: inline-block;
@@ -2013,11 +2014,14 @@ div.status-box-content h5 i {
   transition: all 200ms linear;
 }
 
-.mail-navigation li a span {
-  color: #565656;
-  display: block;
-  padding-bottom: 11px;
-}
+    .mail-navigation li a span {
+        color: #565656;
+        display: block;
+        padding-bottom: 11px;
+        line-height: 17px;
+        font-family: "newfont";
+        font-size: 18px;
+    }
 
 .mail-navigation li a:hover i.fa {
   font-size: 20px;
