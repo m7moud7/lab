@@ -96,6 +96,10 @@ namespace Labyrinth.BackEnd.Controllers
                     }
                 }
 
+                //var RelatedNews = frm["RelatedNewsStr"];
+                //ViewModel.RelatedNews
+
+
                 var result = _ArticleService.Save(ViewModel);
                 if (result > 0)
                     return RedirectToAction("Edit", "Article", new { ID = result });
@@ -123,7 +127,9 @@ namespace Labyrinth.BackEnd.Controllers
                 ViewBag.EditorsList = articles;
             }
 
-            return View();
+            ViewModel.RelatedNews = "";
+
+            return View(ViewModel);
         }
 
 
@@ -265,6 +271,14 @@ namespace Labyrinth.BackEnd.Controllers
                     ViewBag.EditorsList = editors;
                 }
 
+
+                if (!string.IsNullOrEmpty(Model.RelatedNews))
+                {
+                    Model.SelectedRelatedNews = Model.RelatedNews.Split(',');
+                    var RelatedNews = new MultiSelectList(_ArticleService.GetRelatedNews(Model.ID), "RelatedNewsID", "RelatedTitle", Model.RelatedNews.Split(','));
+                    ViewBag.RelatedNewsList = RelatedNews;
+                }
+
                 return View(Model);
             }
             else
@@ -306,6 +320,8 @@ namespace Labyrinth.BackEnd.Controllers
                     }
                 }
 
+                if (ViewModel.SelectedRelatedNews != null)
+                    ViewModel.RelatedNews = String.Join(",", ViewModel.SelectedRelatedNews);
 
                 var result = _ArticleService.Save(ViewModel);
                 if (result > 0)

@@ -12,6 +12,8 @@ namespace Labyrinth.Abstracts
         int Save(ArticleVM ViewModel);
         ArticleVM GetNewsByID(int ID);
 
+        List<RelatedNewsVM> GetRelatedNews(int NewsID);
+       
         List<ArticleVM> GetAllNews(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted);
         int GetAllNewsCount(string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted);
 

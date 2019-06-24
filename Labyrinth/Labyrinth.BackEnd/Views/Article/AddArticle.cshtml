@@ -178,6 +178,8 @@
                                         @*<select id="RelatedNews" class="demo-default input-tags selectize-input"></select>*@
                                         @Html.EditorFor(model => model.RelatedNews, new { htmlAttributes = new { @class = "input-tags noLeft" } })
                                         @Html.Hidden("RelatedNewsStr")
+                                        @Html.HiddenFor(model => model.objectSelectedRelatedNews)
+
                                     </div>
                                     <div class="col-lg-6 noLeft noPadding">
                                         <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#RelatedArticle">اضافة الاخبار المتعلقه</button>
@@ -350,23 +352,11 @@
             create: true,
             remove_button: true
         });
-
-
+        
         $('#Editors').selectize({
             create: false,
+            plugins: ['remove_button'],
         });
-
-                //obj.EditorList = $('#Editors').val();
-                //if (obj.EditorList) {
-                //    var Editor = new Array();
-                //    for (var i = 0; i <= obj.EditorList.length - 1; i++) {
-                //        var Current = new Object();
-                //        Current.Id = obj.EditorList[i];
-                //        Editor.push(Current)
-                //    }
-                //    obj.Editors = Editor;
-                //    obj.EditorList = $('#Editors').val().join(',');
-                //}
 
     </script>
 }

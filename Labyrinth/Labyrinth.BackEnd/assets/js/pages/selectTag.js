@@ -10,7 +10,7 @@
  -------------------------------------------------------------------*/
 
 
-jQuery(document).ready(function($) {
+jQuery(document).ready(function ($) {
     'use strict';
 
     select_country_call();
@@ -27,7 +27,7 @@ var eventHandler = function (name) {
         /*console.log(name, arguments);*/
     };
 };
-function select_country_call(){
+function select_country_call() {
     var $select = $('.select-country').selectize({
         create: false,
         onChange: eventHandler('onChange'),
@@ -40,25 +40,25 @@ function select_country_call(){
         onInitialize: eventHandler('onInitialize')
     });
 }
-function select_state_call(){
+function select_state_call() {
     $('#select-state').selectize({
         maxItems: 3,
         create: false
     });
 }
-function select_state_disabled_call(){
+function select_state_disabled_call() {
     $('#select-state-disabled').selectize({
         maxItems: 3
     });
 }
-function input_sortable_call(){
+function input_sortable_call() {
     $('.input-sortable').selectize({
         plugins: ['drag_drop'],
         persist: false,
         create: true
     });
 }
-function input_tags_call(){
+function input_tags_call() {
     $('.input-tags').selectize({
         plugins: ['remove_button'],
         delimiter: ',',
@@ -73,13 +73,58 @@ function input_tags_call(){
             item: function (data, escape) {
                 return '<div>"' + escape(data.text) + '"</div>';
             }
-        },
-        onDelete: function (values) {
-            return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
         }
+        //,
+        //onDelete: function (values) {
+        //    return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+        //}
+    });
+
+    function getByKey(key) {
+        var found = null;
+        if ($('#objectSelectedRelatedNews').val() != "") {
+            var data = JSON.parse($('#objectSelectedRelatedNews').val());
+            for (var i = 0; i < data.length; i++) {
+                var element = data[i];
+                if (element.ID == key) {
+                    found = element.Title;
+                }
+            }
+        }
+        return found;
+    }
+
+    $('#RelatedNews').selectize({
+        SelectedValues: true,
+        create: false,
+        remove_button: false,
+        plugins: ['remove_button'],
+        delimiter: ',',
+        persist: false,
+        hideSelected: true,
+        //create: function (input) {
+        //    return {
+        //        value: input,
+        //        text: input
+        //    }
+        //},
+        render: {
+            item: function (data, escape) {
+                var title = getByKey(data.text);
+                if (title != null) {
+                    return '<div>"' + escape(title) + '"</div>';
+                }
+                else {
+                    return '<div>"' + escape(data.text) + '"</div>';
+                }
+            }
+        },
+        //onDelete: function (values) {
+        //    return confirm(values.length > 1 ? 'tests1 ' + values.length + ' items?' : 'tests1 "' + values[0] + '"?');
+        //}
     });
 }
-function demo_code_language_call(){
+function demo_code_language_call() {
     $('.demo-code-language').selectize({
         sortField: 'text',
         hideSelected: false,
@@ -91,7 +136,7 @@ function demo_code_language_call(){
     });
 }
 
-function select_repeated_options_call(){
+function select_repeated_options_call() {
     $('#select-repeated-options').selectize({
         sortField: 'text'
     });
@@ -103,7 +148,7 @@ var REGEX_EMAIL = '([a-z0-9!#$%&\'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&\'*+/=?^_`{|}~
 var formatName = function (item) {
     return $.trim((item.first_name || '') + ' ' + (item.last_name || ''));
 };
-function select_to_call(){
+function select_to_call() {
     $('#select-to').selectize({
         persist: false,
         maxItems: null,
@@ -111,41 +156,41 @@ function select_to_call(){
         labelField: 'name',
         searchField: ['first_name', 'last_name', 'email'],
         sortField: [
-            {field: 'first_name', direction: 'asc'},
-            {field: 'last_name', direction: 'asc'}
+            { field: 'first_name', direction: 'asc' },
+            { field: 'last_name', direction: 'asc' }
         ],
         options: [
-            {email: 'jone.doe1@mail.com', first_name: 'Jone', last_name: 'Doe 1'},
-            {email: 'jone.doe2@mail.com', first_name: 'Jone', last_name: 'Doe 2'},
-            {email: 'jone.doe3@mail.com', first_name: 'Jone', last_name: 'Doe 3'},
-            {email: 'jone.doe4@mail.com', first_name: 'Jone', last_name: 'Doe 4'},
-            {email: 'jone.doe5@mail.com', first_name: 'Jone', last_name: 'Doe 5'},
-            {email: 'jone.doe6@mail.com', first_name: 'Jone', last_name: 'Doe 6'},
-            {email: 'jone.doe7@mail.com', first_name: 'Jone', last_name: 'Doe 7'},
-            {email: 'jone.doe8@mail.com', first_name: 'Jone', last_name: 'Doe 8'},
-            {email: 'jone.doe9@mail.com', first_name: 'Jone', last_name: 'Doe 9'},
+            { email: 'jone.doe1@mail.com', first_name: 'Jone', last_name: 'Doe 1' },
+            { email: 'jone.doe2@mail.com', first_name: 'Jone', last_name: 'Doe 2' },
+            { email: 'jone.doe3@mail.com', first_name: 'Jone', last_name: 'Doe 3' },
+            { email: 'jone.doe4@mail.com', first_name: 'Jone', last_name: 'Doe 4' },
+            { email: 'jone.doe5@mail.com', first_name: 'Jone', last_name: 'Doe 5' },
+            { email: 'jone.doe6@mail.com', first_name: 'Jone', last_name: 'Doe 6' },
+            { email: 'jone.doe7@mail.com', first_name: 'Jone', last_name: 'Doe 7' },
+            { email: 'jone.doe8@mail.com', first_name: 'Jone', last_name: 'Doe 8' },
+            { email: 'jone.doe9@mail.com', first_name: 'Jone', last_name: 'Doe 9' },
         ],
         render: {
             item: function (item, escape) {
                 var name = formatName(item);
                 return '<div>' +
-                (name ? '<span class="name">' + escape(name) + '</span>, ' : '') +
-                (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
-                '</div>';
+                    (name ? '<span class="name">' + escape(name) + '</span>, ' : '') +
+                    (item.email ? '<span class="email">' + escape(item.email) + '</span>' : '') +
+                    '</div>';
             },
             option: function (item, escape) {
                 var name = formatName(item);
                 var label = name || item.email;
                 var caption = name ? item.email : null;
                 return '<div>' +
-                '<span class="label">' + escape(label) + '</span>' +
-                (caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
-                '</div>';
+                    '<span class="label">' + escape(label) + '</span>' +
+                    (caption ? '<span class="caption">' + escape(caption) + '</span>' : '') +
+                    '</div>';
             }
         },
         create: function (input) {
             if ((new RegExp('^' + REGEX_EMAIL + '$', 'i')).test(input)) {
-                return {email: input};
+                return { email: input };
             }
             var match = input.match(new RegExp('^([^<]*)\<' + REGEX_EMAIL + '\>$', 'i'));
             if (match) {

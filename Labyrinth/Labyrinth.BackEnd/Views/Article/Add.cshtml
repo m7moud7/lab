@@ -25,67 +25,66 @@
         <div class="row">
             @using (Html.BeginForm("Add", "Article", FormMethod.Post, new { enctype = "multipart/form-data", id = "AddArticle" }))
             {
-                <div class="col-md-9">
-                    <div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">الاساسيات</h3>
-                                <ul class="panel-control">
-                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
-                                </ul>
+            <div class="col-md-9">
+                <div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">الاساسيات</h3>
+                            <ul class="panel-control">
+                                <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group marginBlock">
+                                <label class="col-lg-2 control-label noRight HeadLabel">نوع الخبر</label>
+                                <div class="col-md-10 borderForFields">
+                                    <select id="Type" name="Type" style="width: 100%;" class="chosen-container-single selectize-input">
+                                        <option value="1" @(Model != null && Model.Type == 1 ? "selected" : "")>خبر</option>
+                                        <option value="2" @(Model != null && Model.Type == 2 ? "selected" : "")>مقال</option>
+                                    </select>
+                                    @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <div class="form-group marginBlock">
-                                    <label class="col-lg-2 control-label noRight HeadLabel">نوع الخبر</label>
-                                    <div class="col-md-10 borderForFields">
-                                        <select id="Type" name="Type" style="width: 100%;" class="chosen-container-single selectize-input">
-                                            <option value="1" @(Model != null && Model.Type == 1 ? "selected" : "")>خبر</option>
-                                            <option value="2" @(Model != null && Model.Type == 2 ? "selected" : "")>مقال</option>
-                                        </select>
-                                        @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
-                                    </div>
+                            <div class="form-group marginBlock">
+                                <label class="col-lg-2 control-label noRight HeadLabel">العنوان الفرعى</label>
+                                <div class="col-lg-10 noLeft">
+                                    @Html.EditorFor(model => model.SubTitle, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countSubTitle(this)", @onkeydown = "countSubTitle(this)" } })
+                                    @Html.ValidationMessageFor(model => model.SubTitle, "", new { @class = "text-danger" })
+                                    <input type="text" id="countsubtitle" name="countsubtitle" class="count-num" disabled>
                                 </div>
-                                <div class="form-group marginBlock">
-                                    <label class="col-lg-2 control-label noRight HeadLabel">العنوان الفرعى</label>
-                                    <div class="col-lg-10 noLeft">
-                                        @Html.EditorFor(model => model.SubTitle, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countSubTitle(this)", @onkeydown = "countSubTitle(this)" } })
-                                        @Html.ValidationMessageFor(model => model.SubTitle, "", new { @class = "text-danger" })
-                                        <input type="text" id="countsubtitle" name="countsubtitle" class="count-num" disabled>
-                                    </div>
+                            </div>
+                            <div class="form-group marginBlock">
+                                <label class="col-lg-2 control-label noRight HeadLabel">العنوان الرئيسى</label>
+                                <div class="col-lg-10 noLeft">
+                                    @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countTitle(this)", @onkeydown = "countTitle(this)" } })
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                                    <input type="text" id="counttitle" name="counttitle" class="count-num" size="20" disabled>
                                 </div>
-                                <div class="form-group marginBlock">
-                                    <label class="col-lg-2 control-label noRight HeadLabel">العنوان الرئيسى</label>
-                                    <div class="col-lg-10 noLeft">
-                                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countTitle(this)", @onkeydown = "countTitle(this)" } })
-                                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                                        <input type="text" id="counttitle" name="counttitle" class="count-num" size="20" disabled>
-                                    </div>
-                                </div>
+                            </div>
 
-                                <div class="form-group marginBlock">
-                                    <label class="col-lg-2 control-label noRight HeadLabel">القسم</label>
-                                    <div class="col-md-10 borderForFields">
-                                        @Html.DropDownListFor(model => model.SecID, (IEnumerable<SelectListItem>)ViewBag.SecIdList, "اختر القسم", new { @class = "selectize-input", @style = "width: 100%;" })
-                                        @Html.ValidationMessageFor(model => model.SecID, "", new { @class = "text-danger" })
-                                    </div>
+                            <div class="form-group marginBlock">
+                                <label class="col-lg-2 control-label noRight HeadLabel">القسم</label>
+                                <div class="col-md-10 borderForFields">
+                                    @Html.DropDownListFor(model => model.SecID, (IEnumerable<SelectListItem>)ViewBag.SecIdList, "اختر القسم", new { @class = "selectize-input", @style = "width: 100%;" })
+                                    @Html.ValidationMessageFor(model => model.SecID, "", new { @class = "text-danger" })
                                 </div>
+                            </div>
 
-                                <div class="form-group marginBlock">
-                                    <label class="col-md-2 control-label noRight HeadLabel">الملخص</label>
-                                    <div class="col-md-10 borderForFields">
-                                        @Html.TextAreaFor(model => model.Brief, new { @class = "col-md-12", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7", })
-                                        @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
-                                        <input type="text" id="countbrief" name="countbrief" class="count-numText" size="20" disabled>
-                                    </div>
+                            <div class="form-group marginBlock">
+                                <label class="col-md-2 control-label noRight HeadLabel">الملخص</label>
+                                <div class="col-md-10 borderForFields">
+                                    @Html.TextAreaFor(model => model.Brief, new { @class = "col-md-12", @onkeyup = "countBrief(this)", @onkeydown = "countBrief(this)", @rows = "7", })
+                                    @Html.ValidationMessageFor(model => model.Brief, "", new { @class = "text-danger" })
+                                    <input type="text" id="countbrief" name="countbrief" class="count-numText" size="20" disabled>
                                 </div>
+                            </div>
 
-                                <div class="form-group marginBlock TextEditorBlock">
-                                    <label class="col-lg-12 control-label HeadLabel">الخبر</label>
-                                    <div class="col-lg-12 TextEditorBlockBorder">
-                                        <div class="panel panel-default EditWidth">
-                                            <div class="panel-body no-padding">
-                                                <div class="summernote" id="StoryCode" name="StoryCode"></div>
-                                            </div>
+                            <div class="form-group marginBlock TextEditorBlock">
+                                <label class="col-lg-12 control-label HeadLabel">الخبر</label>
+                                <div class="col-lg-12 TextEditorBlockBorder">
+                                    <div class="panel panel-default EditWidth">
+                                        <div class="panel-body no-padding">
+                                            <div class="summernote" id="StoryCode" name="StoryCode"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -93,127 +92,149 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">الكتاب</h3>
-                                <ul class="panel-control">
-                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
-                                </ul>
+            </div>
+            <div class="col-md-3">
+                <div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">الكتاب</h3>
+                            <ul class="panel-control">
+                                <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group marginBlock" id="divEditorID" name="divEditorID">
+                                <label class="col-lg-12 control-label noRight HeadLabel">بقلم</label>
+                                <div class="col-md-12 borderForFields">
+                                    @*@Html.DropDownListFor(model => model.EditorID, (IEnumerable<SelectListItem>)ViewBag.EditorIdList, "اختر الكاتب", new { @class = "selectize-input", @style = "width: 100%;" })
+                                        @Html.ValidationMessageFor(model => model.EditorID, "", new { @class = "text-danger " })*@
+                                    @Html.ListBoxFor(m => m.SelectedEditors, new MultiSelectList(ViewBag.EditorsList, "Value", "Text"), new { @id = "Editors", @class = "chosen" })
+                                    @Html.ValidationMessageFor(model => model.Editors, "", new { @class = "text-danger" })
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <div class="form-group marginBlock" id="divEditorID" name="divEditorID">
-                                    <label class="col-lg-12 control-label noRight HeadLabel">بقلم</label>
+                            <div class="form-group marginBlock">
+                                <label class="col-md-12 control-label noRight HeadLabel">كتب</label>
+                                <div class="col-md-12 noLeft">
+                                    @Html.EditorFor(model => model.WrittenBy, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countWrittenby(this)", @onkeydown = "countWrittenby(this)" } })
+                                    @Html.ValidationMessageFor(model => model.WrittenBy, "", new { @class = "text-danger" })
+                                    <input ng-model="writtenbydata" type="text" id="countwrittenby" name="countwrittenby" class="count-num" size="20" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">الصورة</h3>
+                            <ul class="panel-control">
+                                <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group marginBlock">
+                                <div class="col-lg-6 noLeft noPadding">
+                                    <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#AddImage">اضافة</button>
+                                </div>
+
+                                <div class="col-lg-6 noLeft noPadding">
+                                    <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#ChooseImage">اختيار</button>
+                                </div>
+
+                                <div class="col-lg-12 noLeft noPadding img-Block">
+                                    <img src="" id="featuredimage" name="featuredimage" class="img-responsive" />
+                                    <input type="hidden" id="AttachmentID" name="AttachmentID" value="0" />
+                                    <div class="EditBar">
+                                        <i class="fa fa-edit"></i>
+                                        <i class="fa fa-eye"></i>
+                                        <i class="fa fa-trash-o"></i>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="col-md-12 control-label noRight HeadLabel">تعليق الصوره</label>
+                                    <div class="col-md-12 noLeft">
+                                        @Html.EditorFor(model => model.ImageCaption, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.ImageCaption, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">اجراءات تكميليه</h3>
+                            <ul class="panel-control">
+                                <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+
+                            <div class="form-group marginBlock">
+                                <label class="col-md-12 control-label noRight HeadLabel">تاجز</label>
+                                <div class="col-md-12 noLeft">
+                                    @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "input-tags noLeft" } })
+                                    @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group marginBlock">
+                                <label class="col-md-12 control-label noRight HeadLabel">الاخبار المتعلقه</label>
+                                <div class="control-group col-md-12 noLeft">
+                                    @*<select id="RelatedNews" class="demo-default input-tags selectize-input"></select>*@
+                                    @Html.EditorFor(model => model.RelatedNews, new { htmlAttributes = new { @class = "noLeft" } })
+                                    @Html.Hidden("RelatedNewsStr")
+                                    @Html.HiddenFor(model => model.objectSelectedRelatedNews)
+
+                                </div>
+                                <div class="col-lg-6 noLeft noPadding">
+                                    <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#RelatedArticle">اضافة الاخبار المتعلقه</button>
+                                </div>
+                            </div>
+
+                            <div class="form-group marginBlock">
+                                <label class="col-md-12 control-label noRight HeadLabel">ملاحظات</label>
+                                @Html.TextAreaFor(model => model.Notes, new { @class = "form-control noLeft", @rows = "7", @style = "max-width: 90% !important; margin:auto; float:none" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">اجراءات النشر</h3>
+                            <ul class="panel-control">
+                                <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group marginBlock">
+                                <div class="noLeft" id="Schdeuled" name="Schdeuled">
+                                    @*@Html.LabelFor(model => model.SchdeuledPublish, htmlAttributes: new { @class = "control-label col-md-2" })*@
                                     <div class="col-md-12 borderForFields">
-                                        @*@Html.DropDownListFor(model => model.EditorID, (IEnumerable<SelectListItem>)ViewBag.EditorIdList, "اختر الكاتب", new { @class = "selectize-input", @style = "width: 100%;" })
-                                            @Html.ValidationMessageFor(model => model.EditorID, "", new { @class = "text-danger " })*@
-                                        @Html.ListBoxFor(m => m.SelectedEditors, new MultiSelectList(ViewBag.EditorsList, "Value", "Text"), new { @id = "Editors", @class = "chosen" })
-                                        @Html.ValidationMessageFor(model => model.Editors, "", new { @class = "text-danger" })
+                                        @Html.EditorFor(model => model.SchdeuledPublish, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.SchdeuledPublish, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
-                                <div class="form-group marginBlock">
-                                    <label class="col-md-12 control-label noRight HeadLabel">كتب</label>
-                                    <div class="col-md-12 noLeft">
-                                        @Html.EditorFor(model => model.WrittenBy, new { htmlAttributes = new { @class = "form-control", @onkeyup = "countWrittenby(this)", @onkeydown = "countWrittenby(this)" } })
-                                        @Html.ValidationMessageFor(model => model.WrittenBy, "", new { @class = "text-danger" })
-                                        <input ng-model="writtenbydata" type="text" id="countwrittenby" name="countwrittenby" class="count-num" size="20" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">الصورة</h3>
-                                <ul class="panel-control">
-                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="panel-body">
-                                <div class="form-group marginBlock">
-                                    <div class="col-lg-6 noLeft noPadding">
-                                        <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#AddImage">اضافة</button>
-                                    </div>
-
-                                    <div class="col-lg-6 noLeft noPadding">
-                                        <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#ChooseImage">اختيار</button>
-                                    </div>
-
-                                    <div class="col-lg-12 noLeft noPadding img-Block">
-                                        <img src="" id="featuredimage" name="featuredimage" class="img-responsive" />
-                                        <input type="hidden" id="AttachmentID" name="AttachmentID" value="0" />
-                                        <div class="EditBar">
-                                            <i class="fa fa-edit"></i>
-                                            <i class="fa fa-eye"></i>
-                                            <i class="fa fa-trash-o"></i>
+                                <div class="col-lg-12 form-group marginBlock checkbox3 SubmitBlock">
+                                    <div class="col-md-12">
+                                        <div class="col-md-6">
+                                            <div class="checkbox">
+                                                @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div>
-                                        <label class="col-md-12 control-label noRight HeadLabel">تعليق الصوره</label>
-                                        <div class="col-md-12 noLeft">
-                                            @Html.EditorFor(model => model.ImageCaption, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.ImageCaption, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                   
-                    <div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">اجراءات تكميليه</h3>
-                                <ul class="panel-control">
-                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="panel-body">
-
-                                <div class="form-group marginBlock">
-                                    <label class="col-md-12 control-label noRight HeadLabel">تاجز</label>
-                                    <div class="col-md-12 noLeft">
-                                        @Html.EditorFor(model => model.Tags, new { htmlAttributes = new { @class = "input-tags noLeft" } })
-                                        @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
-                                    </div>
-                                </div>
-                                <div class="form-group marginBlock">
-                                    <label class="col-md-12 control-label noRight HeadLabel">الاخبار المتعلقه</label>
-                                    <div class="control-group col-md-12 noLeft">
-                                        <select id="relatedNews" class="demo-default selectize-input"></select>
-                                    </div>
-                                </div>
-
-                                <div class="form-group marginBlock">
-                                    <label class="col-md-12 control-label noRight HeadLabel">ملاحظات</label>
-                                    @Html.TextAreaFor(model => model.Notes, new { @class = "form-control noLeft", @rows = "7", @style = "max-width: 90% !important; margin:auto; float:none" })
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">اجراءات النشر</h3>
-                                <ul class="panel-control">
-                                    <li><a class="minus" href="javascript:void(0)"><i class="fa fa-minus"></i></a></li>
-                                </ul>
-                            </div>
-                            <div class="panel-body">
-                                <div class="form-group marginBlock">
-                                    <div class="noLeft" id="Schdeuled" name="Schdeuled">
-                                        @*@Html.LabelFor(model => model.SchdeuledPublish, htmlAttributes: new { @class = "control-label col-md-2" })*@
-                                        <div class="col-md-12 borderForFields">
-                                            @Html.EditorFor(model => model.SchdeuledPublish, new { htmlAttributes = new { @class = "form-control" } })
-                                            @Html.ValidationMessageFor(model => model.SchdeuledPublish, "", new { @class = "text-danger" })
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12 form-group marginBlock checkbox3 SubmitBlock">
-                                        <div class="col-md-12">
+                                        @*<div class="col-md-6">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                    @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                    @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
+                                                </div>
+                                            </div>
                                             <div class="col-md-6">
                                                 <div class="checkbox">
                                                     @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
@@ -221,37 +242,23 @@
                                                     @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 </div>
                                             </div>
-                                            @*<div class="col-md-6">
-                                                    <div class="checkbox">
-                                                        @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
-                                                        @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
-                                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                    </div>
+                                            <div class="col-md-6">
+                                                <div class="checkbox">
+                                                    @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
+                                                    @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
+                                                    @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
                                                 </div>
-                                                <div class="col-md-6">
-                                                    <div class="checkbox">
-                                                        @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
-                                                        @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
-                                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <div class="checkbox">
-                                                        @Html.CheckBoxFor(model => model.IsApproved, new { @style = "" })
-                                                        @Html.ValidationMessageFor(model => model.IsApproved, "", new { @class = "text-danger" })
-                                                        @Html.LabelFor(model => model.IsApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-                                                    </div>
-                                                </div>*@
-                                        </div>
-                                        <div class="col-md-12">
-                                            <button type="submit" class="btn btn-info btn-lg">حفظ</button>
-                                        </div>
+                                            </div>*@
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-info btn-lg">حفظ</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
             }
             <div class="clearfix"></div>
         </div>
@@ -278,7 +285,6 @@
         </div>
     </div>
 
-
     <div id="ChooseImage" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -297,9 +303,28 @@
         </div>
     </div>
 
+    <div id="RelatedArticle" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">اختار خبر</h4>
+                </div>
+                <div class="modal-body">
+                    @*@{ Html.RenderAction("RelatedNews", "Article", new { @Take = 100 });}*@
+                    @Html.Action("RelatedNews", "Article", new { @Take = 100 })
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">اغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/Scripts/js/ArticleValidation.js"></script>
     @Scripts.Render("~/Scripts/Addons_Library/jquery.datetimepicker.full.min.js")
-    @Scripts.Render("~/Scripts/Addons_Library/selectize.min1.js")
 
     <script>
 
@@ -359,21 +384,8 @@
 
         $('#Editors').selectize({
             create: false,
+            plugins: ['remove_button'],
         });
-
-
-        obj.EditorList = $('#Editors').val();
-        if (obj.EditorList) {
-            var Editor = new Array();
-            for (var i = 0; i <= obj.EditorList.length - 1; i++) {
-                var Current = new Object();
-                Current.Id = obj.EditorList[i];
-                Editor.push(Current)
-            }
-            obj.Editors = Editor;
-            obj.EditorList = $('#Editors').val().join(',');
-        }
-
 
     </script>
 }

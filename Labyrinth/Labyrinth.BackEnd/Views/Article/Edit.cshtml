@@ -186,10 +186,18 @@
                                         @Html.ValidationMessageFor(model => model.Tags, "", new { @class = "text-danger" })
                                     </div>
                                 </div>
+
                                 <div class="form-group marginBlock">
                                     <label class="col-md-12 control-label noRight HeadLabel">الاخبار المتعلقه</label>
                                     <div class="control-group col-md-12 noLeft">
-                                        <select id="relatedNews" class="demo-default selectize-input"></select>
+                                        @*<select id="RelatedNews" class="demo-default input-tags selectize-input"></select> ViewBag.RelatedNewsList*@
+                                        @Html.ListBoxFor(m => m.SelectedRelatedNews, new MultiSelectList(ViewBag.RelatedNewsList != null ? ViewBag.RelatedNewsList : new List<SelectListItem>(), "Value", "Text"), new { @id = "RelatedNews", @class = "input-tags" })
+                                        @*@Html.ListBoxFor(model => model.SelectedRelatedNews, new MultiSelectList(ViewBag.RelatedNewsList != null ? ViewBag.RelatedNewsList : new List<SelectListItem>(), "Value", "Text"), new { @id = "RelatedNews" }, new { htmlAttributes = new { @class = "input-tags noLeft" } })*@
+                                        @Html.Hidden("RelatedNewsStr", Model.RelatedNews)
+                                        @Html.HiddenFor(model => model.objectSelectedRelatedNews)
+                                    </div>
+                                    <div class="col-lg-6 noLeft noPadding">
+                                        <button type="button" class="btn btn-info btn-lg " data-toggle="modal" data-target="#RelatedArticle">اضافة الاخبار المتعلقه</button>
                                     </div>
                                 </div>
 
@@ -286,7 +294,6 @@
         </div>
     </div>
 
-
     <div id="ChooseImage" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <!-- Modal content-->
@@ -305,9 +312,28 @@
         </div>
     </div>
 
+    <div id="RelatedArticle" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">اختار خبر</h4>
+                </div>
+                <div class="modal-body">
+                    @*@{ Html.RenderAction("RelatedNews", "Article", new { @Take = 100 });}*@
+                    @Html.Action("RelatedNews", "Article", new { @Take = 100 })
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">اغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="~/Scripts/js/ArticleValidation.js"></script>
     @Scripts.Render("~/Scripts/Addons_Library/jquery.datetimepicker.full.min.js")
-    @Scripts.Render("~/Scripts/Addons_Library/selectize.min1.js")
 
     <script>
 
@@ -365,20 +391,8 @@
 
         $('#Editors').selectize({
             create: false,
+            plugins: ['remove_button'],
         });
-
-        obj.EditorList = $('#Editors').val();
-        if (obj.EditorList) {
-            var Editor = new Array();
-            for (var i = 0; i <= obj.EditorList.length - 1; i++) {
-                var Current = new Object();
-                Current.Id = obj.EditorList[i];
-                Editor.push(Current)
-            }
-            obj.Editors = Editor;
-            obj.EditorList = $('#Editors').val().join(',');
-        }
-
-
+        
     </script>
 }

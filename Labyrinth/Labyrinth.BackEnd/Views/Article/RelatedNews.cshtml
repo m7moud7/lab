@@ -127,11 +127,72 @@
         <!-- Main Content Element  End-->
     </div>
 </div>
+@*$("#RelatedNews")[0].selectize.addOption({
+                        text: 'test1',
+                        value: '123'
+                    });
+    $("#RelatedNews")[0].selectize.addItem('123');*@
 
 
 <script src="~/Scripts/jquery.simplePagination.js"></script>
 <script>
     $(document).ready(function () {
+
+        //.selectize({
+        //      SelectedValues: true,
+        //      create: false,
+        //      remove_button: false,
+        //      //persist: false,
+        //      //createOnBlur: true,
+        //  });
+
+
+        //$('#RelatedNews').selectize({
+        //      plugins: ['remove_button'],
+        //      delimiter: ',',
+        //      persist: false,
+        //      create: function (input) {
+        //          return {
+        //              value: input,
+        //              text: input
+        //          }
+        //      },
+        //      render: {
+        //          item: function (data, escape) {
+        //              return '<div>"' + escape(data.text) + '"</div>';
+        //          }
+        //      },
+        //      onDelete: function (values) {
+        //          return confirm(values.length > 1 ? 'Are you sure you want to remove these ' + values.length + ' items?' : 'Are you sure you want to remove "' + values[0] + '"?');
+        //      }
+        //  });
+
+
+
+        if ($('#objectSelectedRelatedNews').val() != "") {
+
+            var test = JSON.parse($('#objectSelectedRelatedNews').val());
+            $("#RelatedNews")[0].selectize.SelectedValues = false;
+
+            $("#RelatedNews")[0].selectize.clear();
+            $("#RelatedNews")[0].selectize.refreshItems();
+            $("#RelatedNews")[0].selectize.refreshOptions();
+            //$("#RelatedNews")[0].selectize.clearCache();
+
+            $.each(test, function (ID, Title) {
+
+                $("#RelatedNews")[0].selectize.addOption({
+                    text: Title.Title,
+                    value: Title.ID
+                });
+
+                $("#RelatedNews")[0].selectize.addItem(Title.ID.toString());
+                $("#RelatedNews")[0].selectize.refreshItems();
+                $("#RelatedNews")[0].selectize.refreshOptions();
+
+            });
+        }
+
         //toogle
 
         $("#DivGetAllNews").on("change", ".checkAll", function () {
@@ -153,9 +214,7 @@
                 //}
                 $(".checkAll").prop('checked', false);
             }
-
             $("#SelectRelatedNews").toggle('dispaly:none');
-
         });
 
 
@@ -216,28 +275,26 @@
                 }
             });
         }
-
     });
 </script>
-@*@Scripts.Render("~/Scripts/Addons_Library/selectize.min1.js")*@
 
 <script>
 
-
-    //$('#RelatedNews').selectize({
-    //    persist: false,
-    //    createOnBlur: true,
-    //    create: true,
-    //    remove_button: true
-    //});
-   
     $('#SelectRelatedNews').click(function () {
+
+        var testarray = [];
+
         var SelectedValues = $('input[name="check_Red"]:checked').map(function () {
             var selectize_tags = $("#RelatedNews")[0].selectize
             selectize_tags.addOption({
                 text: $(this).attr('data-title'),
                 value: $(this).val().toString()
             });
+            var Title = $(this).attr('data-title');
+            var ID = $(this).val().toString();
+
+            testarray.push({ ID: ID, Title: Title });
+
             selectize_tags.addItem($(this).val().toString());
             selectize_tags.refreshItems();
             return $(this).val().toString();
@@ -245,7 +302,10 @@
 
         var RelatedNewsStr = $('#RelatedNewsStr');
         RelatedNewsStr.val(SelectedValues);
-        $('#RelatedArticle').modal('toggle');
-    });
 
+        $('#objectSelectedRelatedNews').val(JSON.stringify(testarray));
+
+        $('#RelatedArticle').modal('toggle');
+
+    });
 </script>

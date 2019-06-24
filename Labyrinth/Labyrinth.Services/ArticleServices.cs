@@ -176,6 +176,9 @@ namespace Labyrinth.Services
                 {
                     model.Tags = _TagServices.GetNewsTags(ID);
                     model.NewsMeta = GetNewsMeta(ID);
+
+
+
                     //if (model.AttachmentID != 0)
                 }
                 return model;
@@ -185,6 +188,36 @@ namespace Labyrinth.Services
                 return new ArticleVM();
             }
         }
+
+
+        public List<RelatedNewsVM> GetRelatedNews(int ArticleID)
+        {
+            var RelatedNewsList = new List<RelatedNewsVM>();
+            var Related = _DB.News.Where(a => a.ID == ArticleID).FirstOrDefault().RelatedNews;
+            if (!string.IsNullOrEmpty(Related))
+            {
+                var RelatedList = Related.Split(',');
+                if (RelatedList != null && RelatedList.Length > 0)
+                {
+                    foreach (var item in RelatedList)
+                    {
+                        var TempRelatedID = 0;
+                        int.TryParse(item, out TempRelatedID);
+                        if (TempRelatedID > 0)
+                        {
+                            var Current = new RelatedNewsVM();
+                            Current.NewsID = ArticleID;
+                            Current.RelatedNewsID = int.Parse(item);
+                            var RelatedID = int.Parse(item);
+                            Current.RelatedTitle = _DB.News.Where(a => a.ID == RelatedID).FirstOrDefault().Title;
+                            RelatedNewsList.Add(Current);
+                        }
+                    }
+                }
+            }
+            return RelatedNewsList;
+        }
+
 
         public List<ArticleVM> GetAllNews(int Take, int PageID, string Filter, int NewsID, int SecID, int TypeID, bool IsApproved, bool IsDeleted)
         {
@@ -216,6 +249,7 @@ namespace Labyrinth.Services
 
                                  IsApproved = IsApproved,
                                  IsDeleted = IsDeleted,
+
                              }).ToList();
                 var Users = _UserAdminServices.GetAllUsers_DDL();
                 foreach (var item in model)

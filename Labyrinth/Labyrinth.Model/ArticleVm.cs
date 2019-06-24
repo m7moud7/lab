@@ -46,6 +46,9 @@ namespace Labyrinth.Model
 
         [Display(Name = "الاخبار المتعلقة")]
         public string RelatedNews { get; set; }
+
+        public string objectSelectedRelatedNews { get; set; }
+
         public string[] SelectedRelatedNews { get; set; }
         public List<RelatedNewsVM> RelatedNewsList { get; set; }
 
