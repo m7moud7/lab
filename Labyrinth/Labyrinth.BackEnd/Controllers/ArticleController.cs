@@ -21,8 +21,6 @@ namespace Labyrinth.BackEnd.Controllers
         private static IArticle _ArticleService;
         private static ArticleVM _Article;
 
-
-
         public ArticleController()
         {
             _SectionService = new SectionServices();
@@ -155,6 +153,15 @@ namespace Labyrinth.BackEnd.Controllers
 
             ViewModel.RelatedNews = "";
 
+            if(ViewModel.Type == 1)
+                return View("AddArticle", ViewModel);
+            else if (ViewModel.Type == 2)
+                return View("AddGame", ViewModel);
+            else if (ViewModel.Type == 3)
+                return View("AddColoring", ViewModel);
+            else if (ViewModel.Type == 4)
+                return View("AddVideo", ViewModel);
+
             return View(ViewModel);
         }
 
@@ -215,7 +222,7 @@ namespace Labyrinth.BackEnd.Controllers
         }
 
         [SessionExpireFilter]
-        public ActionResult AddColoring()
+        public ActionResult AddVideo()
         {
             ViewBag.SecIdList = CurrentSections();
 
@@ -242,6 +249,33 @@ namespace Labyrinth.BackEnd.Controllers
             return View(new ArticleVM());
         }
 
+        [SessionExpireFilter]
+        public ActionResult AddColoring()
+        {
+            ViewBag.SecIdList = CurrentSections();
+
+            if (_Article != null && _Article.Editors != null)
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
+
+            return View(new ArticleVM());
+        }
 
         [HttpPost]
         [SessionExpireFilter]
@@ -474,7 +508,6 @@ namespace Labyrinth.BackEnd.Controllers
 
             return View(model);
         }
-
 
         /// <summary>
         /// Reorder

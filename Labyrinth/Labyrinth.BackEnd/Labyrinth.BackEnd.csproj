@@ -860,6 +860,7 @@
     <Content Include="Views\Article\RelatedNews.cshtml" />
     <Content Include="Views\Article\AddGame.cshtml" />
     <Content Include="Views\Article\AddColoring.cshtml" />
+    <Content Include="Views\Article\AddVideo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
