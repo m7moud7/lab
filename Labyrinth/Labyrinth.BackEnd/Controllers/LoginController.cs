@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Labyrinth.Abstracts;
-using Labyrinth.Services;
-using Labyrinth.Model;
+using Noor.Abstracts;
+using Noor.Services;
+using Noor.Model;
 
-namespace Labyrinth.BackEnd.Controllers
+namespace Noor.BackEnd.Controllers
 {
     public class LoginController : Controller
     {

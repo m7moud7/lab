@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 
-namespace Labyrinth.Model
+namespace Noor.Model
 {
     public class ArticleVM
     {

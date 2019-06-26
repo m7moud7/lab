@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Labyrinth.Model;
+using Noor.Model;
 
-namespace Labyrinth.Abstracts
+namespace Noor.Abstracts
 {
     public interface IIssue
     {

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Labyrinth.BackEnd.App_Start;
-using Labyrinth.Model;
-using Labyrinth.Abstracts;
-using Labyrinth.Services;
+using Noor.BackEnd.App_Start;
+using Noor.Model;
+using Noor.Abstracts;
+using Noor.Services;
 using System.Net;
 using System.IO;
 
-namespace Labyrinth.BackEnd.Controllers
+namespace Noor.BackEnd.Controllers
 {
     public class ArticleController : BaseController
     {

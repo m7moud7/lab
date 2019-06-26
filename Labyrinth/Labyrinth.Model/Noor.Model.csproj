@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A64E30D6-884E-40F8-8DD1-F4BF04315D30}</ProjectGuid>
+    <ProjectGuid>{CD88BA2E-E993-431F-BCB9-22DA7E4A00D2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Labyrinth.Abstracts</RootNamespace>
-    <AssemblyName>Labyrinth.Abstracts</AssemblyName>
+    <RootNamespace>Noor.Model</RootNamespace>
+    <AssemblyName>Noor.Model</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,20 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IArticle.cs" />
-    <Compile Include="IAttachment.cs" />
-    <Compile Include="IEditor.cs" />
-    <Compile Include="IIssue.cs" />
-    <Compile Include="ISection.cs" />
-    <Compile Include="ITag.cs" />
-    <Compile Include="IUserAdmin.cs" />
+    <Compile Include="ArticleVM.cs" />
+    <Compile Include="AttachmentVM.cs" />
+    <Compile Include="IssueVM.cs" />
+    <Compile Include="LookUpVM.cs" />
+    <Compile Include="NewsMetaVM.cs" />
+    <Compile Include="OrderVM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Labyrinth.Model\Labyrinth.Model.csproj">
-      <Project>{cd88ba2e-e993-431f-bcb9-22da7e4a00d2}</Project>
-      <Name>Labyrinth.Model</Name>
-    </ProjectReference>
+    <Compile Include="RelatedNewsVM.cs" />
+    <Compile Include="EditorVM.cs" />
+    <Compile Include="SectionVM.cs" />
+    <Compile Include="Setting\GeneralSettingsVM.cs" />
+    <Compile Include="TagVM.cs" />
+    <Compile Include="Setting\UsersAdminVM.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

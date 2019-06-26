@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Labyrinth.Abstracts;
-using Labyrinth.Data;
-using Labyrinth.Model;
+using Noor.Abstracts;
+using Noor.Data;
+using Noor.Model;
 using System.Data.Entity;
 
-namespace Labyrinth.Services
+namespace Noor.Services
 {
     public class ArticleServices : IArticle
     {

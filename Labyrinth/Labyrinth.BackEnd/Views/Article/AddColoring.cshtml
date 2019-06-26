@@ -1,4 +1,4 @@
-﻿@model Labyrinth.Model.ArticleVM
+﻿@model Noor.Model.ArticleVM
 @{
     ViewBag.Title = "AddArticle";
 }
@@ -308,7 +308,6 @@
                 <div class="modal-body">
                     @*@{ Html.RenderAction("RelatedNews", "Article", new { @Take = 100 });}*@
                     @Html.Action("RelatedNews", "Article", new { @Take = 100 })
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">اغلاق</button>
@@ -319,7 +318,6 @@
 
     <script src="~/Scripts/js/ArticleValidation.js"></script>
     @Scripts.Render("~/Scripts/Addons_Library/jquery.datetimepicker.full.min.js")
-
     <script>
         jQuery('#SchdeuledPublish').datetimepicker();
 
@@ -355,6 +353,5 @@
                 alert("This browser does not support FileReader.");
             }
         });
-
     </script>
 }

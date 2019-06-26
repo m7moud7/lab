@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Labyrinth.Abstracts;
-using Labyrinth.Model;
-using Labyrinth.Data;
+using Noor.Abstracts;
+using Noor.Model;
+using Noor.Data;
 using System.Data.Entity;
 
-namespace Labyrinth.Services
+namespace Noor.Services
 {
     public class IssueServices : IIssue
     {
@@ -34,7 +34,7 @@ namespace Labyrinth.Services
         {
             try
             {
-                var model = Labyrinth.Data.Issue.Clone(ViewModel);
+                var model = Noor.Data.Issue.Clone(ViewModel);
 
                 if (ViewModel.ID > 0)
                     _DB.Entry(model).State = EntityState.Modified;

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Labyrinth.BackEnd.App_Start
+namespace Noor.BackEnd.App_Start
 {
     public class SessionExpireFilterAttribute : ActionFilterAttribute
     {

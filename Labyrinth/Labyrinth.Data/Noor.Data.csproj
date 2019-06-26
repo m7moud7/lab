@@ -7,8 +7,8 @@
     <ProjectGuid>{7C9730B6-D287-466B-B257-BAB69DA2CB33}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Labyrinth.Data</RootNamespace>
-    <AssemblyName>Labyrinth.Data</AssemblyName>
+    <RootNamespace>Noor.Data</RootNamespace>
+    <AssemblyName>Noor.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -382,9 +382,9 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Labyrinth.Model\Labyrinth.Model.csproj">
+    <ProjectReference Include="..\Labyrinth.Model\Noor.Model.csproj">
       <Project>{cd88ba2e-e993-431f-bcb9-22da7e4a00d2}</Project>
-      <Name>Labyrinth.Model</Name>
+      <Name>Noor.Model</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace Labyrinth.BackEnd
+namespace Noor.BackEnd
 {
     public class FilterConfig
     {

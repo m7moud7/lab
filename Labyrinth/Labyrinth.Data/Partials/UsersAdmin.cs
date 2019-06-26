@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Labyrinth.Model;
-namespace Labyrinth.Data
+using Noor.Model;
+namespace Noor.Data
 {
     public partial class UsersAdmin
     {

@@ -13,8 +13,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Labyrinth.BackEnd</RootNamespace>
-    <AssemblyName>Labyrinth.BackEnd</AssemblyName>
+    <RootNamespace>Noor.BackEnd</RootNamespace>
+    <AssemblyName>Noor.BackEnd</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -893,17 +893,17 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Labyrinth.Abstracts\Labyrinth.Abstracts.csproj">
+    <ProjectReference Include="..\Labyrinth.Abstracts\Noor.Abstracts.csproj">
       <Project>{a64e30d6-884e-40f8-8dd1-f4bf04315d30}</Project>
-      <Name>Labyrinth.Abstracts</Name>
+      <Name>Noor.Abstracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Labyrinth.Model\Labyrinth.Model.csproj">
+    <ProjectReference Include="..\Labyrinth.Model\Noor.Model.csproj">
       <Project>{cd88ba2e-e993-431f-bcb9-22da7e4a00d2}</Project>
-      <Name>Labyrinth.Model</Name>
+      <Name>Noor.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Labyrinth.Services\Labyrinth.Services.csproj">
+    <ProjectReference Include="..\Labyrinth.Services\Noor.Services.csproj">
       <Project>{36c97db4-599c-4e2d-9dcf-685987b04a3f}</Project>
-      <Name>Labyrinth.Services</Name>
+      <Name>Noor.Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

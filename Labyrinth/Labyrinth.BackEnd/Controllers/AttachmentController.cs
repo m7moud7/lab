@@ -4,14 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-using Labyrinth.Abstracts;
-using Labyrinth.Services;
-using Labyrinth.Model;
-using Labyrinth.BackEnd.App_Start;
+using Noor.Abstracts;
+using Noor.Services;
+using Noor.Model;
+using Noor.BackEnd.App_Start;
 using System.Drawing;
 using System.IO;
 
-namespace Labyrinth.BackEnd.Controllers
+namespace Noor.BackEnd.Controllers
 {
     public class AttachmentController : BaseController
     {

@@ -6,7 +6,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 
-namespace Labyrinth.Services
+namespace Noor.Services
 {
     public class StringCipher
     {

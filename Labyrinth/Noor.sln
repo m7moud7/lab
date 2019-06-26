@@ -9,15 +9,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{7E5B3CA3-A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Business", "Business", "{31FCAF73-E138-4B0E-A34B-5F15F2246B36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.Abstracts", "Labyrinth.Abstracts\Labyrinth.Abstracts.csproj", "{A64E30D6-884E-40F8-8DD1-F4BF04315D30}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noor.Abstracts", "Labyrinth.Abstracts\Noor.Abstracts.csproj", "{A64E30D6-884E-40F8-8DD1-F4BF04315D30}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.Data", "Labyrinth.Data\Labyrinth.Data.csproj", "{7C9730B6-D287-466B-B257-BAB69DA2CB33}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noor.Data", "Labyrinth.Data\Noor.Data.csproj", "{7C9730B6-D287-466B-B257-BAB69DA2CB33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.Services", "Labyrinth.Services\Labyrinth.Services.csproj", "{36C97DB4-599C-4E2D-9DCF-685987B04A3F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noor.Services", "Labyrinth.Services\Noor.Services.csproj", "{36C97DB4-599C-4E2D-9DCF-685987B04A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.Model", "Labyrinth.Model\Labyrinth.Model.csproj", "{CD88BA2E-E993-431F-BCB9-22DA7E4A00D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noor.Model", "Labyrinth.Model\Noor.Model.csproj", "{CD88BA2E-E993-431F-BCB9-22DA7E4A00D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Labyrinth.BackEnd", "Labyrinth.BackEnd\Labyrinth.BackEnd.csproj", "{B9EC2D62-BF07-442D-ADAA-FB1A08ED9694}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Noor.BackEnd", "Labyrinth.BackEnd\Noor.BackEnd.csproj", "{B9EC2D62-BF07-442D-ADAA-FB1A08ED9694}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,5 +55,8 @@ Global
 		{36C97DB4-599C-4E2D-9DCF-685987B04A3F} = {31FCAF73-E138-4B0E-A34B-5F15F2246B36}
 		{CD88BA2E-E993-431F-BCB9-22DA7E4A00D2} = {D72AF540-6017-49BF-B238-7601D7C77822}
 		{B9EC2D62-BF07-442D-ADAA-FB1A08ED9694} = {D72AF540-6017-49BF-B238-7601D7C77822}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {29B71FE9-16AF-4A6E-AF47-866E73B30421}
 	EndGlobalSection
 EndGlobal

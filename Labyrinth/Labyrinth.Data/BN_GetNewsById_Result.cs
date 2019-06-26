@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Labyrinth.Data
+namespace Noor.Data
 {
     using System;
     
