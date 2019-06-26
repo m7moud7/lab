@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <!--Top header start-->
                 <h3 class="ls-top-header">Dashboard</h3>
-                <!--Top header end -->fff
+                <!--Top header end -->
                 <!--Top breadcrumb start -->
                 <ol class="breadcrumb">
                     <li><a href="#"><i class="fa fa-home"></i></a></li>
@@ -102,17 +102,17 @@
                                     @item.Title
                                     <div class="row-actions">
                                         <a class="edit" href="/Article/Edit/@item.ID">تعديل</a>
-                                        <span class="quickedit">تعديل سريع</span>
+                                        @*<span class="quickedit">تعديل سريع</span>*@
                                         <span class="edit">حذف</span>
                                         <span class="edit">عرض</span>
                                     </div>
-                                    <div class="quickEditForm">
+                                    @*<div class="quickEditForm">
                                         <div>
                                             <input type="text" class="" value="" name="" />
                                         </div>
                                         <button class="btn ls-blue-btn btn-round doneEditForm">حفظ</button>
                                         <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
-                                    </div>
+                                    </div>*@
                                 </td>
                                 <td>
                                     @if (item.Type == 1)

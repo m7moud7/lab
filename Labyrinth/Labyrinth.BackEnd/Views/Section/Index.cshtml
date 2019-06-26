@@ -19,8 +19,10 @@
                             <i class="fa fa-home"></i>
                         </a>
                     </li>
-                    <li>الرئسية</li>
-                    <li class="active">المنطقه</li>
+                    <li>
+                        <a href="/Home/Index">الرئسية</a>
+                    </li>
+                    
                 </ol>
                 <!--Top breadcrumb start -->
             </div>
@@ -29,7 +31,7 @@
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Fickle Column Drag n Drop Table</h3>
+                    <h3 class="panel-title">كل الاقسام</h3>
                 </div>
                 <div class="panel-body">
                     <div class="GroupPage">
@@ -40,7 +42,7 @@
                             </div>
                         </div>
                         <div class="col-md-2">
-                            <h3 class="ls-header marginH2">الحالة</h3>
+                            <label class=" control-label">اسم القسم</label>
                             <select id="ddlIsDeleted" name="ddlIsDeleted" class="demo-code-language selectWidth">
                                 <option value="false" selected>الغير محذوف</option>
                                 <option value="true">المحذوف</option>
@@ -48,7 +50,11 @@
                         </div>
 
                         <div class="col-md-2">
-                            <button class="btn btn-default marginTop" id="btnSearch" name="btnSearch">بحث</button>
+                            @*<label class=" control-label"> </label>*@
+                            <br />
+                            <div style="margin-top:5px;">
+                                <button class="btn btn-default marginTop" id="btnSearch" name="btnSearch">بحث</button>
+                            </div>
                         </div>
                     </div>
                 </div>
