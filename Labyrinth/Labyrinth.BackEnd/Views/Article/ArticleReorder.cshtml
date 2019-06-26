@@ -67,10 +67,12 @@
                     <h3 class="panel-title">ترتيب الاخبار</h3>
                 </div>
                 <div class="col-md-1 hidden-sm hidden-xs" style="padding-left: 0px;text-align: center;padding-top: 15px;">
-                    <ul class="ui-sortable" style="margin-top:2px;padding-right:0;list-style:none;">
+                    <ul class="ui-sortable" style="margin-top:0px;padding-right:0;list-style:none;">
                         @for (int i = 1; i <= Counters; i++)
                         {
-                            <li class="ui-state-default ui-sortable-handle" style="@if (i == 21) { @Html.Raw("background: rgb(236, 23, 32);") } padding:5px; max-width: 50px;margin: 0px auto 5px 0; height: 60px;"> @(i) </li>
+                            <li class="ui-state-default ui-sortable-handle" style="@if (i == 21) { @Html.Raw("background: rgb(236, 23, 32);") } padding:5px; max-width: 50px;margin: 0px auto 5px 0; height: 60px;"> @(i) 
+                        <div class="clear"></div>
+                                </li>
                         }
                     </ul>
                 </div>
@@ -80,13 +82,14 @@
                         <ul id="sortable">
                             @foreach (var item in Model)
                             {
-                                <li data-id="@item.NewsID" data-type="@item.Type" title="@item.Notes" class="ui-state-default">
-                                    <span class="ui-icon Nuidlmcdei-icon ui-icon-arrowthick-2-n-s"></span>
-                                    <div class="Nuidlmcde">
-                                        <span class="Nuidlm">@item.NewsTitle</span>
-                                        <span style="color: red;float: left;" > [@item.SecTitle]</span>
-                                    </div>
-                                </li>
+                            <li data-id="@item.NewsID" data-type="@item.Type" title="@item.Notes" class="ui-state-default">
+                                <span class="ui-icon Nuidlmcdei-icon ui-icon-arrowthick-2-n-s"></span>
+                                <div class="Nuidlmcde">
+                                    <span class="Nuidlm">@item.NewsTitle</span>
+                                    <span style="color: red;float: left;"> [@item.SecTitle]</span>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
                             }
                         </ul>
                     </div>
