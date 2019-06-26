@@ -10,20 +10,10 @@
 namespace Labyrinth.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Issue
+    public partial class BN_GetIssuesByNewsID_Result
     {
         public int ID { get; set; }
-        public int NewsID { get; set; }
-        public Nullable<long> AttachmentID { get; set; }
-        public string NumberOfIssue { get; set; }
-        public string IssueTitle { get; set; }
-        public string Description { get; set; }
-        public string Size { get; set; }
         public string FilePath { get; set; }
-        public bool IsDeleted { get; set; }
-        public Nullable<int> CUser { get; set; }
-        public System.DateTime CDate { get; set; }
     }
 }

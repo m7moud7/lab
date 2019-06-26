@@ -25,7 +25,6 @@
         <EntityTypeShape EntityType="GenyBuzzNewModel.GroupLink" Width="1.5" PointX="10.75" PointY="10.125" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.HeadLine" Width="1.5" PointX="3" PointY="48.875" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.InstantArticle" Width="1.5" PointX="17.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GenyBuzzNewModel.Issue" Width="1.5" PointX="17.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.Karat" Width="1.5" PointX="3.75" PointY="37.25" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.Keyword" Width="1.5" PointX="17.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.mobilesection" Width="1.5" PointX="12.75" PointY="17.75" IsExpanded="true" />
@@ -119,6 +118,7 @@
         <AssociationConnector Association="GenyBuzzNewModel.FK_Serial_Channel_Serial_Channel" ManuallyRouted="false" />
         <AssociationConnector Association="GenyBuzzNewModel.FK_Views_ViewsDirections" ManuallyRouted="false" />
         <AssociationConnector Association="GenyBuzzNewModel.FK_Views_ViewsTypes" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.Issue" Width="1.5" PointX="8.375" PointY="23.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

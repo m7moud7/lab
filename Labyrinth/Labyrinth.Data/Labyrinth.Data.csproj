@@ -97,6 +97,9 @@
     <Compile Include="BN_GetAttachments_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="BN_GetIssuesByNewsID_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="BN_GetNewsByID_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
@@ -289,6 +292,7 @@
     <Compile Include="OrderPoll.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="Partials\Issue.cs" />
     <Compile Include="Partials\Order.cs" />
     <Compile Include="Partials\News.cs" />
     <Compile Include="Partials\Attachment.cs" />

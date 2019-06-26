@@ -17,6 +17,7 @@ namespace Labyrinth.BackEnd.Controllers
         private readonly ISection _SectionService;
         private readonly IEditor _EditorService;
         private readonly IAttachment _AttachmentService;
+        private readonly IIssue _IssueService;
 
         private static IArticle _ArticleService;
         private static ArticleVM _Article;
@@ -26,6 +27,8 @@ namespace Labyrinth.BackEnd.Controllers
             _SectionService = new SectionServices();
             _EditorService = new EditorServices();
             _AttachmentService = new AttachmentServices();
+            _IssueService = new IssueServices();
+
             _ArticleService = new ArticleServices();
         }
 
@@ -100,6 +103,8 @@ namespace Labyrinth.BackEnd.Controllers
                     }
                 }
 
+
+                //Cover
                 var coverImg = this.HttpContext.Request.Files["Coverfile"];
                 if (coverImg != null && coverImg.ContentLength > 0 /*&& ViewModel.CoverImage == 0*/)
                 {
@@ -124,9 +129,41 @@ namespace Labyrinth.BackEnd.Controllers
                     ViewModel.CoverImage = ViewModel.Cover.ID;
                 }
 
+                //Save
                 var result = _ArticleService.Save(ViewModel);
+
                 if (result > 0)
+                {
+                    //PDF
+                    var pdffile = this.HttpContext.Request.Files["PDFfiles"];
+                    if (pdffile != null && pdffile.ContentLength > 0 /*&& ViewModel.CoverImage == 0*/)
+                    {
+                        DateTime date = new DateTime(); date = DateTime.Now;
+                        string FileNameWithoutExt = date.Month.ToString() + date.Year.ToString() +
+                           date.Day.ToString() + date.Hour.ToString() + date.Minute.ToString()
+                           + date.Second.ToString() + date.Millisecond.ToString();
+                        string PDFName = Path.GetFileNameWithoutExtension(pdffile.FileName) + "-" + FileNameWithoutExt + ".pdf";
+                        ViewModel.PDF = new IssueVM();
+
+                        ViewModel.PDF.NumberOfIssue = ViewModel.Title;
+                        ViewModel.PDF.IssueTitle = ViewModel.Title;
+                        ViewModel.PDF.Description = ViewModel.Brief;
+                        ViewModel.PDF.Size = pdffile.ContentLength.ToString();
+                        ViewModel.PDF.FilePath = "\\Images\\PDF\\"+ PDFName;
+                        ViewModel.PDF.IsDeleted = false;
+                        ViewModel.PDF.CUser = uservm.ID;
+                        ViewModel.PDF.CDate = DateTime.Now;
+                        ViewModel.PDF.NewsID = result;
+
+
+                        ViewModel.PDFCaption = Path.GetFileNameWithoutExtension(this.HttpContext.Request.Files["PDFfiles"].FileName);
+                        pdffile.SaveAs(Server.MapPath("/Images/PDF/") + PDFName);
+                        ViewModel.PDF.ID = _IssueService.Save(ViewModel.PDF);
+                        ViewModel.PDFFile = ViewModel.PDF.ID;
+                    }
+
                     return RedirectToAction("Edit", "Article", new { ID = result });
+                }
             }
 
             ViewBag.SecIdList = CurrentSections();
@@ -153,7 +190,7 @@ namespace Labyrinth.BackEnd.Controllers
 
             ViewModel.RelatedNews = "";
 
-            if(ViewModel.Type == 1)
+            if (ViewModel.Type == 1)
                 return View("AddArticle", ViewModel);
             else if (ViewModel.Type == 2)
                 return View("AddGame", ViewModel);
@@ -161,6 +198,8 @@ namespace Labyrinth.BackEnd.Controllers
                 return View("AddColoring", ViewModel);
             else if (ViewModel.Type == 4)
                 return View("AddVideo", ViewModel);
+            else if (ViewModel.Type == 5)
+                return View("AddIssues", ViewModel);
 
             return View(ViewModel);
         }
@@ -276,6 +315,37 @@ namespace Labyrinth.BackEnd.Controllers
 
             return View(new ArticleVM());
         }
+
+
+        [SessionExpireFilter]
+        public ActionResult AddIssues()
+        {
+            ViewBag.SecIdList = CurrentSections();
+
+            if (_Article != null && _Article.Editors != null)
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name", _Article.Editors.Select(a => a.ID).AsEnumerable());
+                var EditorPolls = new List<EditorVM>();
+                foreach (var item in _Article.Editors)
+                {
+                    var Current = _EditorService.GetEditorById(item.ID);
+                    articles.Where(a => a.Value == item.ID.ToString()).FirstOrDefault().Selected = true;
+                    EditorPolls.Add(Current);
+                }
+                _Article.Editors = EditorPolls;
+                _Article.SelectedEditors = _Article.EditorList.Split(',');
+                ViewBag.EditorsList = articles;
+            }
+            else
+            {
+                var articles = new MultiSelectList(_EditorService.GetAllEditors_DDL().ToList(), "ID", "Name");
+                ViewBag.EditorsList = articles;
+            }
+
+            return View(new ArticleVM());
+        }
+
+
 
         [HttpPost]
         [SessionExpireFilter]
@@ -462,6 +532,34 @@ namespace Labyrinth.BackEnd.Controllers
                     coverImg.SaveAs(Server.MapPath("/Images/Cover/") + coverName);
                     ViewModel.Cover.ID = _AttachmentService.Save(ViewModel.Cover);
                     ViewModel.CoverImage = ViewModel.Cover.ID;
+                }
+
+                //PDF
+                var pdffile = this.HttpContext.Request.Files["PDFfiles"];
+                if (pdffile != null && pdffile.ContentLength > 0 /*&& ViewModel.CoverImage == 0*/)
+                {
+                    DateTime date = new DateTime(); date = DateTime.Now;
+                    string FileNameWithoutExt = date.Month.ToString() + date.Year.ToString() +
+                       date.Day.ToString() + date.Hour.ToString() + date.Minute.ToString()
+                       + date.Second.ToString() + date.Millisecond.ToString();
+                    string PDFName = Path.GetFileNameWithoutExtension(pdffile.FileName) + "-" + FileNameWithoutExt + ".pdf";
+                    ViewModel.PDF = new IssueVM();
+
+                    ViewModel.PDF.NumberOfIssue = ViewModel.Title;
+                    ViewModel.PDF.IssueTitle = ViewModel.Title;
+                    ViewModel.PDF.Description = ViewModel.Brief;
+                    ViewModel.PDF.Size = pdffile.ContentLength.ToString();
+                    ViewModel.PDF.FilePath = "\\Images\\PDF\\"+ PDFName;
+                    ViewModel.PDF.IsDeleted = false;
+                    ViewModel.PDF.CUser = uservm.ID;
+                    ViewModel.PDF.CDate = DateTime.Now;
+                    ViewModel.PDF.NewsID = ViewModel.ID;
+
+
+                    ViewModel.PDFCaption = Path.GetFileNameWithoutExtension(this.HttpContext.Request.Files["PDFfiles"].FileName);
+                    pdffile.SaveAs(Server.MapPath("/Images/PDF/") + PDFName);
+                    ViewModel.PDF.ID = _IssueService.Save(ViewModel.PDF);
+                    ViewModel.PDFFile = ViewModel.PDF.ID;
                 }
 
 

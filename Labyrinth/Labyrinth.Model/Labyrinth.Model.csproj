@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="ArticleVM.cs" />
     <Compile Include="AttachmentVM.cs" />
+    <Compile Include="IssueVM.cs" />
     <Compile Include="LookUpVM.cs" />
     <Compile Include="NewsMetaVM.cs" />
     <Compile Include="OrderVM.cs" />

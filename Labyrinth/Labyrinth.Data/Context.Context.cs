@@ -47,7 +47,6 @@ namespace Labyrinth.Data
         public virtual DbSet<GroupLink> GroupLinks { get; set; }
         public virtual DbSet<HeadLine> HeadLines { get; set; }
         public virtual DbSet<InstantArticle> InstantArticles { get; set; }
-        public virtual DbSet<Issue> Issues { get; set; }
         public virtual DbSet<Karat> Karats { get; set; }
         public virtual DbSet<Keyword> Keywords { get; set; }
         public virtual DbSet<mobilesection> mobilesections { get; set; }
@@ -107,6 +106,7 @@ namespace Labyrinth.Data
         public virtual DbSet<ViewsDirection> ViewsDirections { get; set; }
         public virtual DbSet<ViewsType> ViewsTypes { get; set; }
         public virtual DbSet<WorkFlowAttachment> WorkFlowAttachments { get; set; }
+        public virtual DbSet<Issue> Issues { get; set; }
     
         public virtual ObjectResult<BN_CheckUser_Result> BN_CheckUser(string username, string password)
         {
@@ -361,6 +361,15 @@ namespace Labyrinth.Data
                 new ObjectParameter("NewsID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetNewsByID_Result>("BN_GetNewsByID", newsIDParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetIssuesByNewsID_Result> BN_GetIssuesByNewsID(Nullable<int> newsID)
+        {
+            var newsIDParameter = newsID.HasValue ?
+                new ObjectParameter("NewsID", newsID) :
+                new ObjectParameter("NewsID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetIssuesByNewsID_Result>("BN_GetIssuesByNewsID", newsIDParameter);
         }
     }
 }
