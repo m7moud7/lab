@@ -8,7 +8,7 @@
     @foreach (var item in Model)
     {
         <div class="col-md-4 col-sm-4 col-xs-12 m-col-md-4 picture-item shuffle-item filtered">
-            <img src="@item.FolderName\Thumb\@item.Path" data-id="@item.ID" id="ImgChooseimage_@item.ID" name="ImgChooseimage_@item.ID" />
+            <img src="@item.FolderName\Thumb\@item.Path" class="ImgChosenFromPopUP" data-id="@item.ID" id="ImgChooseimage_@item.ID" name="ImgChooseimage_@item.ID" />
             <center style="margin-top:10px;">
                 <button type="button" id="btnChooseimage" name="btnChooseimage" data-id="@item.ID" data-dismiss="modal">اختار</button>
             </center>

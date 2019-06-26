@@ -30,13 +30,13 @@
                     @item.Title
                     <div class="row-actions">
                         <a class="edit" href="/Article/Edit/@item.ID">تعديل</a>
-                        <span class="quickedit">تعديل سريع</span>
+                        @*<span class="quickedit">تعديل سريع</span>
                         <span class="edit">حذف</span>
-                        <span class="edit">عرض</span>
+                        <span class="edit">عرض</span>*@
                     </div>
-                    <div class="quickEditForm">
+                    @*<div class="quickEditForm">
                         <button class="btn ls-red-btn btn-round cancelEditForm">الغاء</button>
-                    </div>
+                    </div>*@
                 </td>
                 <td>
                     @if (item.Type == 1)

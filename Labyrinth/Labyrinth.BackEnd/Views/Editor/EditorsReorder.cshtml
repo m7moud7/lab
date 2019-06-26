@@ -16,8 +16,9 @@
                             <i class="fa fa-home"></i>
                         </a>
                     </li>
-                    <li>الرئسية</li>
-                    <li class="active">المنطقه</li>
+                    <li>
+                        <a href="/Home/Index">الرئسية</a>
+                    </li>
                 </ol>
                 <!--Top breadcrumb start -->
             </div>
@@ -26,10 +27,12 @@
         <div class="col-md-12" id="ReorderContainer">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Order Page</h3>
+                    <h3 class="panel-title">ترتيب الكتاب</h3>
                 </div>
                 <div class="panel-body">
                     <input type="submit" value="حفظ الترتيب" class="btn btn-default btn-primary" id="btnSave">
+                    <br />
+                    <br />
                     <ul id="sortable">
                         @foreach (var item in Model)
                         {

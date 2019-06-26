@@ -1,11 +1,24 @@
 /*LastEdit*/
 .subsubsub{padding:0}
-.allsubsubsub {float: right;list-style: none;margin-left: 10px;}
+.allsubsubsub {float: right;list-style: none;margin-left: 10px;cursor:pointer;}
 .allsubsubsub a{color: #000;font-family: 'Tajawal';font-size: 15px;font-weight: normal;text-decoration:none;}
 .allsubsubsub a .count{color: #f00;margin-right:5px;}
-.row-actions,.quickEditForm{display:none;}
+/*.row-actions,.quickEditForm{display:none;}*/
 #DivGetAllNews tr td {    font-family: 'Tajawal';font-size: 13px;}
 #DivGetAllNews tr td:last-child span{margin:auto;display:block;    max-width: 50px;border-radius: 5px;height: 15px;line-height: 11px;}
 #ListPager{width: 335px;margin:auto;}
 .ls_form{    font-family: "newfont";font-size: 18px;}
 .pie-widgetP a{    line-height: 13px;font-family: "newfont";font-size: 18px;}
+.ImgChosenFromPopUP{width:100%;min-height:100px;display:block;margin:auto;}
+#sortable{list-style:none;padding:0;margin:0;}
+.Nuidlmcde{float:right;    font-family: "newfont";font-size: 15px;}
+.ui-icon-arrowthick-2-n-s{float:right;}
+.ui-sortable-handle{clear:both;padding:10px 10px 10px 0;    height: 60px;margin-bottom:5px;}
+#RelatedArticle .firstTh .row-actions, #RelatedArticle .firstTh .quickEditForm{display:none;}
+#RelatedArticle .ls_form .col-md-2{width:50%;}
+#RelatedArticle .ls_form .col-md-4{width:50%;}
+#RelatedArticle .ls_form .col-md-2:nth-child(5){width:50px!important; float:none;clear:both;margin:auto;margin-top:20px;}
+#RelatedArticle .ls_form .col-md-2:nth-child(5) button{margin-top:20px;}
+.btn-info,.btn-default{font-family: "newfont";font-size: 17px;}
+input,.selectize-input{    font-family: 'Tajawal';font-size: 13px;text-align:right;}
+#ListTable tr th{    font-family: "newfont";font-size: 16px;}
