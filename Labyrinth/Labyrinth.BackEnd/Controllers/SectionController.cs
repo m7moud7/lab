@@ -118,7 +118,6 @@ namespace Labyrinth.BackEnd.Controllers
             return View(_Section.GetAllSections(Take, PageID, Name, IsDeleted));
         }
 
-
         [SessionExpireFilter]
         public ActionResult SectionsReorder()
         {

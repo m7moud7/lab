@@ -16,9 +16,9 @@ namespace Labyrinth.Model
         public string Profile_Picture { get; set; }
 
         public int Role { get; set; }
+        public bool IsDeleted { get; set; }
 
         public int CUser { get; set; }
-        public string CDate { get; set; }
-
+        public DateTime CDate { get; set; }
     }
 }

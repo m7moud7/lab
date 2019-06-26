@@ -802,6 +802,7 @@
           <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Profile_Picture" Type="nvarchar" MaxLength="255" />
           <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CUser" Type="int" />
           <Property Name="CDate" Type="datetime" Nullable="false" />
         </EntityType>
@@ -1310,6 +1311,16 @@
         </Function>
         <Function Name="BN_GetAllSections_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetAllSections_ForReOrder" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="BN_GetAllUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Take" Type="int" Mode="In" />
+          <Parameter Name="PageID" Type="int" Mode="In" />
+          <Parameter Name="IsDeleted" Type="nvarchar" Mode="In" />
+          <Parameter Name="FullName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="BN_GetAllUsers_Count" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IsDeleted" Type="nvarchar" Mode="In" />
+          <Parameter Name="FullName" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="BN_GetAllUsers_DDL" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="BN_GetArticleForReOrderByID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Type" Type="int" Mode="In" />
@@ -2390,19 +2401,6 @@
           <Property Name="NewsID" Type="Int32" />
           <Property Name="Month" Type="Int32" />
         </EntityType>
-        <EntityType Name="UsersAdmin">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Profile_Picture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Role" Type="Int32" Nullable="false" />
-          <Property Name="CUser" Type="Int32" />
-          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
-        </EntityType>
         <EntityType Name="View">
           <Key>
             <PropertyRef Name="Id" />
@@ -2955,7 +2953,6 @@
           <EntitySet Name="Tickers" EntityType="Self.Ticker" />
           <EntitySet Name="TickersMOdules" EntityType="Self.TickersMOdule" />
           <EntitySet Name="TimelineNews" EntityType="Self.TimelineNew" />
-          <EntitySet Name="UsersAdmins" EntityType="Self.UsersAdmin" />
           <EntitySet Name="Views" EntityType="Self.View" />
           <EntitySet Name="ViewsCounters" EntityType="Self.ViewsCounter" />
           <EntitySet Name="ViewsDirections" EntityType="Self.ViewsDirection" />
@@ -3172,7 +3169,18 @@
           </FunctionImport>
           <EntitySet Name="Issues" EntityType="GenyBuzzNewModel.Issue" />
           <FunctionImport Name="BN_GetIssuesByNewsID" ReturnType="Collection(GenyBuzzNewModel.BN_GetIssuesByNewsID_Result)">
-            <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          <Parameter Name="NewsID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="UsersAdmins" EntityType="GenyBuzzNewModel.UsersAdmin" />
+          <FunctionImport Name="BN_GetAllUsers" ReturnType="Collection(GenyBuzzNewModel.BN_GetAllUsers_Result)">
+            <Parameter Name="Take" Mode="In" Type="Int32" />
+            <Parameter Name="PageID" Mode="In" Type="Int32" />
+            <Parameter Name="IsDeleted" Mode="In" Type="String" />
+            <Parameter Name="FullName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="BN_GetAllUsers_Count" ReturnType="Collection(Int32)">
+            <Parameter Name="IsDeleted" Mode="In" Type="String" />
+            <Parameter Name="FullName" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="BN_CheckUser_Result">
@@ -3325,6 +3333,28 @@
         <ComplexType Name="BN_GetIssuesByNewsID_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="FilePath" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="UsersAdmin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Profile_Picture" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CUser" Type="Int32" />
+          <Property Name="CDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <ComplexType Name="BN_GetAllUsers_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Fullname" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="255" />
+          <Property Type="DateTime" Name="CDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CUser" Nullable="true" />
+          <Property Type="Boolean" Name="IsDeleted" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -4175,20 +4205,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="UsersAdmins">
-            <EntityTypeMapping TypeName="GenyBuzzNewModel.UsersAdmin">
-              <MappingFragment StoreEntitySet="UsersAdmin">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
-                <ScalarProperty Name="Username" ColumnName="Username" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
-                <ScalarProperty Name="Role" ColumnName="Role" />
-                <ScalarProperty Name="CUser" ColumnName="CUser" />
-                <ScalarProperty Name="CDate" ColumnName="CDate" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Views">
             <EntityTypeMapping TypeName="GenyBuzzNewModel.View">
               <MappingFragment StoreEntitySet="Views">
@@ -4468,6 +4484,34 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="UsersAdmins">
+            <EntityTypeMapping TypeName="GenyBuzzNewModel.UsersAdmin">
+              <MappingFragment StoreEntitySet="UsersAdmin">
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Profile_Picture" ColumnName="Profile_Picture" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllUsers" FunctionName="GenyBuzzNewModel.Store.BN_GetAllUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GenyBuzzNewModel.BN_GetAllUsers_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="CDate" ColumnName="CDate" />
+                <ScalarProperty Name="CUser" ColumnName="CUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BN_GetAllUsers_Count" FunctionName="GenyBuzzNewModel.Store.BN_GetAllUsers_Count" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

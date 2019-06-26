@@ -1,0 +1,126 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Head{
+    <link href="~/Content/simplePagination.css" rel="stylesheet" />
+}
+
+<div id="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <!--Top header start-->
+                <!-- <h3 class="ls-top-header">الرئسية</h3> -->
+                <!--Top header end -->
+                <!--Top breadcrumb start -->
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="#">
+                            <i class="fa fa-home"></i>
+                        </a>
+                    </li>
+                    <li>الرئسية</li>
+                    <li class="active">المنطقه</li>
+                </ol>
+                <!--Top breadcrumb start -->
+            </div>
+        </div>
+        <!-- Main Content Element  Start-->
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Fickle Column Drag n Drop Table</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="GroupPage">
+                        <div class="col-md-2">
+                            <label class=" control-label">اسم القسم</label>
+                            <div class="">
+                                <input type="text" class="form-control validate[required] text-input" id="txtfilter" name="txtfilter" placeholder="القسم">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <h3 class="ls-header marginH2">الحالة</h3>
+                            <select id="ddlIsDeleted" name="ddlIsDeleted" class="demo-code-language selectWidth">
+                                <option value="false" selected>الغير محذوف</option>
+                                <option value="true">المحذوف</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <button class="btn btn-default marginTop" id="btnSearch" name="btnSearch">بحث</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-body">
+                    <!--Table Wrapper Start-->
+                    <div id="dvAlllist" class="table-responsive ls-table">
+                        @{ Html.RenderAction("GetAllUser", new { @Take = 20, @PageID = 0, @Name = "", @IsDeleted = 0 });}
+                    </div>
+                    <!--Table Wrapper Finish-->
+                </div>
+            </div>
+        </div>
+        <!-- Main Content Element  End-->
+    </div>
+</div>
+@section scripts {
+    <script src="~/Scripts/jquery.simplePagination.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $("#main-content").on("click", "#btnSearch", function () {
+                LoadMore(0);
+            });
+
+            $('#txtfilter').keypress(function (e) {
+                if (e.which == 13) {
+                    LoadMore(0);
+                }
+            });
+
+            var ArticleCount = $('#ListCount').val();
+            $('#ListPager').pagination({
+                items: ArticleCount,
+                itemsOnPage: 20,
+                prevText: null,
+                //nextText: null,
+                //cssStyle: 'light-theme',
+                onPageClick: function (pageNumber, event) {
+                    LoadMore(pageNumber - 1);
+                    //$("body").animate({ scrollTop: 0 }, 500);
+                }
+            });
+
+            function LoadMore(PageID) {
+                var Name = $('#txtfilter').val();
+                var ddlIsDeleted = $('#ddlIsDeleted').val();
+
+                $.ajax({
+                    type: "GET",
+                    url: '/User/GetAllUser?Take=20' + '&PageID=' + PageID + '&Name=' + Name + '&IsDeleted=' + ddlIsDeleted,
+                    contentType: "html",
+                    //data: SearchArticles,
+                    cache: false,
+                    async: false,
+                    success: function (msg) {
+                        $('#dvAlllist').html('');
+                        $('#dvAlllist').html(msg);
+                        var ArticleCount = $('#ListCount').val();
+                        $('#ListPager').pagination({
+                            items: ArticleCount,
+                            itemsOnPage: 20,
+                            cssStyle: 'light-theme',
+                            onPageClick: function (pageNumber, event) {
+                                LoadMore(pageNumber - 1);
+                            }
+                        });
+                        $('#ListPager').pagination('drawPage', PageID + 1);
+                    }
+                });
+            }
+        });
+    </script>
+
+}

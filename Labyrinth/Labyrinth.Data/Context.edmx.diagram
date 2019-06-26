@@ -78,7 +78,6 @@
         <EntityTypeShape EntityType="GenyBuzzNewModel.Ticker" Width="1.5" PointX="22.75" PointY="17.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.TickersMOdule" Width="1.5" PointX="18.75" PointY="22.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.TimelineNew" Width="1.5" PointX="22.75" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="GenyBuzzNewModel.UsersAdmin" Width="1.5" PointX="23.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.View" Width="1.5" PointX="8" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.ViewsCounter" Width="1.5" PointX="6" PointY="32" IsExpanded="true" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.ViewsDirection" Width="1.5" PointX="5.75" PointY="1.375" IsExpanded="true" />
@@ -119,6 +118,7 @@
         <AssociationConnector Association="GenyBuzzNewModel.FK_Views_ViewsDirections" ManuallyRouted="false" />
         <AssociationConnector Association="GenyBuzzNewModel.FK_Views_ViewsTypes" ManuallyRouted="false" />
         <EntityTypeShape EntityType="GenyBuzzNewModel.Issue" Width="1.5" PointX="8.375" PointY="23.75" />
+        <EntityTypeShape EntityType="GenyBuzzNewModel.UsersAdmin" Width="1.5" PointX="21.375" PointY="23.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

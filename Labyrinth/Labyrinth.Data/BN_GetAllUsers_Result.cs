@@ -10,18 +10,14 @@
 namespace Labyrinth.Data
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class UsersAdmin
+    public partial class BN_GetAllUsers_Result
     {
         public int ID { get; set; }
         public string Fullname { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
-        public string Profile_Picture { get; set; }
-        public int Role { get; set; }
-        public bool IsDeleted { get; set; }
-        public Nullable<int> CUser { get; set; }
         public System.DateTime CDate { get; set; }
+        public Nullable<int> CUser { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

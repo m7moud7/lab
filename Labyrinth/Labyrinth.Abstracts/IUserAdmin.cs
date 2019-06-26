@@ -10,11 +10,11 @@ namespace Labyrinth.Abstracts
     public interface IUserAdmin
     {
         int Save(UsersAdminVM viewmodel);
-        string Delete(int ID, bool Type);
+        string Delete(int ID, bool IsDeleted);
         UsersAdminVM GetUserById(int ID);
 
         List<UsersAdminVM> GetAllUsers(int Take, int PageID, string Filter, bool IsDeleted);
-        int EditorCount(string Filter, bool IsDeleted);
+        int UserCount(string Filter, bool IsDeleted);
         List<UsersAdminVM> GetAllUsers_DDL();
 
 

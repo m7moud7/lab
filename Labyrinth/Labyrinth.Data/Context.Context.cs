@@ -100,13 +100,13 @@ namespace Labyrinth.Data
         public virtual DbSet<Ticker> Tickers { get; set; }
         public virtual DbSet<TickersMOdule> TickersMOdules { get; set; }
         public virtual DbSet<TimelineNew> TimelineNews { get; set; }
-        public virtual DbSet<UsersAdmin> UsersAdmins { get; set; }
         public virtual DbSet<View> Views { get; set; }
         public virtual DbSet<ViewsCounter> ViewsCounters { get; set; }
         public virtual DbSet<ViewsDirection> ViewsDirections { get; set; }
         public virtual DbSet<ViewsType> ViewsTypes { get; set; }
         public virtual DbSet<WorkFlowAttachment> WorkFlowAttachments { get; set; }
         public virtual DbSet<Issue> Issues { get; set; }
+        public virtual DbSet<UsersAdmin> UsersAdmins { get; set; }
     
         public virtual ObjectResult<BN_CheckUser_Result> BN_CheckUser(string username, string password)
         {
@@ -370,6 +370,40 @@ namespace Labyrinth.Data
                 new ObjectParameter("NewsID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetIssuesByNewsID_Result>("BN_GetIssuesByNewsID", newsIDParameter);
+        }
+    
+        public virtual ObjectResult<BN_GetAllUsers_Result> BN_GetAllUsers(Nullable<int> take, Nullable<int> pageID, string isDeleted, string fullName)
+        {
+            var takeParameter = take.HasValue ?
+                new ObjectParameter("Take", take) :
+                new ObjectParameter("Take", typeof(int));
+    
+            var pageIDParameter = pageID.HasValue ?
+                new ObjectParameter("PageID", pageID) :
+                new ObjectParameter("PageID", typeof(int));
+    
+            var isDeletedParameter = isDeleted != null ?
+                new ObjectParameter("IsDeleted", isDeleted) :
+                new ObjectParameter("IsDeleted", typeof(string));
+    
+            var fullNameParameter = fullName != null ?
+                new ObjectParameter("FullName", fullName) :
+                new ObjectParameter("FullName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<BN_GetAllUsers_Result>("BN_GetAllUsers", takeParameter, pageIDParameter, isDeletedParameter, fullNameParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> BN_GetAllUsers_Count(string isDeleted, string fullName)
+        {
+            var isDeletedParameter = isDeleted != null ?
+                new ObjectParameter("IsDeleted", isDeleted) :
+                new ObjectParameter("IsDeleted", typeof(string));
+    
+            var fullNameParameter = fullName != null ?
+                new ObjectParameter("FullName", fullName) :
+                new ObjectParameter("FullName", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("BN_GetAllUsers_Count", isDeletedParameter, fullNameParameter);
         }
     }
 }

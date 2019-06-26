@@ -85,8 +85,6 @@ namespace Labyrinth.Services
         }
 
         /// Return All Sections With Search
-        ///         
-
         public List<SectionVM> GetAllSections(int Take, int PageID, string Filter, bool IsDeleted)
         {
             try

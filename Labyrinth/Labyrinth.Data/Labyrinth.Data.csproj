@@ -91,6 +91,9 @@
     <Compile Include="BN_GetAllUsers_DDL_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
+    <Compile Include="BN_GetAllUsers_Result.cs">
+      <DependentUpon>Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="BN_GetArticleForReOrderByID_Result.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
@@ -298,6 +301,7 @@
     <Compile Include="Partials\Attachment.cs" />
     <Compile Include="Partials\Editor.cs" />
     <Compile Include="Partials\Section.cs" />
+    <Compile Include="Partials\UsersAdmin.cs" />
     <Compile Include="PlugIn.cs">
       <DependentUpon>Context.tt</DependentUpon>
     </Compile>
