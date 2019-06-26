@@ -132,6 +132,20 @@ namespace Labyrinth.Model
 
 
 
+        public Int64? PDFFile { get; set; }
+
+        [Display(Name = "العدد")]
+        public IssueVM PDF { get; set; }
+
+        [Display(Name = "تعليق العدد")]
+        [MaxLength(210, ErrorMessage = "اقصى عدد احرف 210")]
+        public string PDFCaption { get; set; }
+
+        public IssueVM PDFDetails { get; set; }
+
+        public string PDFPath { get; set; }
+
+
         public string Embed { get; set; }
 
         public int? AlbumID { get; set; }

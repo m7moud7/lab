@@ -43,6 +43,7 @@
     <Compile Include="IArticle.cs" />
     <Compile Include="IAttachment.cs" />
     <Compile Include="IEditor.cs" />
+    <Compile Include="IIssue.cs" />
     <Compile Include="ISection.cs" />
     <Compile Include="ITag.cs" />
     <Compile Include="IUserAdmin.cs" />

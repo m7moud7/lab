@@ -40,6 +40,20 @@ namespace Labyrinth.Services
             }
         }
 
+        public string Delete(int ID, bool Type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int EditorCount(string Filter, bool IsDeleted)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<UsersAdminVM> GetAllUsers(int Take, int PageID, string Filter, bool IsDeleted)
+        {
+            throw new NotImplementedException();
+        }
 
         public List<UsersAdminVM> GetAllUsers_DDL()
         {
@@ -57,6 +71,16 @@ namespace Labyrinth.Services
             {
                 return new List<UsersAdminVM>();
             }
+        }
+
+        public UsersAdminVM GetUserById(int ID)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int Save(UsersAdminVM viewmodel)
+        {
+            throw new NotImplementedException();
         }
     }
 }

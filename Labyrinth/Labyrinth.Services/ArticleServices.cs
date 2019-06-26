@@ -14,12 +14,15 @@ namespace Labyrinth.Services
     {
         ContextEntities _DB = new ContextEntities();
         private readonly ITag _TagServices;
+        private readonly IIssue _IssueServices;
+
         private readonly IUserAdmin _UserAdminServices;
 
         public ArticleServices()
         {
             _TagServices = new TagServices();
             _UserAdminServices = new UserAdminServices();
+            _IssueServices = new IssueServices();
         }
 
         public int Save(ArticleVM ViewModel)
@@ -177,9 +180,7 @@ namespace Labyrinth.Services
                 {
                     model.Tags = _TagServices.GetNewsTags(ID);
                     model.NewsMeta = GetNewsMeta(ID);
-
-
-
+                    model.PDF = _IssueServices.GatPDFByNewsID(ID);
                     //if (model.AttachmentID != 0)
                 }
                 return model;

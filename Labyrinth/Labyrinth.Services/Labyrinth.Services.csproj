@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="ArticleServices.cs" />
     <Compile Include="AttachmentServices.cs" />
+    <Compile Include="IssueServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="EditorServices.cs" />
     <Compile Include="SectionServices.cs" />
